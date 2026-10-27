@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#111A24">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Cellvage">
-<meta name="description" content="Scan and verify Cellvage battery passports.">
+<meta name="description" content="Sell old batteries, buy tested second-life cells, and verify every cell's passport.">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="any">
@@ -15,155 +15,312 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap">
 <style>
-:root{--bg:#EEF1F4;--surface:#FBFCFD;--ink:#111A24;--muted:#4A5566;--faint:#8C99AA;--line:#D9DFE6;--blue:#2148C0;--blue-soft:#E3E9FA;--copper:#A5541F;
---ok:#17723B;--ok-bg:#DDF1E4;--bad:#B0291C;--bad-bg:#FBE8E5;--warn:#965A06;--warn-bg:#FBF2E2;--dark:#111A24;--gA:#2E9E5B;--gB:#4B74E0;--gC:#D08A1E;--gR:#D0473A;
+:root{--bg:#EEF1F4;--surface:#FBFCFD;--surface-2:#F4F6F9;--ink:#111A24;--muted:#4A5566;--faint:#8C99AA;--line:#D9DFE6;--blue:#2148C0;--blue-soft:#E3E9FA;--copper:#A5541F;
+--ok:#17723B;--ok-bg:#DDF1E4;--bad:#B0291C;--bad-bg:#FBE8E5;--warn:#965A06;--warn-bg:#FBF2E2;--gA:#2E9E5B;--gB:#4B74E0;--gC:#D08A1E;--gR:#D0473A;--on-blue:#fff;
 --f:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;--fd:'Archivo',system-ui,-apple-system,Arial,sans-serif;--fm:'IBM Plex Mono',ui-monospace,Menlo,monospace}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0B1118;--surface:#141C26;--ink:#E7ECF2;--muted:#9DA9B8;--faint:#6E7A8A;--line:#243142;--blue:#8AA4FF;--blue-soft:#1A2646;
---ok:#5DCB8C;--ok-bg:#12281B;--bad:#F07462;--bad-bg:#331814;--warn:#E6AA45;--warn-bg:#2D2312;--dark:#060A0F;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0B1118;--surface:#141C26;--ink:#E7ECF2;--muted:#9DA9B8;--faint:#6E7A8A;--line:#243142;--blue:#8AA4FF;--blue-soft:#1A2646;
---ok:#5DCB8C;--ok-bg:#12281B;--bad:#F07462;--bad-bg:#331814;--warn:#E6AA45;--warn-bg:#2D2312;--dark:#060A0F;color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0B1118;--surface:#141C26;--surface-2:#18212C;--ink:#E7ECF2;--muted:#9DA9B8;--faint:#6E7A8A;--line:#243142;--blue:#8AA4FF;--blue-soft:#1A2646;
+--ok:#5DCB8C;--ok-bg:#12281B;--bad:#F07462;--bad-bg:#331814;--warn:#E6AA45;--warn-bg:#2D2312;--on-blue:#0B1118;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0B1118;--surface:#141C26;--surface-2:#18212C;--ink:#E7ECF2;--muted:#9DA9B8;--faint:#6E7A8A;--line:#243142;--blue:#8AA4FF;--blue-soft:#1A2646;
+--ok:#5DCB8C;--ok-bg:#12281B;--bad:#F07462;--bad-bg:#331814;--warn:#E6AA45;--warn-bg:#2D2312;--on-blue:#0B1118;color-scheme:dark}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;height:100%}
-body{background:var(--bg);color:var(--ink);font:16px/1.45 var(--f)}
-button{font:inherit;color:inherit}
-.app{max-width:520px;margin:0 auto;min-height:100%;display:flex;flex-direction:column}
-.view{flex:1;padding:max(16px,env(safe-area-inset-top)) 18px calc(96px + env(safe-area-inset-bottom));display:none}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--ink);font:16px/1.45 var(--f);-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+.app{max-width:520px;margin:0 auto}
+.view{padding:max(14px,env(safe-area-inset-top)) 18px calc(100px + env(safe-area-inset-bottom));display:none;animation:fade .18s ease-out}
 .view.on{display:block}
-.top{display:flex;align-items:center;gap:10px;min-height:48px;margin-bottom:14px}
-.top h1{font:800 1.5rem/1.1 var(--fd);margin:0;letter-spacing:-.01em}
-.back{width:44px;height:44px;margin-left:-10px;border:0;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink)}
-.brand{display:flex;align-items:center;gap:10px;font:800 1.4rem var(--fd)}
+@keyframes fade{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.view{animation:none}}
+.top{display:flex;align-items:center;gap:10px;min-height:48px;margin-bottom:12px}
+.top h1{font:800 1.45rem/1.15 var(--fd);margin:0;letter-spacing:-.01em;flex:1}
+.iconbtn{width:44px;height:44px;border:0;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);border-radius:12px;flex:none}
+.back{margin-left:-10px}
+.brand{display:flex;align-items:center;gap:10px;font:800 1.35rem var(--fd);flex:1}
+.label{font:600 .7rem var(--fm);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px}
-.label{font:600 .72rem var(--fm);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;width:100%;border-radius:14px;border:1px solid var(--line);background:var(--surface);font-weight:600;font-size:1rem;cursor:pointer;text-decoration:none;color:var(--ink)}
-.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.primary{color:#0B1118}}
-.btn:disabled{opacity:.5}
-/* home */
-.hero{background:var(--blue);color:#fff;border-radius:22px;padding:22px 20px;margin:4px 0 22px}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero{background:#1C3A9E}}
-.hero .label{color:#C9D6FF}
-.hero h2{font:800 1.75rem/1.12 var(--fd);margin:8px 0 8px;letter-spacing:-.01em}
-.hero p{margin:0 0 18px;color:#DCE4F7;font-size:.95rem}
-.hero .btn{background:#fff;color:#111A24;border-color:#fff}
-.sec{display:flex;align-items:baseline;justify-content:space-between;margin:6px 2px 10px}
-.sec h3{font:700 1.15rem var(--fd);margin:0}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;width:100%;border-radius:14px;border:1px solid var(--line);background:var(--surface);font-weight:600;font-size:1rem;cursor:pointer;text-decoration:none;color:var(--ink);padding:0 16px}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:var(--on-blue)}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--blue)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+h3{font:700 1.12rem var(--fd);margin:0}
+h4{font:700 1.05rem var(--fd);margin:22px 2px 10px}
+.sec{display:flex;align-items:baseline;justify-content:space-between;margin:24px 2px 10px}
 .sec button{border:0;background:none;color:var(--blue);font-weight:600;font-size:.9rem;cursor:pointer;padding:6px}
+.muted{color:var(--muted)}.small{font-size:.86rem}
+.demo{display:inline-flex;align-items:center;gap:6px;font:600 .66rem var(--fm);letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:6px;background:var(--warn-bg);color:var(--warn)}
+/* tip */
+.tip{display:flex;gap:10px;align-items:flex-start;background:var(--blue-soft);border-radius:14px;padding:12px 12px 12px 14px;margin-bottom:14px;font-size:.9rem;animation:fade .25s ease-out}
+.tip b{display:block;font-size:.92rem}
+.tip .x{margin:-8px -6px -8px auto;width:36px;height:36px}
+/* home */
+.hero{border-radius:22px;padding:22px 20px;margin:2px 0 16px;background:#111A24;color:#fff;position:relative;overflow:hidden}
+.hero .label{color:#9FB2D9}
+.hero h2{font:800 1.7rem/1.12 var(--fd);margin:8px 0 8px;letter-spacing:-.01em;max-width:15em}
+.hero p{margin:0 0 18px;color:#C9D3E2;font-size:.95rem}
+.hero .btn{background:#fff;color:#111A24;border-color:#fff}
+.hero{border:1px solid transparent}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero{border-color:var(--line);background:#141C26}}
+:root[data-theme="dark"] .hero{border-color:var(--line);background:#141C26}
+.hero svg.deco{position:absolute;right:-18px;top:-18px;opacity:.13}
+.acts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.act{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:14px 12px;background:var(--surface);border:1px solid var(--line);border-radius:16px;cursor:pointer;text-align:left;min-height:118px}
+.act .ic{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center}
+.act b{font-size:.95rem;line-height:1.2}
+.act small{font-size:.76rem;color:var(--muted);line-height:1.25}
+.how{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px 10px}
+.how div{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;font-size:.76rem;color:var(--muted);line-height:1.25}
+.how .n{width:34px;height:34px;border-radius:50%;background:var(--blue-soft);color:var(--blue);display:flex;align-items:center;justify-content:center;font:700 .9rem var(--fd)}
+.how b{color:var(--ink);font-size:.8rem}
 .list{display:flex;flex-direction:column;gap:10px}
 .item{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:12px;align-items:center;padding:14px;background:var(--surface);border:1px solid var(--line);border-radius:16px;cursor:pointer;width:100%;text-align:left}
 .gbox{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font:800 1.1rem var(--fd);color:#fff}
-.item .t{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.item .s{font-size:.82rem;color:var(--muted);font-family:var(--fm)}
-.item .p{font:800 1.3rem var(--fd);font-variant-numeric:tabular-nums}
-.empty{padding:26px 18px;text-align:center;color:var(--muted);background:var(--surface);border:1px dashed var(--line);border-radius:16px;font-size:.92rem}
-.tiles3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:22px}
-.tiles3 div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;font-size:.78rem;color:var(--muted)}
-.tiles3 b{display:block;font:800 1.05rem var(--fd);color:var(--ink);margin-bottom:2px}
-.proto{margin-top:22px;font-size:.88rem;color:var(--muted)}
-.proto a{color:var(--blue);font-weight:600}
-/* scan */
-.cam{position:relative;border-radius:22px;overflow:hidden;background:#000;aspect-ratio:3/4;max-height:62vh;width:100%}
-.cam video{width:100%;height:100%;object-fit:cover;display:block}
-.cam .frame{position:absolute;inset:16%;border-radius:18px;box-shadow:0 0 0 2000px rgba(0,0,0,.35);border:3px solid rgba(255,255,255,.9)}
-.cam .msg{position:absolute;left:0;right:0;bottom:16px;text-align:center;color:#fff;font-size:.9rem;text-shadow:0 1px 3px rgba(0,0,0,.6);padding:0 16px}
-.cam.idle{display:flex;align-items:center;justify-content:center;color:#C5CED9;text-align:center;padding:24px}
-.or{display:flex;gap:8px;margin-top:14px}
-.or input{flex:1;min-width:0;min-height:52px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:0 14px;font:inherit;font-size:.92rem}
-.or .btn{width:auto;padding:0 18px}
-.hint{font-size:.86rem;color:var(--muted);margin:12px 2px 0}
-/* passport */
-.status{display:flex;gap:12px;align-items:center;border-radius:16px;padding:13px 14px;margin-bottom:12px;font-size:.9rem}
-.status.ok{background:var(--ok-bg);color:var(--ok)}.status.bad{background:var(--bad-bg);color:var(--bad)}
-.status .ic{flex:none;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
-.status.ok .ic{background:var(--ok)}.status.bad .ic{background:var(--bad)}
-.status b{display:block;font-size:1rem}
-.status span{color:var(--ink);opacity:.8}
-.pcard{background:#111A24;color:#fff;border-radius:22px;padding:20px}
-.pcard .row1{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.pcard .pid{font:600 1.35rem var(--fm);letter-spacing:.01em}
-.pcard .cell{color:#C5CED9;font-size:.95rem;margin-top:4px}
-.pcard .g{min-width:52px;height:44px;padding:0 10px;border-radius:12px;display:flex;align-items:center;justify-content:center;font:800 1.2rem var(--fd);color:#111A24}
-.pcard .big{display:flex;align-items:baseline;gap:10px;margin:16px 0 4px}
-.pcard .big b{font:800 3.6rem/1 var(--fd);letter-spacing:-.03em}
-.pcard .big span{font:500 .82rem var(--fm);color:#A9B4C2}
-.pcard .bar{position:relative;height:10px;border-radius:6px;margin:14px 0 6px;background:linear-gradient(90deg,#D0473A 0 60%,#D08A1E 60% 70%,#4B74E0 70% 85%,#2E9E5B 85% 100%);opacity:.9}
-.pcard .bar i{position:absolute;top:-5px;bottom:-5px;border:2px solid #fff;border-radius:6px}
-.pcard .bar b{position:absolute;top:-8px;width:3px;height:26px;background:#fff;border-radius:2px;margin-left:-1px}
-.pcard .scale{position:relative;height:14px;font:500 .7rem var(--fm);color:#7F8B9B}
-.pcard .scale span{position:absolute;top:0;transform:translateX(-50%)}
-.pcard .scale span:first-child{transform:none}.pcard .scale span:last-child{transform:translateX(-100%)}
-.pcard .verdict{margin-top:14px;font-size:.95rem;color:#DCE4F7}
-.pcard .tag{display:inline-block;font:600 .66rem var(--fm);letter-spacing:.06em;text-transform:uppercase;padding:3px 7px;border-radius:5px;background:#3A2A10;color:#F2C46B;margin-left:6px;vertical-align:middle}
-.pcard .tag.ok{background:#12371F;color:#7FE0A5}
-h4{font:700 1.08rem var(--fd);margin:22px 2px 10px}
-dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:11px 14px;font-size:.92rem}
-dt{color:var(--muted)}dd{margin:0;text-align:right;font-family:var(--fm);font-size:.88rem;overflow-wrap:anywhere}
+.item .t{display:block;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item .s{display:block;font-size:.8rem;color:var(--muted)}
+.item .p{font:800 1.25rem var(--fd);font-variant-numeric:tabular-nums;text-align:right}
+.item .p small{display:block;font:500 .7rem var(--f);color:var(--muted)}
+.empty{padding:22px 18px;text-align:center;color:var(--muted);background:var(--surface);border:1px dashed var(--line);border-radius:16px;font-size:.92rem}
+/* chips + segmented */
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 4px;margin:0 -18px 14px;padding-left:18px;padding-right:18px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:.88rem;font-weight:500;cursor:pointer;white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.seg{display:flex;background:var(--line);border-radius:12px;padding:3px;gap:3px;margin-bottom:14px}
+.seg button{flex:1;min-height:40px;border:0;border-radius:9px;background:transparent;font-size:.88rem;font-weight:500;color:var(--muted);cursor:pointer}
+.seg button[aria-selected="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:0 1px 2px rgba(17,26,36,.12)}
+/* lots */
+.lot{display:block;width:100%;text-align:left;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:18px;cursor:pointer}
+.lot .r1{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.gchip{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;border-radius:9px;font:700 .82rem var(--f);color:#fff}
+.lot h3{font-size:1.02rem;margin-bottom:4px}
+.lot .meta{font-size:.84rem;color:var(--muted)}
+.lot .ver{display:flex;align-items:center;gap:6px;font-size:.82rem;color:var(--ok);margin-top:8px;font-weight:500}
+.lot .price{font-weight:600;font-size:.88rem}
+.uses{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.uses span{font-size:.75rem;padding:4px 8px;border-radius:7px;background:var(--surface-2);border:1px solid var(--line);color:var(--muted)}
+/* range bar (light) */
+.rbar{position:relative;height:10px;border-radius:6px;margin:14px 0 6px;background:linear-gradient(90deg,var(--gR) 0 60%,var(--gC) 60% 70%,var(--gB) 70% 85%,var(--gA) 85% 100%);opacity:.9}
+.rbar i{position:absolute;top:-5px;bottom:-5px;border:2.5px solid var(--ink);border-radius:6px}
+.scale{position:relative;height:14px;font:500 .7rem var(--fm);color:var(--faint)}
+.scale span{position:absolute;top:0;transform:translateX(-50%)}.scale span:first-child{transform:none}.scale span:last-child{transform:translateX(-100%)}
+/* forms / steps */
+.steps{display:flex;gap:6px;margin:2px 0 18px}
+.steps div{flex:1}
+.steps i{display:block;height:4px;border-radius:3px;background:var(--line)}
+.steps div.on i{background:var(--blue)}
+.steps span{display:block;font:600 .68rem var(--fm);letter-spacing:.04em;color:var(--faint);margin-top:6px;text-transform:uppercase}
+.steps div.on span{color:var(--blue)}
+.q{font:700 1.2rem var(--fd);margin:0 0 12px}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{display:flex;gap:12px;align-items:center;padding:14px 16px;min-height:60px;background:var(--surface);border:1.5px solid var(--line);border-radius:16px;cursor:pointer;text-align:left;width:100%}
+.opt .rd{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--faint);display:flex;align-items:center;justify-content:center}
+.opt[aria-checked="true"]{border-color:var(--blue);background:var(--blue-soft)}
+.opt[aria-checked="true"] .rd{border-color:var(--blue)}
+.opt[aria-checked="true"] .rd::after{content:"";width:11px;height:11px;border-radius:50%;background:var(--blue)}
+.opt b{display:block;font-weight:600}.opt small{display:block;color:var(--muted);font-size:.84rem;line-height:1.3;margin-top:2px}
+.stepper{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px 10px 16px;background:var(--surface);border:1px solid var(--line);border-radius:16px;margin-top:14px}
+.stepper .v{font:800 1.4rem var(--fd);min-width:3ch;text-align:center;font-variant-numeric:tabular-nums}
+.stepper button{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--surface-2);font-size:1.3rem;cursor:pointer}
+.foot{position:sticky;bottom:calc(76px + env(safe-area-inset-bottom));display:flex;gap:10px;margin-top:20px;padding-top:8px;background:linear-gradient(to bottom,transparent,var(--bg) 30%)}
+.foot .btn{flex:1}
 .trail{list-style:none;margin:0;padding:0}
 .trail li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:12px}
 .trail .d{display:flex;flex-direction:column;align-items:center}
 .trail .d i{width:14px;height:14px;border-radius:50%;background:var(--ok);margin-top:4px}
 .trail .d i.o{background:transparent;border:2px solid var(--faint)}
+.trail .d i.now{background:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
 .trail .d b{flex:1;width:2px;background:var(--line);min-height:18px}
-.trail .x{padding-bottom:14px}.trail .x b{display:block;font-weight:600;font-size:.95rem}.trail .x small{color:var(--muted);font-size:.82rem}
+.trail .x{padding-bottom:14px}.trail .x b{display:block;font-weight:600;font-size:.95rem}.trail .x small{color:var(--muted);font-size:.84rem}
+.done{text-align:center;padding:26px 6px 8px}
+.done .tick{width:72px;height:72px;border-radius:50%;background:var(--ok-bg);color:var(--ok);display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.done h2{font:800 1.5rem var(--fd);margin:0 0 6px}
+dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:11px 14px;font-size:.92rem}
+dt{color:var(--muted)}dd{margin:0;text-align:right;font-family:var(--fm);font-size:.88rem;overflow-wrap:anywhere}
 .hash{font:500 .74rem/1.45 var(--fm)!important}
 .note{font-size:.82rem;color:var(--muted);margin:12px 2px 0}
+/* scan */
+.cam{position:relative;border-radius:22px;overflow:hidden;background:#000;aspect-ratio:3/4;max-height:58vh;width:100%}
+.cam video{width:100%;height:100%;object-fit:cover;display:block}
+.cam .frame{position:absolute;inset:16%;border-radius:18px;box-shadow:0 0 0 2000px rgba(0,0,0,.35);border:3px solid rgba(255,255,255,.9)}
+.cam .msg{position:absolute;left:0;right:0;bottom:16px;text-align:center;color:#fff;font-size:.9rem;text-shadow:0 1px 3px rgba(0,0,0,.6);padding:0 16px}
+.cam.idle{display:flex;align-items:center;justify-content:center;color:#C5CED9;text-align:center;padding:24px}
+.or{display:flex;gap:8px;margin-top:14px}
+.or input{flex:1;min-width:0;min-height:52px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:0 14px;font-size:.92rem}
+.or .btn{width:auto}
+/* passport */
+.status{display:flex;gap:12px;align-items:center;border-radius:16px;padding:13px 14px;margin-bottom:12px;font-size:.9rem}
+.status.ok{background:var(--ok-bg);color:var(--ok)}.status.bad{background:var(--bad-bg);color:var(--bad)}
+.status .ic{flex:none;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
+.status.ok .ic{background:var(--ok)}.status.bad .ic{background:var(--bad)}
+.status b{display:block;font-size:1rem}.status span{color:var(--ink);opacity:.8}
+.pcard{background:#111A24;color:#fff;border-radius:22px;padding:20px}
+.pcard .row1{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.pcard .pid{font:600 1.3rem var(--fm)}
+.pcard .cell{color:#C5CED9;font-size:.95rem;margin-top:4px}
+.pcard .g{min-width:52px;height:44px;padding:0 10px;border-radius:12px;display:flex;align-items:center;justify-content:center;font:800 1.2rem var(--fd);color:#111A24}
+.pcard .big{display:flex;align-items:baseline;gap:10px;margin:16px 0 4px;flex-wrap:wrap}
+.pcard .big b{font:800 3.6rem/1 var(--fd);letter-spacing:-.03em}
+.pcard .big span{font:500 .82rem var(--fm);color:#A9B4C2}
+.pcard .bar{position:relative;height:10px;border-radius:6px;margin:14px 0 6px;background:linear-gradient(90deg,#D0473A 0 60%,#D08A1E 60% 70%,#4B74E0 70% 85%,#2E9E5B 85% 100%);opacity:.9}
+.pcard .bar i{position:absolute;top:-5px;bottom:-5px;border:2px solid #fff;border-radius:6px}
+.pcard .bar b{position:absolute;top:-8px;width:3px;height:26px;background:#fff;border-radius:2px;margin-left:-1px}
+.pcard .scale{color:#7F8B9B}
+.pcard .verdict{margin-top:14px;font-size:.95rem;color:#DCE4F7}
+.pcard .tag{display:inline-block;font:600 .66rem var(--fm);letter-spacing:.06em;text-transform:uppercase;padding:3px 7px;border-radius:5px;background:#3A2A10;color:#F2C46B;margin-left:6px;vertical-align:middle}
+.pcard .tag.ok{background:#12371F;color:#7FE0A5}
 .actions{display:flex;flex-direction:column;gap:10px;margin-top:18px}
 /* tab bar */
 .tabs{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);z-index:10}
 .tabs .in{max-width:520px;margin:0 auto;display:flex}
-.tabs button{flex:1;min-height:60px;border:0;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:.74rem;font-weight:500;color:var(--muted);cursor:pointer}
+.tabs button{flex:1;min-height:62px;border:0;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:.72rem;font-weight:500;color:var(--muted);cursor:pointer;padding:0 2px}
 .tabs button[aria-current="page"]{color:var(--blue);font-weight:600}
-.tabs button.scan span.c{width:50px;height:50px;margin-top:-22px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(33,72,192,.35)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tabs button.scan span.c{color:#0B1118}}
-.toast{position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#111A24;color:#fff;padding:10px 16px;border-radius:12px;font-size:.88rem;opacity:0;transition:opacity .2s;pointer-events:none;z-index:20;max-width:90vw}
+.tabs button.scan .c{width:52px;height:52px;margin-top:-24px;border-radius:50%;background:var(--blue);color:var(--on-blue);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(33,72,192,.35);border:4px solid var(--bg)}
+/* sheet */
+.sheet{position:fixed;inset:0;z-index:30;display:none}
+.sheet.on{display:block}
+.sheet .bd{position:absolute;inset:0;background:rgba(8,12,18,.5);animation:fadebd .2s}
+@keyframes fadebd{from{opacity:0}}
+.sheet .pn{position:absolute;left:0;right:0;bottom:0;max-height:88vh;overflow:auto;background:var(--bg);border-radius:24px 24px 0 0;padding:10px 18px calc(22px + env(safe-area-inset-bottom));animation:up .25s cubic-bezier(.2,.8,.2,1)}
+@keyframes up{from{transform:translateY(40px);opacity:.6}}
+.sheet .grab{width:42px;height:5px;border-radius:3px;background:var(--line);margin:0 auto 12px}
+.sheet .pn>div{max-width:520px;margin:0 auto}
+/* onboarding */
+.ob{position:fixed;inset:0;z-index:40;background:#111A24;color:#fff;display:none;flex-direction:column}
+.ob.on{display:flex}
+.ob .skip{position:absolute;top:max(12px,env(safe-area-inset-top));right:12px;border:0;background:transparent;color:#C9D3E2;font-weight:600;padding:12px;cursor:pointer;z-index:2}
+.ob .track{flex:1;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.ob .track::-webkit-scrollbar{display:none}
+.ob .slide{flex:none;width:100%;scroll-snap-align:center;display:flex;flex-direction:column;justify-content:center;padding:70px 28px 20px;max-width:100vw}
+.ob .slide>div{max-width:440px;margin:0 auto;width:100%}
+.ob .art{height:min(34vh,230px);display:flex;align-items:center;justify-content:center;margin-bottom:28px}
+.ob .label{color:#9FB2D9}
+.ob h2{font:800 2rem/1.12 var(--fd);margin:10px 0 12px;letter-spacing:-.015em}
+.ob p{color:#C9D3E2;font-size:1.02rem;margin:0}
+.ob .bot{padding:14px 24px calc(22px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:14px;max-width:488px;margin:0 auto;width:100%}
+.ob .dots{display:flex;gap:7px;flex:1}
+.ob .dots i{width:8px;height:8px;border-radius:4px;background:#3A4656;transition:width .2s,background .2s}
+.ob .dots i.on{width:24px;background:#fff}
+.ob .next{min-height:52px;padding:0 26px;border-radius:14px;border:0;background:#fff;color:#111A24;font-weight:700;font-size:1rem;cursor:pointer}
+.roles{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+.role{display:flex;gap:14px;align-items:center;padding:16px;border-radius:16px;background:#1B2533;border:1.5px solid #2B3748;cursor:pointer;text-align:left;width:100%;color:#fff}
+.role .ic{flex:none;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center}
+.role b{display:block;font-size:1.02rem}.role small{display:block;color:#AEB9C8;font-size:.86rem;margin-top:2px}
+.role:hover,.role:focus-visible{border-color:#8AA4FF}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#111A24;color:#fff;padding:10px 16px;border-radius:12px;font-size:.88rem;opacity:0;transition:opacity .2s;pointer-events:none;z-index:50;max-width:90vw;text-align:center}
 .toast.on{opacity:1}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
 </style>
 </head>
 <body>
 <div class="app">
 
-<!-- HOME -->
+<!-- ================= HOME ================= -->
 <section class="view on" id="v-home" aria-label="Home">
-  <div class="top"><div class="brand"><svg aria-hidden="true" width="30" height="30" viewBox="0 0 64 64"><rect width="64" height="64" rx="15" fill="#111A24"/><path d="M47.6 26.5A17 17 0 1 1 41 17.4" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M36.5 10.5L44.2 17.1L37.3 24.4" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="32" r="7.5" fill="#2E9E5B"/></svg>Cellvage</div></div>
-  <div class="hero">
-    <div class="label">Battery passports</div>
-    <h2>Scan a cell. See if its grade is genuine.</h2>
-    <p>Every cell tested on a Cellvage rig gets a signed passport. Your phone checks the signature itself.</p>
-    <button class="btn" data-go="scan"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"/></svg>Scan a passport</button>
+  <div class="top"><div class="brand"><svg aria-hidden="true" width="30" height="30" viewBox="0 0 64 64"><rect width="64" height="64" rx="15" fill="#111A24"/><path d="M47.6 26.5A17 17 0 1 1 41 17.4" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M36.5 10.5L44.2 17.1L37.3 24.4" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="32" r="7.5" fill="#2E9E5B"/></svg>Cellvage</div>
+    <button class="iconbtn" id="helpBtn" aria-label="How Cellvage works"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6"/><circle cx="12" cy="17.2" r=".6" fill="currentColor"/></svg></button></div>
+  <div id="homeTip"></div>
+  <div class="hero" id="hero"></div>
+  <div class="acts" id="acts"></div>
+  <div class="sec"><h3>How it works</h3><button data-sheet="how">Learn more</button></div>
+  <div class="how">
+    <div><span class="n">1</span><b>Collect</b>old batteries</div>
+    <div><span class="n">2</span><b>10 s test</b>every cell</div>
+    <div><span class="n">3</span><b>Passport</b>signed record</div>
+    <div><span class="n">4</span><b>Reuse</b>or recycle</div>
   </div>
-  <div class="tiles3" id="stats"></div>
-  <div class="sec"><h3>Recently scanned</h3><button data-go="mine">See all</button></div>
-  <div class="list" id="recent"></div>
-  <p class="proto">Selling a battery? <a href="prototype.html">See the selling flow</a> (prototype screens with sample data).</p>
+  <div class="sec"><h3 id="homeListTitle">Your activity</h3><button data-go="mine">See all</button></div>
+  <div class="list" id="homeList"></div>
 </section>
 
-<!-- SCAN -->
+<!-- ================= BUY ================= -->
+<section class="view" id="v-buy" aria-label="Buy">
+  <div class="top"><h1>Buy tested cells</h1></div>
+  <div id="buyTip"></div>
+  <div class="chips" role="group" aria-label="Filter by use" id="useChips"></div>
+  <div class="list" id="lots"></div>
+  <p class="note"><span class="demo">Sample listings</span> Lots shown here are examples for the demo. Real lots come from cells graded on the rig.</p>
+</section>
+
+<section class="view" id="v-lot" aria-label="Lot"><div id="lot"></div></section>
+
+<!-- ================= SELL ================= -->
+<section class="view" id="v-sell" aria-label="Sell"><div id="sell"></div></section>
+
+<!-- ================= SCAN ================= -->
 <section class="view" id="v-scan" aria-label="Scan">
-  <div class="top"><button class="back" data-go="home" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><h1>Scan a passport</h1></div>
-  <div class="cam idle" id="cam"><div id="camIdle">Starting the camera…</div></div>
+  <div class="top"><h1>Scan a passport</h1></div>
+  <div id="scanTip"></div>
+  <div class="cam idle" id="cam"><div>Starting the camera…</div></div>
   <div class="or"><input id="paste" type="url" inputmode="url" placeholder="Or paste a passport link" aria-label="Passport link"><button class="btn primary" id="pasteGo">Open</button></div>
-  <p class="hint">Point the camera at the QR code on a Cellvage test result. Nothing is uploaded: the passport is inside the code and is checked on this phone.</p>
+  <p class="note">Point the camera at the QR code on a Cellvage test result. Nothing is uploaded: the passport is inside the code and is checked on this phone.</p>
 </section>
 
-<!-- PASSPORT -->
+<!-- ================= PASSPORT ================= -->
 <section class="view" id="v-pass" aria-label="Passport">
-  <div class="top"><button class="back" id="passBack" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><h1>Cell passport</h1></div>
+  <div class="top"><button class="iconbtn back" data-back aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><h1>Cell passport</h1></div>
   <div id="pass"></div>
 </section>
 
-<!-- MINE -->
+<!-- ================= MINE ================= -->
 <section class="view" id="v-mine" aria-label="My batteries">
   <div class="top"><h1>My batteries</h1></div>
-  <div class="list" id="mine"></div>
-  <p class="note">Saved on this phone only. Each one is re-checked against its signature every time you open it.</p>
+  <div id="mineTip"></div>
+  <div class="seg" role="tablist" id="mineSeg">
+    <button role="tab" data-seg="pass" aria-selected="true">Passports</button><button role="tab" data-seg="sold" aria-selected="false">Selling</button><button role="tab" data-seg="buy" aria-selected="false">Buying</button>
+  </div>
+  <div class="list" id="mineList"></div>
 </section>
 </div>
 
 <nav class="tabs" aria-label="Main"><div class="in">
-  <button data-go="home" aria-current="page"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/></svg>Home</button>
-  <button data-go="scan" class="scan"><span class="c"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"/></svg></span>Scan</button>
+  <button data-go="home"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/></svg>Home</button>
+  <button data-go="buy"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11a1 1 0 0 1-1 .9H7.2a1 1 0 0 1-1-.9z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>Buy</button>
+  <button data-go="scan" class="scan" aria-label="Scan a passport"><span class="c"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"/></svg></span>Scan</button>
+  <button data-go="sell"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v9M8 12h8"/></svg>Sell</button>
   <button data-go="mine"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="4" width="10" height="17" rx="2"/><path d="M10 2h4M10 15l2-4 2 3"/></svg>My batteries</button>
 </div></nav>
+
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle"><div class="bd" data-close></div><div class="pn"><div class="grab"></div><div id="sheetBody"></div></div></div>
+
+<!-- ================= ONBOARDING ================= -->
+<div class="ob" id="ob" role="dialog" aria-modal="true" aria-label="Welcome to Cellvage">
+  <button class="skip" id="obSkip">Skip</button>
+  <div class="track" id="obTrack">
+    <section class="slide"><div>
+      <div class="art"><svg width="230" height="200" viewBox="0 0 230 200" aria-hidden="true"><g fill="none" stroke-width="5" stroke-linejoin="round">
+        <rect x="30" y="70" width="40" height="100" rx="10" stroke="#5A6A80" transform="rotate(-14 50 120)"/><rect x="78" y="56" width="40" height="114" rx="10" stroke="#2E9E5B"/><rect x="126" y="62" width="40" height="108" rx="10" stroke="#5A6A80" transform="rotate(9 146 116)"/><rect x="164" y="88" width="40" height="86" rx="10" stroke="#2E9E5B" transform="rotate(20 184 130)"/></g>
+        <rect x="88" y="104" width="20" height="56" rx="4" fill="#2E9E5B"/><rect x="172" y="128" width="22" height="34" rx="4" fill="#2E9E5B" transform="rotate(20 184 130)"/><path d="M10 182h210" stroke="#2B3748" stroke-width="4" stroke-linecap="round"/></svg></div>
+      <div class="label">Why Cellvage</div><h2>Old batteries still have life in them</h2>
+      <p>Retired laptop and e-bike packs are thrown away whole, even though many of their cells are still healthy. Nobody can tell which ones.</p>
+    </div></section>
+    <section class="slide"><div>
+      <div class="art"><svg width="250" height="190" viewBox="0 0 250 190" aria-hidden="true"><rect x="8" y="10" width="234" height="170" rx="18" fill="#1B2533"/>
+        <path d="M30 60H90V120C110 130 130 134 150 135V75C170 71 195 70 222 69.5" fill="none" stroke="#F3A35C" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="222" cy="69.5" r="9" fill="#2E9E5B"/><text x="30" y="160" fill="#8B99AD" font-family="IBM Plex Mono,monospace" font-size="13">10 s · 500 readings</text></svg></div>
+      <div class="label">The test</div><h2>A 10-second pulse grades each cell</h2>
+      <p>Our rig sends a short current pulse through the cell and reads how its voltage reacts. That response tells us how worn the cell is: grade A, B, C or recycle.</p>
+    </div></section>
+    <section class="slide"><div>
+      <div class="art"><svg width="230" height="200" viewBox="0 0 230 200" aria-hidden="true"><rect x="30" y="16" width="170" height="170" rx="20" fill="#fff"/>
+        <g fill="#111A24"><rect x="50" y="36" width="40" height="40" rx="4"/><rect x="140" y="36" width="40" height="40" rx="4"/><rect x="50" y="126" width="40" height="40" rx="4"/></g>
+        <g fill="#fff"><rect x="58" y="44" width="24" height="24" rx="2"/><rect x="148" y="44" width="24" height="24" rx="2"/><rect x="58" y="134" width="24" height="24" rx="2"/></g>
+        <g fill="#111A24"><rect x="64" y="50" width="12" height="12"/><rect x="154" y="50" width="12" height="12"/><rect x="64" y="140" width="12" height="12"/><rect x="100" y="40" width="10" height="10"/><rect x="116" y="56" width="10" height="10"/><rect x="100" y="86" width="10" height="10"/><rect x="128" y="96" width="10" height="10"/><rect x="146" y="88" width="10" height="10"/><rect x="164" y="104" width="10" height="10"/><rect x="104" y="130" width="10" height="10"/><rect x="124" y="146" width="10" height="10"/><rect x="144" y="132" width="10" height="10"/><rect x="164" y="150" width="10" height="10"/><rect x="60" y="94" width="10" height="10"/><rect x="78" y="104" width="10" height="10"/></g>
+        <circle cx="186" cy="170" r="26" fill="#2E9E5B" stroke="#111A24" stroke-width="5"/><path d="M174 170l8 8 15-16" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="label">The passport</div><h2>Every cell gets a passport you can check</h2>
+      <p>The result is signed by the rig and put in a QR code. Anyone can scan it, and if someone edits the grade, the phone shows it straight away.</p>
+    </div></section>
+    <section class="slide"><div>
+      <div class="label">Get started</div><h2>What brings you here?</h2>
+      <p>We'll set up the home screen for you. You can switch any time.</p>
+      <div class="roles">
+        <button class="role" data-role="sell"><span class="ic" style="background:#2E9E5B"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v9M8 12h8"/></svg></span><span><b>I have old batteries</b><small>Get them tested and get an offer</small></span></button>
+        <button class="role" data-role="buy"><span class="ic" style="background:#2148C0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11a1 1 0 0 1-1 .9H7.2a1 1 0 0 1-1-.9z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></span><span><b>I need cells or packs</b><small>Tested second-life cells, each with a passport</small></span></button>
+        <button class="role" data-role="look"><span class="ic" style="background:#3A4656"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"/></svg></span><span><b>I want to check a cell</b><small>Scan a passport and see if it's genuine</small></span></button>
+      </div>
+    </div></section>
+  </div>
+  <div class="bot"><div class="dots" id="obDots"><i class="on"></i><i></i><i></i><i></i></div><button class="next" id="obNext">Next</button></div>
+</div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>(()=>{var pe=Object.defineProperty;var ge=(e,n)=>{for(var t in n)pe(e,t,{get:n[t],enumerable:!0})};function Mt(e){if(!Number.isSafeInteger(e)||e<0)throw new Error(`positive integer expected, not ${e}`)}function we(e){return e instanceof Uint8Array||e!=null&&typeof e=="object"&&e.constructor.name==="Uint8Array"}function lt(e,...n){if(!we(e))throw new Error("Uint8Array expected");if(n.length>0&&!n.includes(e.length))throw new Error(`Uint8Array expected of length ${n}, not of length=${e.length}`)}function Wt(e){if(typeof e!="function"||typeof e.create!="function")throw new Error("Hash should be wrapped by utils.wrapConstructor");Mt(e.outputLen),Mt(e.blockLen)}function dt(e,n=!0){if(e.destroyed)throw new Error("Hash instance has been destroyed");if(n&&e.finished)throw new Error("Hash#digest() has already been called")}function Gt(e,n){lt(e);let t=n.outputLen;if(e.length<t)throw new Error(`digestInto() expects output buffer of length at least ${t}`)}var Et=typeof globalThis=="object"&&"crypto"in globalThis?globalThis.crypto:void 0;var Bt=e=>new DataView(e.buffer,e.byteOffset,e.byteLength),Y=(e,n)=>e<<32-n|e>>>n;var Fe=new Uint8Array(new Uint32Array([287454020]).buffer)[0]===68;function me(e){if(typeof e!="string")throw new Error(`utf8ToBytes expected string, got ${typeof e}`);return new Uint8Array(new TextEncoder().encode(e))}function mt(e){return typeof e=="string"&&(e=me(e)),lt(e),e}function Kt(...e){let n=0;for(let r=0;r<e.length;r++){let o=e[r];lt(o),n+=o.length}let t=new Uint8Array(n);for(let r=0,o=0;r<e.length;r++){let i=e[r];t.set(i,o),o+=i.length}return t}var ht=class{clone(){return this._cloneInto()}},tn={}.toString;function Pt(e){let n=r=>e().update(mt(r)).digest(),t=e();return n.outputLen=t.outputLen,n.blockLen=t.blockLen,n.create=()=>e(),n}function Xt(e=32){if(Et&&typeof Et.getRandomValues=="function")return Et.getRandomValues(new Uint8Array(e));throw new Error("crypto.getRandomValues must be defined")}var vt=class extends ht{constructor(n,t){super(),this.finished=!1,this.destroyed=!1,Wt(n);let r=mt(t);if(this.iHash=n.create(),typeof this.iHash.update!="function")throw new Error("Expected instance of class which extends utils.Hash");this.blockLen=this.iHash.blockLen,this.outputLen=this.iHash.outputLen;let o=this.blockLen,i=new Uint8Array(o);i.set(r.length>o?n.create().update(r).digest():r);for(let f=0;f<i.length;f++)i[f]^=54;this.iHash.update(i),this.oHash=n.create();for(let f=0;f<i.length;f++)i[f]^=106;this.oHash.update(i),i.fill(0)}update(n){return dt(this),this.iHash.update(n),this}digestInto(n){dt(this),lt(n,this.outputLen),this.finished=!0,this.iHash.digestInto(n),this.oHash.update(n),this.oHash.digestInto(n),this.destroy()}digest(){let n=new Uint8Array(this.oHash.outputLen);return this.digestInto(n),n}_cloneInto(n){n||(n=Object.create(Object.getPrototypeOf(this),{}));let{oHash:t,iHash:r,finished:o,destroyed:i,blockLen:f,outputLen:s}=this;return n=n,n.finished=o,n.destroyed=i,n.blockLen=f,n.outputLen=s,n.oHash=t._cloneInto(n.oHash),n.iHash=r._cloneInto(n.iHash),n}destroy(){this.destroyed=!0,this.oHash.destroy(),this.iHash.destroy()}},Lt=(e,n,t)=>new vt(e,n).update(t).digest();Lt.create=(e,n)=>new vt(e,n);var Ht={};ge(Ht,{abytes:()=>pt,bitGet:()=>Se,bitLen:()=>ve,bitMask:()=>yt,bitSet:()=>Ae,bytesToHex:()=>it,bytesToNumberBE:()=>G,bytesToNumberLE:()=>At,concatBytes:()=>gt,createHmacDrbg:()=>Ut,ensureBytes:()=>Z,equalBytes:()=>Ee,hexToBytes:()=>st,hexToNumber:()=>Nt,isBytes:()=>F,numberToBytesBE:()=>tt,numberToBytesLE:()=>Ot,numberToHexUnpadded:()=>te,numberToVarBytesBE:()=>be,utf8ToBytes:()=>Be,validateObject:()=>et});var Ft=BigInt(0),St=BigInt(1),ye=BigInt(2);function F(e){return e instanceof Uint8Array||e!=null&&typeof e=="object"&&e.constructor.name==="Uint8Array"}function pt(e){if(!F(e))throw new Error("Uint8Array expected")}var xe=Array.from({length:256},(e,n)=>n.toString(16).padStart(2,"0"));function it(e){pt(e);let n="";for(let t=0;t<e.length;t++)n+=xe[e[t]];return n}function te(e){let n=e.toString(16);return n.length&1?`0${n}`:n}function Nt(e){if(typeof e!="string")throw new Error("hex string expected, got "+typeof e);return BigInt(e===""?"0":`0x${e}`)}var W={_0:48,_9:57,_A:65,_F:70,_a:97,_f:102};function Qt(e){if(e>=W._0&&e<=W._9)return e-W._0;if(e>=W._A&&e<=W._F)return e-(W._A-10);if(e>=W._a&&e<=W._f)return e-(W._a-10)}function st(e){if(typeof e!="string")throw new Error("hex string expected, got "+typeof e);let n=e.length,t=n/2;if(n%2)throw new Error("padded hex string expected, got unpadded hex of length "+n);let r=new Uint8Array(t);for(let o=0,i=0;o<t;o++,i+=2){let f=Qt(e.charCodeAt(i)),s=Qt(e.charCodeAt(i+1));if(f===void 0||s===void 0){let c=e[i]+e[i+1];throw new Error('hex string expected, got non-hex character "'+c+'" at index '+i)}r[o]=f*16+s}return r}function G(e){return Nt(it(e))}function At(e){return pt(e),Nt(it(Uint8Array.from(e).reverse()))}function tt(e,n){return st(e.toString(16).padStart(n*2,"0"))}function Ot(e,n){return tt(e,n).reverse()}function be(e){return st(te(e))}function Z(e,n,t){let r;if(typeof n=="string")try{r=st(n)}catch(i){throw new Error(`${e} must be valid hex string, got "${n}". Cause: ${i}`)}else if(F(n))r=Uint8Array.from(n);else throw new Error(`${e} must be hex string or Uint8Array`);let o=r.length;if(typeof t=="number"&&o!==t)throw new Error(`${e} expected ${t} bytes, got ${o}`);return r}function gt(...e){let n=0;for(let r=0;r<e.length;r++){let o=e[r];pt(o),n+=o.length}let t=new Uint8Array(n);for(let r=0,o=0;r<e.length;r++){let i=e[r];t.set(i,o),o+=i.length}return t}function Ee(e,n){if(e.length!==n.length)return!1;let t=0;for(let r=0;r<e.length;r++)t|=e[r]^n[r];return t===0}function Be(e){if(typeof e!="string")throw new Error(`utf8ToBytes expected string, got ${typeof e}`);return new Uint8Array(new TextEncoder().encode(e))}function ve(e){let n;for(n=0;e>Ft;e>>=St,n+=1);return n}function Se(e,n){return e>>BigInt(n)&St}function Ae(e,n,t){return e|(t?St:Ft)<<BigInt(n)}var yt=e=>(ye<<BigInt(e-1))-St,qt=e=>new Uint8Array(e),Jt=e=>Uint8Array.from(e);function Ut(e,n,t){if(typeof e!="number"||e<2)throw new Error("hashLen must be a number");if(typeof n!="number"||n<2)throw new Error("qByteLen must be a number");if(typeof t!="function")throw new Error("hmacFn must be a function");let r=qt(e),o=qt(e),i=0,f=()=>{r.fill(1),o.fill(0),i=0},s=(...l)=>t(o,r,...l),c=(l=qt())=>{o=s(Jt([0]),l),r=s(),l.length!==0&&(o=s(Jt([1]),l),r=s())},a=()=>{if(i++>=1e3)throw new Error("drbg: tried 1000 values");let l=0,A=[];for(;l<n;){r=s();let I=r.slice();A.push(I),l+=r.length}return gt(...A)};return(l,A)=>{f(),c(l);let I;for(;!(I=A(a()));)c();return f(),I}}var Oe={bigint:e=>typeof e=="bigint",function:e=>typeof e=="function",boolean:e=>typeof e=="boolean",string:e=>typeof e=="string",stringOrUint8Array:e=>typeof e=="string"||F(e),isSafeInteger:e=>Number.isSafeInteger(e),array:e=>Array.isArray(e),field:(e,n)=>n.Fp.isValid(e),hash:e=>typeof e=="function"&&Number.isSafeInteger(e.outputLen)};function et(e,n,t={}){let r=(o,i,f)=>{let s=Oe[i];if(typeof s!="function")throw new Error(`Invalid validator "${i}", expected function`);let c=e[o];if(!(f&&c===void 0)&&!s(c,e))throw new Error(`Invalid param ${String(o)}=${c} (${typeof c}), expected ${i}`)};for(let[o,i]of Object.entries(n))r(o,i,!1);for(let[o,i]of Object.entries(t))r(o,i,!0);return e}var H=BigInt(0),N=BigInt(1),ct=BigInt(2),Ie=BigInt(3),Rt=BigInt(4),ee=BigInt(5),ne=BigInt(8),Te=BigInt(9),_e=BigInt(16);function k(e,n){let t=e%n;return t>=H?t:n+t}function Le(e,n,t){if(t<=H||n<H)throw new Error("Expected power/modulo > 0");if(t===N)return H;let r=N;for(;n>H;)n&N&&(r=r*e%t),e=e*e%t,n>>=N;return r}function It(e,n){if(e===H||n<=H)throw new Error(`invert: expected positive integers, got n=${e} mod=${n}`);let t=k(e,n),r=n,o=H,i=N,f=N,s=H;for(;t!==H;){let a=r/t,m=r%t,l=o-f*a,A=i-s*a;r=t,t=m,o=f,i=s,f=l,s=A}if(r!==N)throw new Error("invert: does not exist");return k(o,n)}function qe(e){let n=(e-N)/ct,t,r,o;for(t=e-N,r=0;t%ct===H;t/=ct,r++);for(o=ct;o<e&&Le(o,n,e)!==e-N;o++);if(r===1){let f=(e+N)/Rt;return function(c,a){let m=c.pow(a,f);if(!c.eql(c.sqr(m),a))throw new Error("Cannot find square root");return m}}let i=(t+N)/ct;return function(s,c){if(s.pow(c,n)===s.neg(s.ONE))throw new Error("Cannot find square root");let a=r,m=s.pow(s.mul(s.ONE,o),t),l=s.pow(c,i),A=s.pow(c,t);for(;!s.eql(A,s.ONE);){if(s.eql(A,s.ZERO))return s.ZERO;let I=1;for(let u=s.sqr(A);I<a&&!s.eql(u,s.ONE);I++)u=s.sqr(u);let y=s.pow(m,N<<BigInt(a-I-1));m=s.sqr(y),l=s.mul(l,y),A=s.mul(A,m),a=I}return l}}function Ne(e){if(e%Rt===Ie){let n=(e+N)/Rt;return function(r,o){let i=r.pow(o,n);if(!r.eql(r.sqr(i),o))throw new Error("Cannot find square root");return i}}if(e%ne===ee){let n=(e-ee)/ne;return function(r,o){let i=r.mul(o,ct),f=r.pow(i,n),s=r.mul(o,f),c=r.mul(r.mul(s,ct),f),a=r.mul(s,r.sub(c,r.ONE));if(!r.eql(r.sqr(a),o))throw new Error("Cannot find square root");return a}}return e%_e,qe(e)}var Ue=["create","isValid","is0","neg","inv","sqrt","sqr","eql","add","sub","mul","pow","div","addN","subN","mulN","sqrN"];function Ct(e){let n={ORDER:"bigint",MASK:"bigint",BYTES:"isSafeInteger",BITS:"isSafeInteger"},t=Ue.reduce((r,o)=>(r[o]="function",r),n);return et(e,t)}function He(e,n,t){if(t<H)throw new Error("Expected power > 0");if(t===H)return e.ONE;if(t===N)return n;let r=e.ONE,o=n;for(;t>H;)t&N&&(r=e.mul(r,o)),o=e.sqr(o),t>>=N;return r}function Re(e,n){let t=new Array(n.length),r=n.reduce((i,f,s)=>e.is0(f)?i:(t[s]=i,e.mul(i,f)),e.ONE),o=e.inv(r);return n.reduceRight((i,f,s)=>e.is0(f)?i:(t[s]=e.mul(i,t[s]),e.mul(i,f)),o),t}function $t(e,n){let t=n!==void 0?n:e.toString(2).length,r=Math.ceil(t/8);return{nBitLength:t,nByteLength:r}}function re(e,n,t=!1,r={}){if(e<=H)throw new Error(`Expected Field ORDER > 0, got ${e}`);let{nBitLength:o,nByteLength:i}=$t(e,n);if(i>2048)throw new Error("Field lengths over 2048 bytes are not supported");let f=Ne(e),s=Object.freeze({ORDER:e,BITS:o,BYTES:i,MASK:yt(o),ZERO:H,ONE:N,create:c=>k(c,e),isValid:c=>{if(typeof c!="bigint")throw new Error(`Invalid field element: expected bigint, got ${typeof c}`);return H<=c&&c<e},is0:c=>c===H,isOdd:c=>(c&N)===N,neg:c=>k(-c,e),eql:(c,a)=>c===a,sqr:c=>k(c*c,e),add:(c,a)=>k(c+a,e),sub:(c,a)=>k(c-a,e),mul:(c,a)=>k(c*a,e),pow:(c,a)=>He(s,c,a),div:(c,a)=>k(c*It(a,e),e),sqrN:c=>c*c,addN:(c,a)=>c+a,subN:(c,a)=>c-a,mulN:(c,a)=>c*a,inv:c=>It(c,e),sqrt:r.sqrt||(c=>f(s,c)),invertBatch:c=>Re(s,c),cmov:(c,a,m)=>m?a:c,toBytes:c=>t?Ot(c,i):tt(c,i),fromBytes:c=>{if(c.length!==i)throw new Error(`Fp.fromBytes: expected ${i}, got ${c.length}`);return t?At(c):G(c)}});return Object.freeze(s)}function oe(e){if(typeof e!="bigint")throw new Error("field order must be bigint");let n=e.toString(2).length;return Math.ceil(n/8)}function Vt(e){let n=oe(e);return n+Math.ceil(n/2)}function ie(e,n,t=!1){let r=e.length,o=oe(n),i=Vt(n);if(r<16||r<i||r>1024)throw new Error(`expected ${i}-1024 bytes of input, got ${r}`);let f=t?G(e):At(e),s=k(f,n-N)+N;return t?Ot(s,o):tt(s,o)}var $e=BigInt(0),Zt=BigInt(1);function se(e,n){let t=(o,i)=>{let f=i.negate();return o?f:i},r=o=>{let i=Math.ceil(n/o)+1,f=2**(o-1);return{windows:i,windowSize:f}};return{constTimeNegate:t,unsafeLadder(o,i){let f=e.ZERO,s=o;for(;i>$e;)i&Zt&&(f=f.add(s)),s=s.double(),i>>=Zt;return f},precomputeWindow(o,i){let{windows:f,windowSize:s}=r(i),c=[],a=o,m=a;for(let l=0;l<f;l++){m=a,c.push(m);for(let A=1;A<s;A++)m=m.add(a),c.push(m);a=m.double()}return c},wNAF(o,i,f){let{windows:s,windowSize:c}=r(o),a=e.ZERO,m=e.BASE,l=BigInt(2**o-1),A=2**o,I=BigInt(o);for(let y=0;y<s;y++){let u=y*c,h=Number(f&l);f>>=I,h>c&&(h-=A,f+=Zt);let g=u,x=u+Math.abs(h)-1,E=y%2!==0,T=h<0;h===0?m=m.add(t(E,i[g])):a=a.add(t(T,i[x]))}return{p:a,f:m}},wNAFCached(o,i,f,s){let c=o._WINDOW_SIZE||1,a=i.get(o);return a||(a=this.precomputeWindow(o,c),c!==1&&i.set(o,s(a))),this.wNAF(c,a,f)}}}function kt(e){return Ct(e.Fp),et(e,{n:"bigint",h:"bigint",Gx:"field",Gy:"field"},{nBitLength:"isSafeInteger",nByteLength:"isSafeInteger"}),Object.freeze({...$t(e.n,e.nBitLength),...e,p:e.Fp.ORDER})}function Ve(e){let n=kt(e);et(n,{a:"field",b:"field"},{allowedPrivateKeyLengths:"array",wrapPrivateKey:"boolean",isTorsionFree:"function",clearCofactor:"function",allowInfinityPoint:"boolean",fromBytes:"function",toBytes:"function"});let{endo:t,Fp:r,a:o}=n;if(t){if(!r.eql(o,r.ZERO))throw new Error("Endomorphism can only be defined for Koblitz curves that have a=0");if(typeof t!="object"||typeof t.beta!="bigint"||typeof t.splitScalar!="function")throw new Error("Expected endomorphism with beta: bigint and splitScalar: function")}return Object.freeze({...n})}var{bytesToNumberBE:Ze,hexToBytes:ke}=Ht,ft={Err:class extends Error{constructor(n=""){super(n)}},_parseInt(e){let{Err:n}=ft;if(e.length<2||e[0]!==2)throw new n("Invalid signature integer tag");let t=e[1],r=e.subarray(2,t+2);if(!t||r.length!==t)throw new n("Invalid signature integer: wrong length");if(r[0]&128)throw new n("Invalid signature integer: negative");if(r[0]===0&&!(r[1]&128))throw new n("Invalid signature integer: unnecessary leading zero");return{d:Ze(r),l:e.subarray(t+2)}},toSig(e){let{Err:n}=ft,t=typeof e=="string"?ke(e):e;pt(t);let r=t.length;if(r<2||t[0]!=48)throw new n("Invalid signature tag");if(t[1]!==r-2)throw new n("Invalid signature: incorrect length");let{d:o,l:i}=ft._parseInt(t.subarray(2)),{d:f,l:s}=ft._parseInt(i);if(s.length)throw new n("Invalid signature: left bytes after parsing");return{r:o,s:f}},hexFromSig(e){let n=a=>Number.parseInt(a[0],16)&8?"00"+a:a,t=a=>{let m=a.toString(16);return m.length&1?`0${m}`:m},r=n(t(e.s)),o=n(t(e.r)),i=r.length/2,f=o.length/2,s=t(i),c=t(f);return`30${t(f+i+4)}02${c}${o}02${s}${r}`}},K=BigInt(0),z=BigInt(1),hn=BigInt(2),ce=BigInt(3),pn=BigInt(4);function je(e){let n=Ve(e),{Fp:t}=n,r=n.toBytes||((y,u,h)=>{let g=u.toAffine();return gt(Uint8Array.from([4]),t.toBytes(g.x),t.toBytes(g.y))}),o=n.fromBytes||(y=>{let u=y.subarray(1),h=t.fromBytes(u.subarray(0,t.BYTES)),g=t.fromBytes(u.subarray(t.BYTES,2*t.BYTES));return{x:h,y:g}});function i(y){let{a:u,b:h}=n,g=t.sqr(y),x=t.mul(g,y);return t.add(t.add(x,t.mul(y,u)),h)}if(!t.eql(t.sqr(n.Gy),i(n.Gx)))throw new Error("bad generator point: equation left != right");function f(y){return typeof y=="bigint"&&K<y&&y<n.n}function s(y){if(!f(y))throw new Error("Expected valid bigint: 0 < bigint < curve.n")}function c(y){let{allowedPrivateKeyLengths:u,nByteLength:h,wrapPrivateKey:g,n:x}=n;if(u&&typeof y!="bigint"){if(F(y)&&(y=it(y)),typeof y!="string"||!u.includes(y.length))throw new Error("Invalid key");y=y.padStart(h*2,"0")}let E;try{E=typeof y=="bigint"?y:G(Z("private key",y,h))}catch{throw new Error(`private key must be ${h} bytes, hex or bigint, not ${typeof y}`)}return g&&(E=k(E,x)),s(E),E}let a=new Map;function m(y){if(!(y instanceof l))throw new Error("ProjectivePoint expected")}class l{constructor(u,h,g){if(this.px=u,this.py=h,this.pz=g,u==null||!t.isValid(u))throw new Error("x required");if(h==null||!t.isValid(h))throw new Error("y required");if(g==null||!t.isValid(g))throw new Error("z required")}static fromAffine(u){let{x:h,y:g}=u||{};if(!u||!t.isValid(h)||!t.isValid(g))throw new Error("invalid affine point");if(u instanceof l)throw new Error("projective point not allowed");let x=E=>t.eql(E,t.ZERO);return x(h)&&x(g)?l.ZERO:new l(h,g,t.ONE)}get x(){return this.toAffine().x}get y(){return this.toAffine().y}static normalizeZ(u){let h=t.invertBatch(u.map(g=>g.pz));return u.map((g,x)=>g.toAffine(h[x])).map(l.fromAffine)}static fromHex(u){let h=l.fromAffine(o(Z("pointHex",u)));return h.assertValidity(),h}static fromPrivateKey(u){return l.BASE.multiply(c(u))}_setWindowSize(u){this._WINDOW_SIZE=u,a.delete(this)}assertValidity(){if(this.is0()){if(n.allowInfinityPoint&&!t.is0(this.py))return;throw new Error("bad point: ZERO")}let{x:u,y:h}=this.toAffine();if(!t.isValid(u)||!t.isValid(h))throw new Error("bad point: x or y not FE");let g=t.sqr(h),x=i(u);if(!t.eql(g,x))throw new Error("bad point: equation left != right");if(!this.isTorsionFree())throw new Error("bad point: not in prime-order subgroup")}hasEvenY(){let{y:u}=this.toAffine();if(t.isOdd)return!t.isOdd(u);throw new Error("Field doesn't support isOdd")}equals(u){m(u);let{px:h,py:g,pz:x}=this,{px:E,py:T,pz:S}=u,w=t.eql(t.mul(h,S),t.mul(E,x)),b=t.eql(t.mul(g,S),t.mul(T,x));return w&&b}negate(){return new l(this.px,t.neg(this.py),this.pz)}double(){let{a:u,b:h}=n,g=t.mul(h,ce),{px:x,py:E,pz:T}=this,S=t.ZERO,w=t.ZERO,b=t.ZERO,v=t.mul(x,x),j=t.mul(E,E),q=t.mul(T,T),O=t.mul(x,E);return O=t.add(O,O),b=t.mul(x,T),b=t.add(b,b),S=t.mul(u,b),w=t.mul(g,q),w=t.add(S,w),S=t.sub(j,w),w=t.add(j,w),w=t.mul(S,w),S=t.mul(O,S),b=t.mul(g,b),q=t.mul(u,q),O=t.sub(v,q),O=t.mul(u,O),O=t.add(O,b),b=t.add(v,v),v=t.add(b,v),v=t.add(v,q),v=t.mul(v,O),w=t.add(w,v),q=t.mul(E,T),q=t.add(q,q),v=t.mul(q,O),S=t.sub(S,v),b=t.mul(q,j),b=t.add(b,b),b=t.add(b,b),new l(S,w,b)}add(u){m(u);let{px:h,py:g,pz:x}=this,{px:E,py:T,pz:S}=u,w=t.ZERO,b=t.ZERO,v=t.ZERO,j=n.a,q=t.mul(n.b,ce),O=t.mul(h,E),$=t.mul(g,T),V=t.mul(x,S),P=t.add(h,g),d=t.add(E,T);P=t.mul(P,d),d=t.add(O,$),P=t.sub(P,d),d=t.add(h,x);let p=t.add(E,S);return d=t.mul(d,p),p=t.add(O,V),d=t.sub(d,p),p=t.add(g,x),w=t.add(T,S),p=t.mul(p,w),w=t.add($,V),p=t.sub(p,w),v=t.mul(j,d),w=t.mul(q,V),v=t.add(w,v),w=t.sub($,v),v=t.add($,v),b=t.mul(w,v),$=t.add(O,O),$=t.add($,O),V=t.mul(j,V),d=t.mul(q,d),$=t.add($,V),V=t.sub(O,V),V=t.mul(j,V),d=t.add(d,V),O=t.mul($,d),b=t.add(b,O),O=t.mul(p,d),w=t.mul(P,w),w=t.sub(w,O),O=t.mul(P,$),v=t.mul(p,v),v=t.add(v,O),new l(w,b,v)}subtract(u){return this.add(u.negate())}is0(){return this.equals(l.ZERO)}wNAF(u){return I.wNAFCached(this,a,u,h=>{let g=t.invertBatch(h.map(x=>x.pz));return h.map((x,E)=>x.toAffine(g[E])).map(l.fromAffine)})}multiplyUnsafe(u){let h=l.ZERO;if(u===K)return h;if(s(u),u===z)return this;let{endo:g}=n;if(!g)return I.unsafeLadder(this,u);let{k1neg:x,k1:E,k2neg:T,k2:S}=g.splitScalar(u),w=h,b=h,v=this;for(;E>K||S>K;)E&z&&(w=w.add(v)),S&z&&(b=b.add(v)),v=v.double(),E>>=z,S>>=z;return x&&(w=w.negate()),T&&(b=b.negate()),b=new l(t.mul(b.px,g.beta),b.py,b.pz),w.add(b)}multiply(u){s(u);let h=u,g,x,{endo:E}=n;if(E){let{k1neg:T,k1:S,k2neg:w,k2:b}=E.splitScalar(h),{p:v,f:j}=this.wNAF(S),{p:q,f:O}=this.wNAF(b);v=I.constTimeNegate(T,v),q=I.constTimeNegate(w,q),q=new l(t.mul(q.px,E.beta),q.py,q.pz),g=v.add(q),x=j.add(O)}else{let{p:T,f:S}=this.wNAF(h);g=T,x=S}return l.normalizeZ([g,x])[0]}multiplyAndAddUnsafe(u,h,g){let x=l.BASE,E=(S,w)=>w===K||w===z||!S.equals(x)?S.multiplyUnsafe(w):S.multiply(w),T=E(this,h).add(E(u,g));return T.is0()?void 0:T}toAffine(u){let{px:h,py:g,pz:x}=this,E=this.is0();u==null&&(u=E?t.ONE:t.inv(x));let T=t.mul(h,u),S=t.mul(g,u),w=t.mul(x,u);if(E)return{x:t.ZERO,y:t.ZERO};if(!t.eql(w,t.ONE))throw new Error("invZ was invalid");return{x:T,y:S}}isTorsionFree(){let{h:u,isTorsionFree:h}=n;if(u===z)return!0;if(h)return h(l,this);throw new Error("isTorsionFree() has not been declared for the elliptic curve")}clearCofactor(){let{h:u,clearCofactor:h}=n;return u===z?this:h?h(l,this):this.multiplyUnsafe(n.h)}toRawBytes(u=!0){return this.assertValidity(),r(l,this,u)}toHex(u=!0){return it(this.toRawBytes(u))}}l.BASE=new l(n.Gx,n.Gy,t.ONE),l.ZERO=new l(t.ZERO,t.ONE,t.ZERO);let A=n.nBitLength,I=se(l,n.endo?Math.ceil(A/2):A);return{CURVE:n,ProjectivePoint:l,normPrivateKeyToScalar:c,weierstrassEquation:i,isWithinCurveOrder:f}}function ze(e){let n=kt(e);return et(n,{hash:"hash",hmac:"function",randomBytes:"function"},{bits2int:"function",bits2int_modN:"function",lowS:"boolean"}),Object.freeze({lowS:!0,...n})}function fe(e){let n=ze(e),{Fp:t,n:r}=n,o=t.BYTES+1,i=2*t.BYTES+1;function f(d){return K<d&&d<t.ORDER}function s(d){return k(d,r)}function c(d){return It(d,r)}let{ProjectivePoint:a,normPrivateKeyToScalar:m,weierstrassEquation:l,isWithinCurveOrder:A}=je({...n,toBytes(d,p,B){let L=p.toAffine(),_=t.toBytes(L.x),U=gt;return B?U(Uint8Array.from([p.hasEvenY()?2:3]),_):U(Uint8Array.from([4]),_,t.toBytes(L.y))},fromBytes(d){let p=d.length,B=d[0],L=d.subarray(1);if(p===o&&(B===2||B===3)){let _=G(L);if(!f(_))throw new Error("Point is not on curve");let U=l(_),R;try{R=t.sqrt(U)}catch(D){let Q=D instanceof Error?": "+D.message:"";throw new Error("Point is not on curve"+Q)}let C=(R&z)===z;return(B&1)===1!==C&&(R=t.neg(R)),{x:_,y:R}}else if(p===i&&B===4){let _=t.fromBytes(L.subarray(0,t.BYTES)),U=t.fromBytes(L.subarray(t.BYTES,2*t.BYTES));return{x:_,y:U}}else throw new Error(`Point of length ${p} was invalid. Expected ${o} compressed bytes or ${i} uncompressed bytes`)}}),I=d=>it(tt(d,n.nByteLength));function y(d){let p=r>>z;return d>p}function u(d){return y(d)?s(-d):d}let h=(d,p,B)=>G(d.slice(p,B));class g{constructor(p,B,L){this.r=p,this.s=B,this.recovery=L,this.assertValidity()}static fromCompact(p){let B=n.nByteLength;return p=Z("compactSignature",p,B*2),new g(h(p,0,B),h(p,B,2*B))}static fromDER(p){let{r:B,s:L}=ft.toSig(Z("DER",p));return new g(B,L)}assertValidity(){if(!A(this.r))throw new Error("r must be 0 < r < CURVE.n");if(!A(this.s))throw new Error("s must be 0 < s < CURVE.n")}addRecoveryBit(p){return new g(this.r,this.s,p)}recoverPublicKey(p){let{r:B,s:L,recovery:_}=this,U=b(Z("msgHash",p));if(_==null||![0,1,2,3].includes(_))throw new Error("recovery id invalid");let R=_===2||_===3?B+n.n:B;if(R>=t.ORDER)throw new Error("recovery id 2 or 3 invalid");let C=(_&1)===0?"02":"03",X=a.fromHex(C+I(R)),D=c(R),Q=s(-U*D),wt=s(L*D),J=a.BASE.multiplyAndAddUnsafe(X,Q,wt);if(!J)throw new Error("point at infinify");return J.assertValidity(),J}hasHighS(){return y(this.s)}normalizeS(){return this.hasHighS()?new g(this.r,s(-this.s),this.recovery):this}toDERRawBytes(){return st(this.toDERHex())}toDERHex(){return ft.hexFromSig({r:this.r,s:this.s})}toCompactRawBytes(){return st(this.toCompactHex())}toCompactHex(){return I(this.r)+I(this.s)}}let x={isValidPrivateKey(d){try{return m(d),!0}catch{return!1}},normPrivateKeyToScalar:m,randomPrivateKey:()=>{let d=Vt(n.n);return ie(n.randomBytes(d),n.n)},precompute(d=8,p=a.BASE){return p._setWindowSize(d),p.multiply(BigInt(3)),p}};function E(d,p=!0){return a.fromPrivateKey(d).toRawBytes(p)}function T(d){let p=F(d),B=typeof d=="string",L=(p||B)&&d.length;return p?L===o||L===i:B?L===2*o||L===2*i:d instanceof a}function S(d,p,B=!0){if(T(d))throw new Error("first arg must be private key");if(!T(p))throw new Error("second arg must be public key");return a.fromHex(p).multiply(m(d)).toRawBytes(B)}let w=n.bits2int||function(d){let p=G(d),B=d.length*8-n.nBitLength;return B>0?p>>BigInt(B):p},b=n.bits2int_modN||function(d){return s(w(d))},v=yt(n.nBitLength);function j(d){if(typeof d!="bigint")throw new Error("bigint expected");if(!(K<=d&&d<v))throw new Error(`bigint expected < 2^${n.nBitLength}`);return tt(d,n.nByteLength)}function q(d,p,B=O){if(["recovered","canonical"].some(ot=>ot in B))throw new Error("sign() legacy options not supported");let{hash:L,randomBytes:_}=n,{lowS:U,prehash:R,extraEntropy:C}=B;U==null&&(U=!0),d=Z("msgHash",d),R&&(d=Z("prehashed msgHash",L(d)));let X=b(d),D=m(p),Q=[j(D),j(X)];if(C!=null&&C!==!1){let ot=C===!0?_(t.BYTES):C;Q.push(Z("extraEntropy",ot))}let wt=gt(...Q),J=X;function _t(ot){let ut=w(ot);if(!A(ut))return;let zt=c(ut),M=a.BASE.multiply(ut).toAffine(),at=s(M.x);if(at===K)return;let bt=s(zt*s(J+at*D));if(bt===K)return;let Dt=(M.x===at?0:2)|Number(M.y&z),Yt=bt;return U&&y(bt)&&(Yt=u(bt),Dt^=1),new g(at,Yt,Dt)}return{seed:wt,k2sig:_t}}let O={lowS:n.lowS,prehash:!1},$={lowS:n.lowS,prehash:!1};function V(d,p,B=O){let{seed:L,k2sig:_}=q(d,p,B),U=n;return Ut(U.hash.outputLen,U.nByteLength,U.hmac)(L,_)}a.BASE._setWindowSize(8);function P(d,p,B,L=$){let _=d;if(p=Z("msgHash",p),B=Z("publicKey",B),"strict"in L)throw new Error("options.strict was renamed to lowS");let{lowS:U,prehash:R}=L,C,X;try{if(typeof _=="string"||F(_))try{C=g.fromDER(_)}catch(M){if(!(M instanceof ft.Err))throw M;C=g.fromCompact(_)}else if(typeof _=="object"&&typeof _.r=="bigint"&&typeof _.s=="bigint"){let{r:M,s:at}=_;C=new g(M,at)}else throw new Error("PARSE");X=a.fromHex(B)}catch(M){if(M.message==="PARSE")throw new Error("signature must be Signature instance, Uint8Array or hex string");return!1}if(U&&C.hasHighS())return!1;R&&(p=n.hash(p));let{r:D,s:Q}=C,wt=b(p),J=c(Q),_t=s(wt*J),ot=s(D*J),ut=a.BASE.multiplyAndAddUnsafe(X,_t,ot)?.toAffine();return ut?s(ut.x)===D:!1}return{CURVE:n,getPublicKey:E,getSharedSecret:S,sign:V,verify:P,ProjectivePoint:a,Signature:g,utils:x}}function De(e){return{hash:e,hmac:(n,...t)=>Lt(e,n,Kt(...t)),randomBytes:Xt}}function ue(e,n){let t=r=>fe({...e,...De(r)});return Object.freeze({...t(n),create:t})}function Ye(e,n,t,r){if(typeof e.setBigUint64=="function")return e.setBigUint64(n,t,r);let o=BigInt(32),i=BigInt(4294967295),f=Number(t>>o&i),s=Number(t&i),c=r?4:0,a=r?0:4;e.setUint32(n+c,f,r),e.setUint32(n+a,s,r)}var ae=(e,n,t)=>e&n^~e&t,le=(e,n,t)=>e&n^e&t^n&t,Tt=class extends ht{constructor(n,t,r,o){super(),this.blockLen=n,this.outputLen=t,this.padOffset=r,this.isLE=o,this.finished=!1,this.length=0,this.pos=0,this.destroyed=!1,this.buffer=new Uint8Array(n),this.view=Bt(this.buffer)}update(n){dt(this);let{view:t,buffer:r,blockLen:o}=this;n=mt(n);let i=n.length;for(let f=0;f<i;){let s=Math.min(o-this.pos,i-f);if(s===o){let c=Bt(n);for(;o<=i-f;f+=o)this.process(c,f);continue}r.set(n.subarray(f,f+s),this.pos),this.pos+=s,f+=s,this.pos===o&&(this.process(t,0),this.pos=0)}return this.length+=n.length,this.roundClean(),this}digestInto(n){dt(this),Gt(n,this),this.finished=!0;let{buffer:t,view:r,blockLen:o,isLE:i}=this,{pos:f}=this;t[f++]=128,this.buffer.subarray(f).fill(0),this.padOffset>o-f&&(this.process(r,0),f=0);for(let l=f;l<o;l++)t[l]=0;Ye(r,o-8,BigInt(this.length*8),i),this.process(r,0);let s=Bt(n),c=this.outputLen;if(c%4)throw new Error("_sha2: outputLen should be aligned to 32bit");let a=c/4,m=this.get();if(a>m.length)throw new Error("_sha2: outputLen bigger than state");for(let l=0;l<a;l++)s.setUint32(4*l,m[l],i)}digest(){let{buffer:n,outputLen:t}=this;this.digestInto(n);let r=n.slice(0,t);return this.destroy(),r}_cloneInto(n){n||(n=new this.constructor),n.set(...this.get());let{blockLen:t,buffer:r,length:o,finished:i,destroyed:f,pos:s}=this;return n.length=o,n.pos=s,n.finished=i,n.destroyed=f,o%t&&n.buffer.set(r),n}};var Me=new Uint32Array([1116352408,1899447441,3049323471,3921009573,961987163,1508970993,2453635748,2870763221,3624381080,310598401,607225278,1426881987,1925078388,2162078206,2614888103,3248222580,3835390401,4022224774,264347078,604807628,770255983,1249150122,1555081692,1996064986,2554220882,2821834349,2952996808,3210313671,3336571891,3584528711,113926993,338241895,666307205,773529912,1294757372,1396182291,1695183700,1986661051,2177026350,2456956037,2730485921,2820302411,3259730800,3345764771,3516065817,3600352804,4094571909,275423344,430227734,506948616,659060556,883997877,958139571,1322822218,1537002063,1747873779,1955562222,2024104815,2227730452,2361852424,2428436474,2756734187,3204031479,3329325298]),nt=new Uint32Array([1779033703,3144134277,1013904242,2773480762,1359893119,2600822924,528734635,1541459225]),rt=new Uint32Array(64),jt=class extends Tt{constructor(){super(64,32,8,!1),this.A=nt[0]|0,this.B=nt[1]|0,this.C=nt[2]|0,this.D=nt[3]|0,this.E=nt[4]|0,this.F=nt[5]|0,this.G=nt[6]|0,this.H=nt[7]|0}get(){let{A:n,B:t,C:r,D:o,E:i,F:f,G:s,H:c}=this;return[n,t,r,o,i,f,s,c]}set(n,t,r,o,i,f,s,c){this.A=n|0,this.B=t|0,this.C=r|0,this.D=o|0,this.E=i|0,this.F=f|0,this.G=s|0,this.H=c|0}process(n,t){for(let l=0;l<16;l++,t+=4)rt[l]=n.getUint32(t,!1);for(let l=16;l<64;l++){let A=rt[l-15],I=rt[l-2],y=Y(A,7)^Y(A,18)^A>>>3,u=Y(I,17)^Y(I,19)^I>>>10;rt[l]=u+rt[l-7]+y+rt[l-16]|0}let{A:r,B:o,C:i,D:f,E:s,F:c,G:a,H:m}=this;for(let l=0;l<64;l++){let A=Y(s,6)^Y(s,11)^Y(s,25),I=m+A+ae(s,c,a)+Me[l]+rt[l]|0,u=(Y(r,2)^Y(r,13)^Y(r,22))+le(r,o,i)|0;m=a,a=c,c=s,s=f+I|0,f=i,i=o,o=r,r=I+u|0}r=r+this.A|0,o=o+this.B|0,i=i+this.C|0,f=f+this.D|0,s=s+this.E|0,c=c+this.F|0,a=a+this.G|0,m=m+this.H|0,this.set(r,o,i,f,s,c,a,m)}roundClean(){rt.fill(0)}destroy(){this.set(0,0,0,0,0,0,0,0),this.buffer.fill(0)}};var xt=Pt(()=>new jt);var de=re(BigInt("0xffffffff00000001000000000000000000000000ffffffffffffffffffffffff")),We=de.create(BigInt("-3")),Ge=BigInt("0x5ac635d8aa3a93e7b3ebbd55769886bc651d06b0cc53b0f63bce3c3e27d2604b"),he=ue({a:We,b:Ge,Fp:de,n:BigInt("0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551"),Gx:BigInt("0x6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c296"),Gy:BigInt("0x4fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5"),h:BigInt(1),lowS:!1},xt);window.PPCrypto={sha256hex:e=>Array.from(xt(e)).map(n=>n.toString(16).padStart(2,"0")).join(""),verify:(e,n,t)=>{try{return he.verify(e,xt(n),t,{lowS:!1})}catch{return!1}}};})();
@@ -188,127 +345,320 @@ const $ = s => document.querySelector(s);
 const enc = new TextEncoder(), dec = new TextDecoder();
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const b64u = s => { s = s.replace(/-/g, '+').replace(/_/g, '/'); while (s.length % 4) s += '='; const b = atob(s), u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
-const GRADE = { A: ['var(--gA)', 'Reuse grade A', 'Healthy. Fit for second-life packs.'], B: ['var(--gB)', 'Reuse grade B', 'Good. Suitable for light-duty packs.'], C: ['var(--gC)', 'Reuse grade C', 'Worn. Low-power use only.'], R: ['var(--gR)', 'Recycle', 'Too worn to reuse. Send for material recovery.'] };
+const store = { get(k, d) { try { const v = localStorage.getItem('cv-' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem('cv-' + k, JSON.stringify(v)); } catch (e) {} } };
+function toast(t) { const e = $('#toast'); e.textContent = t; e.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => e.classList.remove('on'), 2400); }
+const GRADE = { A: ['var(--gA)', 'Grade A', 'Healthy. Fit for second-life packs.'], B: ['var(--gB)', 'Grade B', 'Good. Suitable for light-duty packs.'], C: ['var(--gC)', 'Grade C', 'Worn. Low-power use only.'], R: ['var(--gR)', 'Recycle', 'Too worn to reuse. Material recovery.'] };
 const FAM = { 'NMC-2600': '18650 NMC 2600 mAh laptop cell', 'NMC-2500HD': '18650 NMC 2500 mAh high-drain' };
 const when = iso => new Date(iso).toLocaleString(undefined, { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-const STORE = 'cellvage-app-passports-v1';
-const mineGet = () => { try { return JSON.parse(localStorage.getItem(STORE) || '[]'); } catch (e) { return []; } };
-const mineSet = a => { try { localStorage.setItem(STORE, JSON.stringify(a)); } catch (e) {} };
-function toast(t) { const e = $('#toast'); e.textContent = t; e.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => e.classList.remove('on'), 2200); }
+const day = iso => new Date(iso).toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
+const ICON = {
+  sell: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v9M8 12h8"/></svg>',
+  buy: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11a1 1 0 0 1-1 .9H7.2a1 1 0 0 1-1-.9z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>',
+  scan: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"/></svg>',
+  check: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>',
+  x: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  back: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>',
+};
 
-// ---------- passport parsing + verification ----------
+// ================= navigation (works with the phone's back gesture) =================
+let view = 'home';
+const TABS = ['home', 'buy', 'scan', 'sell', 'mine'];
+function show(v, opts) {
+  opts = opts || {};
+  if (view !== v) { const ob = document.getElementById(view + 'Tip'); if (ob && tipShown[view]) { ob.innerHTML = ''; } }
+  view = v;
+  document.querySelectorAll('.view').forEach(s => s.classList.toggle('on', s.id === 'v-' + v));
+  const tab = TABS.includes(v) ? v : v === 'lot' ? 'buy' : v === 'pass' ? (opts.from || 'mine') : null;
+  document.querySelectorAll('.tabs button').forEach(b => b.dataset.go === tab ? b.setAttribute('aria-current', 'page') : b.removeAttribute('aria-current'));
+  if (v === 'scan') startCam(); else stopCam();
+  ({ home: renderHome, buy: renderBuy, sell: renderSell, mine: renderMine })[v] && ({ home: renderHome, buy: renderBuy, sell: renderSell, mine: renderMine })[v]();
+  showTip(v);
+  if (!opts.keepScroll) scrollTo(0, 0);
+}
+const depth = () => (history.state && history.state.d) || 0;
+function go(v, opts) { history.pushState({ v, d: depth() + 1, from: opts && opts.from }, '', location.pathname + (opts && opts.hash ? opts.hash : '')); show(v, opts); }
+let ignorePop = false;
+addEventListener('popstate', e => {
+  if (ignorePop) { ignorePop = false; return; }
+  if ($('#sheet').classList.contains('on')) { closeSheet(true); return; }
+  const st = e.state || {}, v = st.v || (parseFrag(location.hash) ? 'pass' : 'home');
+  if (v === 'pass') { if (!fromHash()) show('home'); return; }
+  show(v, { from: st.from });
+});
+function goHomeRoot() { history.replaceState({ v: 'home', d: 0 }, '', location.pathname); show('home'); if (!store.get('onboarded', 0)) openOnboarding(); }
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-go]'); if (g) { e.preventDefault(); go(g.dataset.go); return; }
+  const b = e.target.closest('[data-back]'); if (b) { e.preventDefault(); if (depth() > 0) history.back(); else goHomeRoot(); return; }
+  const s = e.target.closest('[data-sheet]'); if (s) { e.preventDefault(); openSheet(s.dataset.sheet); }
+});
+
+// ================= first-visit tips =================
+const TIPS = {
+  home: ['Start here', 'Sell old batteries, buy tested cells, or scan a cell’s passport. The ? button explains how it all works.'],
+  buy: ['Every lot is tested cell by cell', 'Filter by what you’re building, then open a lot to see its health range and request a quote.'],
+  sell: ['Four quick steps', 'Tell us what you have and how to hand it over. You only get an offer after every cell is tested.'],
+  scan: ['Point at the QR code', 'Use the code on a Cellvage test result. Your phone checks the rig’s signature by itself.'],
+  mine: ['Everything in one place', 'Passports you saved, batteries you’re selling and cells you’ve asked for.'],
+};
+const tipShown = {};
+function showTip(v) {
+  const box = document.getElementById(v + 'Tip'); if (!box) return;
+  const seen = store.get('tips', {}); if (tipShown[v]) return; if (seen[v] || !TIPS[v]) { box.innerHTML = ''; return; } tipShown[v] = 1;
+  box.innerHTML = `<div class="tip" role="note"><div><b>${TIPS[v][0]}</b>${TIPS[v][1]}</div><button class="iconbtn x" aria-label="Got it">${ICON.x}</button></div>`;
+  seen[v] = 1; store.set('tips', seen);   // shown once: it stays until this screen is left or redrawn
+  box.querySelector('.x').onclick = () => { const s = store.get('tips', {}); s[v] = 1; store.set('tips', s); box.innerHTML = ''; };
+}
+
+// ================= onboarding =================
+const ob = $('#ob'), track = $('#obTrack'), slides = [...track.children];
+let obIdx = 0;
+function obGo(i) { obIdx = Math.max(0, Math.min(slides.length - 1, i)); track.scrollTo({ left: obIdx * track.clientWidth, behavior: matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth' }); obSync(); }
+function obSync() { [...$('#obDots').children].forEach((d, k) => d.classList.toggle('on', k === obIdx)); const last = obIdx === slides.length - 1; $('#obNext').style.visibility = last ? 'hidden' : 'visible'; $('#obSkip').style.visibility = last ? 'hidden' : 'visible'; }
+track.addEventListener('scroll', () => { const i = Math.round(track.scrollLeft / track.clientWidth); if (i !== obIdx) { obIdx = i; obSync(); } }, { passive: true });
+$('#obNext').onclick = () => obGo(obIdx + 1);
+$('#obSkip').onclick = () => obGo(slides.length - 1);
+addEventListener('keydown', e => { if (!ob.classList.contains('on')) return; if (e.key === 'ArrowRight') obGo(obIdx + 1); if (e.key === 'ArrowLeft') obGo(obIdx - 1); });
+document.querySelectorAll('.role').forEach(b => b.onclick = () => { store.set('role', b.dataset.role); store.set('onboarded', 1); ob.classList.remove('on'); show('home'); if (b.dataset.role === 'look') toast('Tap Scan in the middle to check a passport'); });
+function openOnboarding() { ob.classList.add('on'); obIdx = 0; track.scrollLeft = 0; obSync(); }
+
+// ================= sample marketplace data (clearly labelled in the UI) =================
+const LOTS = [
+  { id: 'L-A1', g: 'A', fam: 'NMC-2500HD', n: 24, lo: 86, hi: 94, src: 'ex e-bike pack', uses: ['ebike', 'storage'] },
+  { id: 'L-A2', g: 'A', fam: 'NMC-2600', n: 40, lo: 85, hi: 92, src: 'ex laptop packs', uses: ['ebike', 'storage'] },
+  { id: 'L-B1', g: 'B', fam: 'NMC-2600', n: 36, lo: 72, hi: 84, src: 'ex laptop packs', uses: ['storage', 'light'] },
+  { id: 'L-B2', g: 'B', fam: 'NMC-2500HD', n: 18, lo: 70, hi: 81, src: 'ex power tools', uses: ['storage', 'light'] },
+  { id: 'L-C1', g: 'C', fam: 'NMC-2600', n: 30, lo: 60, hi: 69, src: 'ex laptop packs', uses: ['light'] },
+];
+const USES = { all: 'All', ebike: 'E-bike & tools', storage: 'Solar & UPS', light: 'Lights & low-drain' };
+const USE_HINT = { ebike: 'needs high, steady current', storage: 'slow, deep cycling', light: 'low current, forgiving' };
+
+// ================= HOME =================
+function renderHome() {
+  const role = store.get('role', 'look');
+  const H = {
+    sell: ['For sellers', 'Turn old batteries into a payout', 'Every cell gets tested and graded. You get an offer for what you bring, and the rest is recycled properly.', 'Sell my batteries', 'sell'],
+    buy: ['For builders', 'Second-life cells you can trust', 'Each cell is pulse-tested and comes with a passport you can scan before you buy.', 'Browse tested cells', 'buy'],
+    look: ['Battery passports', 'Scan a cell. See if its grade is genuine.', 'Every cell tested on a Cellvage rig gets a signed passport. Your phone checks the signature itself.', 'Scan a passport', 'scan'],
+  }[role] || [];
+  $('#hero').innerHTML = `<svg class="deco" width="180" height="180" viewBox="0 0 64 64" aria-hidden="true"><path d="M47.6 26.5A17 17 0 1 1 41 17.4" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M36.5 10.5L44.2 17.1L37.3 24.4" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="label">${H[0]}</div><h2>${H[1]}</h2><p>${H[2]}</p><button class="btn" data-go="${H[4]}">${H[3]}</button>`;
+  const A = [['sell', 'Sell', 'Old batteries', '#2E9E5B'], ['buy', 'Buy', 'Tested cells', '#2148C0'], ['scan', 'Scan', 'Check a passport', '#3A4656']];
+  $('#acts').innerHTML = A.filter(a => a[0] !== H[4]).concat(A.filter(a => a[0] === H[4])).slice(0, 3)
+    .map(a => `<button class="act" data-go="${a[0]}"><span class="ic" style="background:${a[3]}">${ICON[a[0]]}</span><span><b>${a[1]}</b><br><small>${a[2]}</small></span></button>`).join('');
+  const items = activity().slice(0, 3);
+  $('#homeList').innerHTML = items.length ? items.map(x => x.html).join('') : `<div class="empty">Nothing yet. ${role === 'sell' ? 'Start a sale' : role === 'buy' ? 'Open a lot and request a quote' : 'Scan a passport'} and it shows up here.</div>`;
+  bindItems($('#homeList'));
+}
+function activity() {
+  const out = [];
+  for (const p of store.get('passports', [])) out.push({ t: p.saved, html: passItem(p) });
+  for (const s of store.get('sales', [])) out.push({ t: s.ts, html: saleItem(s) });
+  for (const q of store.get('quotes', [])) out.push({ t: q.ts, html: quoteItem(q) });
+  return out.sort((a, b) => a.t < b.t ? 1 : -1);
+}
+
+// ================= BUY =================
+let useFilter = 'all';
+function renderBuy() {
+  $('#useChips').innerHTML = Object.entries(USES).map(([k, v]) => `<button class="chip" data-use="${k}" aria-pressed="${k === useFilter}">${v}</button>`).join('');
+  $('#useChips').querySelectorAll('[data-use]').forEach(b => b.onclick = () => { useFilter = b.dataset.use; renderBuy(); });
+  const lots = LOTS.filter(l => useFilter === 'all' || l.uses.includes(useFilter));
+  $('#lots').innerHTML = lots.map(l => { const G = GRADE[l.g];
+    return `<button class="lot" data-lot="${l.id}"><div class="r1"><span class="gchip" style="background:${G[0]}">${G[1]}</span><span class="price">Price on request</span></div>
+      <h3>${l.n} × ${esc(FAM[l.fam])}</h3><div class="meta">Health ${l.lo}–${l.hi}% · ${esc(l.src)}</div>
+      <div class="ver">${ICON.check}${l.n} of ${l.n} cells passported</div>
+      <div class="uses">${l.uses.map(u => `<span>${USES[u]}</span>`).join('')}</div></button>`; }).join('');
+  $('#lots').querySelectorAll('[data-lot]').forEach(b => b.onclick = () => openLot(b.dataset.lot));
+}
+let curLot = null;
+function openLot(id) {
+  const l = LOTS.find(x => x.id === id); curLot = l; const G = GRADE[l.g];
+  $('#lot').innerHTML = `<div class="top"><button class="iconbtn back" data-back aria-label="Back">${ICON.back}</button><h1>${G[1]} lot</h1><span class="demo">Sample</span></div>
+  <div class="card"><div class="label">${l.n} cells · ${esc(l.src)}</div><h3 style="margin:6px 0 2px;font-size:1.25rem">${esc(FAM[l.fam])}</h3>
+    <p class="muted small" style="margin:0">${G[2]}</p>
+    <div class="rbar" style="margin-top:18px"><i style="left:${l.lo}%;width:${l.hi - l.lo}%"></i></div>
+    <div class="scale"><span style="left:0">0</span><span style="left:60%">60</span><span style="left:70%">70</span><span style="left:85%">85</span><span style="left:100%">100%</span></div>
+    <p class="small" style="margin:12px 0 0">Every cell in this lot measured between <b>${l.lo}% and ${l.hi}%</b> health.</p></div>
+  <h4>Good for</h4>
+  <div class="list">${l.uses.map(u => `<div class="card" style="padding:12px 14px"><b>${USES[u]}</b> <span class="muted small">· ${USE_HINT[u]}</span></div>`).join('')}</div>
+  <h4>What you get</h4>
+  <div class="card"><ul class="trail">
+    <li><span class="d"><i></i><b></b></span><span class="x"><b>A passport for every cell</b><small>Scan any cell when it arrives to check its test result</small></span></li>
+    <li><span class="d"><i></i><b></b></span><span class="x"><b>Matched cells</b><small>Ask for a pack and we group similar cells so it isn’t held back by one weak cell</small></span></li>
+    <li><span class="d"><i></i></span><span class="x"><b>Graded, not guessed</b><small>Borderline cells get a full capacity test before they’re listed</small></span></li>
+  </ul></div>
+  <div class="foot"><button class="btn primary" data-sheet="quote">Request a quote</button></div>`;
+  go('lot');
+}
+
+// ================= SELL (4 steps) =================
+const SELL_KIND = [['ebike', 'E-bike or scooter pack', 'Usually 40–60 cells'], ['laptop', 'Laptop battery', 'Usually 6–9 cells'], ['loose', 'Loose 18650 cells', 'Count them roughly'], ['tool', 'Power-tool or power bank', 'Usually 5–20 cells']];
+const SELL_HAND = [['bench', 'Drop it at a Cellvage bench', 'Tested while you wait'], ['pickup', 'Book a pickup', 'We collect it and send you the results']];
+let sell = { step: 0, kind: null, count: 10, hand: null };
+const DEF_COUNT = { ebike: 52, laptop: 6, loose: 10, tool: 10 };
+function renderSell() {
+  const s = sell, st = ['What', 'Hand over', 'What next', 'Confirm'];
+  if (s.step === 4) return renderSellDone();
+  let body = '';
+  if (s.step === 0) body = `<p class="q">What are you selling?</p><div class="opts" role="radiogroup">${SELL_KIND.map(k => `<button class="opt" role="radio" data-k="${k[0]}" aria-checked="${s.kind === k[0]}"><span class="rd"></span><span><b>${k[1]}</b><small>${k[2]}</small></span></button>`).join('')}</div>
+    <div class="stepper" ${s.kind ? '' : 'hidden'}><span><b>About how many cells?</b><br><small class="muted">A guess is fine</small></span><span style="display:flex;align-items:center;gap:8px"><button aria-label="Fewer" data-n="-1">−</button><span class="v" id="cnt">${s.count}</span><button aria-label="More" data-n="1">+</button></span></div>`;
+  if (s.step === 1) body = `<p class="q">How do you want to hand it over?</p><div class="opts" role="radiogroup">${SELL_HAND.map(k => `<button class="opt" role="radio" data-h="${k[0]}" aria-checked="${s.hand === k[0]}"><span class="rd"></span><span><b>${k[1]}</b><small>${k[2]}</small></span></button>`).join('')}</div>`;
+  if (s.step === 2) body = `<p class="q">Here’s what happens next</p><div class="card"><ul class="trail">
+    <li><span class="d"><i class="now"></i><b></b></span><span class="x"><b>${s.hand === 'pickup' ? 'We pick it up' : 'You drop it at the bench'}</b><small>We open the pack safely and take the cells out</small></span></li>
+    <li><span class="d"><i class="o"></i><b></b></span><span class="x"><b>Every cell gets a 10-second test</b><small>About ${Math.max(1, Math.round(s.count * 14 / 60))} min for ${s.count} cells</small></span></li>
+    <li><span class="d"><i class="o"></i><b></b></span><span class="x"><b>Each cell gets a passport and a grade</b><small>A, B or C go back into use. The rest is recycled properly.</small></span></li>
+    <li><span class="d"><i class="o"></i><b></b></span><span class="x"><b>You get an offer, then you decide</b><small>Accept and get paid to your UPI, or take your cells back</small></span></li></ul></div>
+    <p class="note">No prices up front: the offer depends on how healthy your cells turn out to be.</p>`;
+  if (s.step === 3) { const k = SELL_KIND.find(x => x[0] === s.kind), h = SELL_HAND.find(x => x[0] === s.hand);
+    body = `<p class="q">Check and send</p><div class="card"><dl><dt>Selling</dt><dd style="font-family:var(--f)">${k[1]}</dd><dt>About</dt><dd style="font-family:var(--f)">${s.count} cells</dd><dt>Hand-over</dt><dd style="font-family:var(--f)">${h[1].replace('Drop it at a Cellvage bench', 'Cellvage bench').replace('Book a pickup', 'Pickup')}</dd><dt>Offer</dt><dd style="font-family:var(--f)">After testing</dd></dl></div>
+    <p class="note"><span class="demo">Demo</span> This sends nothing. It shows how a request is tracked.</p>`; }
+  const ok = s.step === 0 ? !!s.kind : s.step === 1 ? !!s.hand : true;
+  $('#sell').innerHTML = `<div class="top">${s.step ? `<button class="iconbtn back" id="sellBack" aria-label="Back">${ICON.back}</button>` : ''}<h1>Sell batteries</h1></div><div id="sellTip"></div>
+    <div class="steps" aria-label="Step ${s.step + 1} of 4">${st.map((t, i) => `<div class="${i <= s.step ? 'on' : ''}"><i></i><span>${t}</span></div>`).join('')}</div>${body}
+    <div class="foot"><button class="btn primary" id="sellNext" ${ok ? '' : 'disabled'}>${s.step === 3 ? 'Send request' : 'Continue'}</button></div>`;
+  showTip('sell');
+  $('#sell').querySelectorAll('[data-k]').forEach(b => b.onclick = () => { s.kind = b.dataset.k; s.count = DEF_COUNT[s.kind]; renderSell(); });
+  $('#sell').querySelectorAll('[data-h]').forEach(b => b.onclick = () => { s.hand = b.dataset.h; renderSell(); });
+  $('#sell').querySelectorAll('[data-n]').forEach(b => b.onclick = () => { s.count = Math.max(1, Math.min(500, s.count + (+b.dataset.n) * (s.count >= 20 ? 5 : 1))); $('#cnt').textContent = s.count; });
+  const bk = $('#sellBack'); if (bk) bk.onclick = () => { s.step--; renderSell(); scrollTo(0, 0); };
+  $('#sellNext').onclick = () => { if (s.step === 3) { const sales = store.get('sales', []); const ref = 'S-' + String(Date.now()).slice(-5); sales.push({ ref, kind: s.kind, count: s.count, hand: s.hand, ts: new Date().toISOString() }); store.set('sales', sales); s.ref = ref; } s.step++; renderSell(); scrollTo(0, 0); };
+}
+function renderSellDone() {
+  const k = SELL_KIND.find(x => x[0] === sell.kind);
+  $('#sell').innerHTML = `<div class="done"><div class="tick"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></div>
+    <h2>Request sent</h2><p class="muted">${esc(k[1])}, about ${sell.count} cells · ref ${sell.ref}</p><span class="demo">Demo request</span></div>
+    <div class="card" style="margin-top:16px"><ul class="trail">
+      <li><span class="d"><i></i><b></b></span><span class="x"><b>Request sent</b><small>Just now</small></span></li>
+      <li><span class="d"><i class="now"></i><b></b></span><span class="x"><b>${sell.hand === 'pickup' ? 'Pickup' : 'Bench drop-off'}</b><small>Next step</small></span></li>
+      <li><span class="d"><i class="o"></i><b></b></span><span class="x"><b>Testing and passports</b><small>Each cell, 10 seconds</small></span></li>
+      <li><span class="d"><i class="o"></i></span><span class="x"><b>Your offer</b><small>Based on the grades</small></span></li></ul></div>
+    <div class="actions"><button class="btn primary" id="seeSale">Track it in My batteries</button><button class="btn ghost" id="sellAgain">Sell something else</button></div>`;
+  $('#seeSale').onclick = () => { mineSeg = 'sold'; sell = { step: 0, kind: null, count: 10, hand: null }; go('mine'); };
+  $('#sellAgain').onclick = () => { sell = { step: 0, kind: null, count: 10, hand: null }; renderSell(); };
+}
+
+// ================= MY BATTERIES =================
+let mineSeg = 'pass';
+function passItem(p) { const b = p.body, G = GRADE[b.g] || GRADE.R, ok = (() => { const P = parseFrag(p.frag); return P && verify(P).ok; })();
+  return `<button class="item" data-open="${esc(p.frag)}"><span class="gbox" style="background:${G[0]}">${b.g === 'R' ? '♻' : b.g}</span><span style="min-width:0"><span class="t">${esc(b.c)}${ok ? '' : ' <span style="color:var(--bad)">· altered</span>'}</span><span class="s">Passport ${esc(b.id)} · ${day(p.saved)}</span></span><span class="p">${Math.round(b.h)}%<small>health</small></span></button>`; }
+function saleItem(s) { const k = SELL_KIND.find(x => x[0] === s.kind) || ['', 'Batteries'];
+  return `<button class="item" data-sale="${s.ref}"><span class="gbox" style="background:#2E9E5B">${ICON.sell}</span><span style="min-width:0"><span class="t">${esc(k[1])}</span><span class="s">${s.count} cells · ${s.ref} · ${day(s.ts)}</span></span><span class="p" style="font:600 .8rem var(--f);color:var(--blue)">Awaiting<br>${s.hand === 'pickup' ? 'pickup' : 'drop-off'}</span></button>`; }
+function quoteItem(q) { const l = LOTS.find(x => x.id === q.lot) || LOTS[0], G = GRADE[l.g];
+  return `<button class="item" data-quote="${q.ref}"><span class="gbox" style="background:#2148C0">${ICON.buy}</span><span style="min-width:0"><span class="t">${q.qty} × ${G[1]} cells${q.pack ? ' as a pack' : ''}</span><span class="s">Quote ${q.ref} · ${day(q.ts)}</span></span><span class="p" style="font:600 .8rem var(--f);color:var(--blue)">Quote<br>requested</span></button>`; }
+function renderMine() {
+  document.querySelectorAll('#mineSeg button').forEach(b => { b.setAttribute('aria-selected', String(b.dataset.seg === mineSeg)); b.onclick = () => { mineSeg = b.dataset.seg; renderMine(); }; });
+  const P = store.get('passports', []).slice().reverse(), S = store.get('sales', []).slice().reverse(), Q = store.get('quotes', []).slice().reverse();
+  const E = { pass: 'Scan a passport and tap <b>Save</b> to keep it here.', sold: 'Batteries you sell show up here with their progress.', buy: 'Quotes you request show up here.' };
+  const rows = mineSeg === 'pass' ? P.map(passItem) : mineSeg === 'sold' ? S.map(saleItem) : Q.map(quoteItem);
+  $('#mineList').innerHTML = rows.length ? rows.join('') : `<div class="empty">${E[mineSeg]}</div>`;
+  bindItems($('#mineList'));
+}
+function bindItems(root) {
+  root.querySelectorAll('[data-open]').forEach(b => b.onclick = () => openPassport(b.dataset.open, view));
+  root.querySelectorAll('[data-sale]').forEach(b => b.onclick = () => openSheet('sale', b.dataset.sale));
+  root.querySelectorAll('[data-quote]').forEach(b => b.onclick = () => openSheet('quoteView', b.dataset.quote));
+}
+
+// ================= sheets =================
+function openSheet(kind, arg) {
+  const B = $('#sheetBody'); let h = '';
+  if (kind === 'how') h = `<h2 id="sheetTitle" style="font:800 1.4rem var(--fd);margin:4px 0 6px">How Cellvage works</h2><p class="muted" style="margin:0 0 14px">One test, one passport, three kinds of customer.</p>
+    <div class="list">
+      <div class="card"><div class="label" style="color:var(--ok)">Sellers</div><b style="display:block;margin:4px 0">Get paid for old batteries</b><span class="muted small">Bring a pack or book a pickup. Every cell is tested, and the offer is based on how healthy the cells are.</span></div>
+      <div class="card"><div class="label" style="color:var(--blue)">Buyers</div><b style="display:block;margin:4px 0">Buy tested second-life cells</b><span class="muted small">Builders of e-bike, solar and UPS packs get graded cells with a passport each, or matched packs.</span></div>
+      <div class="card"><div class="label" style="color:var(--gR)">Recyclers</div><b style="display:block;margin:4px 0">Get the cells that can’t be reused</b><span class="muted small">Cells too worn to reuse go to recyclers already sorted, each still carrying its passport.</span></div>
+      <div class="card" style="background:var(--surface-2)"><div class="label">Cellvage</div><b style="display:block;margin:4px 0">Earns on the difference</b><span class="muted small">Cellvage buys retired batteries, tests and grades every cell, and sells the graded cells. The test and passport are what make a used cell worth buying.</span></div>
+    </div><div class="actions"><button class="btn" id="replayTour">Replay the intro</button><button class="btn ghost" data-close>Close</button></div>`;
+  if (kind === 'quote') { const l = curLot, G = GRADE[l.g];
+    h = `<h2 id="sheetTitle" style="font:800 1.35rem var(--fd);margin:4px 0 4px">Request a quote</h2><p class="muted small" style="margin:0 0 14px">${G[1]} · ${esc(FAM[l.fam])} · ${l.n} available</p>
+    <div class="stepper" style="margin-top:0"><span><b>How many cells?</b></span><span style="display:flex;align-items:center;gap:8px"><button aria-label="Fewer" data-q="-1">−</button><span class="v" id="qty">${Math.min(10, l.n)}</span><button aria-label="More" data-q="1">+</button></span></div>
+    <p class="q" style="font-size:1rem;margin:18px 0 10px">How do you want them?</p>
+    <div class="opts" role="radiogroup"><button class="opt" role="radio" data-p="0" aria-checked="true"><span class="rd"></span><span><b>Loose cells</b><small>Each with its own passport</small></span></button><button class="opt" role="radio" data-p="1" aria-checked="false"><span class="rd"></span><span><b>A matched pack</b><small>Similar cells grouped so the pack lasts longer</small></span></button></div>
+    <p class="note"><span class="demo">Demo</span> No order is placed. The price comes back as a quote.</p>
+    <div class="actions"><button class="btn primary" id="sendQuote">Send request</button></div>`; }
+  if (kind === 'sale') { const s = store.get('sales', []).find(x => x.ref === arg), k = SELL_KIND.find(x => x[0] === s.kind);
+    h = `<h2 id="sheetTitle" style="font:800 1.35rem var(--fd);margin:4px 0 4px">${esc(k[1])}</h2><p class="muted small" style="margin:0 0 14px">About ${s.count} cells · ref ${s.ref} · <span class="demo">Demo</span></p>
+    <div class="card"><ul class="trail"><li><span class="d"><i></i><b></b></span><span class="x"><b>Request sent</b><small>${when(s.ts)}</small></span></li>
+    <li><span class="d"><i class="now"></i><b></b></span><span class="x"><b>${s.hand === 'pickup' ? 'Pickup' : 'Bench drop-off'}</b><small>Next step</small></span></li>
+    <li><span class="d"><i class="o"></i><b></b></span><span class="x"><b>Testing and passports</b><small>Each cell, 10 seconds</small></span></li>
+    <li><span class="d"><i class="o"></i></span><span class="x"><b>Your offer</b><small>Accept to get paid, or take your cells back</small></span></li></ul></div>
+    <div class="actions"><button class="btn danger" id="cancelSale" style="color:var(--bad)">Cancel this request</button><button class="btn ghost" data-close>Close</button></div>`; }
+  if (kind === 'quoteView') { const q = store.get('quotes', []).find(x => x.ref === arg), l = LOTS.find(x => x.id === q.lot), G = GRADE[l.g];
+    h = `<h2 id="sheetTitle" style="font:800 1.35rem var(--fd);margin:4px 0 4px">Quote ${q.ref}</h2><p class="muted small" style="margin:0 0 14px">${q.qty} × ${G[1]} ${esc(FAM[l.fam])}${q.pack ? ', as a matched pack' : ''} · <span class="demo">Demo</span></p>
+    <div class="card"><ul class="trail"><li><span class="d"><i></i><b></b></span><span class="x"><b>Quote requested</b><small>${when(q.ts)}</small></span></li>
+    <li><span class="d"><i class="now"></i><b></b></span><span class="x"><b>Cells reserved for you</b><small>Next step</small></span></li>
+    <li><span class="d"><i class="o"></i></span><span class="x"><b>Quote, then delivery with passports</b><small>Scan each cell when it arrives</small></span></li></ul></div>
+    <div class="actions"><button class="btn" id="cancelQuote" style="color:var(--bad)">Cancel this quote</button><button class="btn ghost" data-close>Close</button></div>`; }
+  B.innerHTML = h; $('#sheet').classList.add('on'); history.pushState(Object.assign({}, history.state, { sheet: 1, d: depth() + 1 }), '', location.href);
+  B.querySelectorAll('[data-close]').forEach(b => b.onclick = () => closeSheet());
+  const rt = $('#replayTour'); if (rt) rt.onclick = () => { closeSheet(); openOnboarding(); };
+  if (kind === 'quote') { let qty = Math.min(10, curLot.n), pack = 0;
+    B.querySelectorAll('[data-q]').forEach(b => b.onclick = () => { qty = Math.max(1, Math.min(curLot.n, qty + (+b.dataset.q))); $('#qty').textContent = qty; });
+    B.querySelectorAll('[data-p]').forEach(b => b.onclick = () => { pack = +b.dataset.p; B.querySelectorAll('[data-p]').forEach(x => x.setAttribute('aria-checked', String(x === b))); });
+    $('#sendQuote').onclick = () => { const qs = store.get('quotes', []); const ref = 'Q-' + String(Date.now()).slice(-5); qs.push({ ref, lot: curLot.id, qty, pack, ts: new Date().toISOString() }); store.set('quotes', qs); closeSheet(); toast('Quote requested · find it in My batteries'); }; }
+  const cs = $('#cancelSale'); if (cs) cs.onclick = () => { store.set('sales', store.get('sales', []).filter(x => x.ref !== arg)); closeSheet(); show(view); toast('Request cancelled'); };
+  const cq = $('#cancelQuote'); if (cq) cq.onclick = () => { store.set('quotes', store.get('quotes', []).filter(x => x.ref !== arg)); closeSheet(); show(view); toast('Quote cancelled'); };
+  setTimeout(() => { const f = B.querySelector('button,input'); if (f) f.focus({ preventScroll: true }); }, 50);
+}
+function closeSheet(fromPop) { const s = $('#sheet'); if (!s.classList.contains('on')) return; s.classList.remove('on'); if (!fromPop && history.state && history.state.sheet) { ignorePop = true; history.back(); } }
+$('#sheet .bd').onclick = () => closeSheet();
+addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
+$('#helpBtn').onclick = () => openSheet('how');
+
+// ================= passports =================
 function parseFrag(s) {
-  const m = String(s).match(/v1\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/); if (!m) return null;
+  const m = String(s || '').match(/v1\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/); if (!m) return null;
   const [, a, b, c] = m[0].split('.');
   try { const msg = b64u(a); return { frag: m[0], msg, sig: b64u(b), pub: b64u(c), body: JSON.parse(dec.decode(msg)) }; } catch (e) { return null; }
 }
-function verify(P, bodyOverride) {
-  const msg = bodyOverride ? enc.encode(JSON.stringify(bodyOverride)) : P.msg;
-  return { ok: PPCrypto.verify(P.sig, msg, P.pub), hash: PPCrypto.sha256hex(msg), kfp: PPCrypto.sha256hex(P.pub).slice(0, 16) };
-}
-
-// ---------- navigation ----------
-let view = 'home', prevView = 'home';
-function go(v) {
-  if (v !== 'pass') prevView = v;
-  view = v; document.querySelectorAll('.view').forEach(s => s.classList.toggle('on', s.id === 'v-' + v));
-  document.querySelectorAll('.tabs button').forEach(b => b.dataset.go === v ? b.setAttribute('aria-current', 'page') : b.removeAttribute('aria-current'));
-  if (v === 'scan') startCam(); else stopCam();
-  if (v === 'home') renderHome(); if (v === 'mine') renderMine();
-  scrollTo(0, 0);
-}
-document.addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (b) { e.preventDefault(); if (location.hash) history.replaceState(null, '', location.pathname); go(b.dataset.go); } });
-$('#passBack').onclick = () => { if (location.hash) history.replaceState(null, '', location.pathname); go(prevView === 'pass' ? 'home' : prevView); };
-
-// ---------- lists ----------
-function itemHTML(p) {
-  const b = p.body, G = GRADE[b.g] || GRADE.R, v = verify(parseFrag(p.frag));
-  return `<button class="item" data-open="${esc(p.frag)}"><span class="gbox" style="background:${G[0]}">${b.g}</span>
-    <span style="min-width:0"><span class="t" style="display:block">${esc(b.c)} ${v.ok ? '' : '<span style="color:var(--bad)">· altered</span>'}</span><span class="s">${esc(b.id)} · ${new Date(p.saved).toLocaleDateString(undefined, { day: 'numeric', month: 'short' })}</span></span>
-    <span class="p">${Math.round(b.h)}%</span></button>`;
-}
-function bindOpen(root) { root.querySelectorAll('[data-open]').forEach(b => b.onclick = () => openPassport(b.dataset.open, 'list')); }
-function renderHome() {
-  const a = mineGet().slice().reverse();
-  const reuse = a.filter(p => p.body.g !== 'R').length, avg = a.length ? Math.round(a.reduce((s, p) => s + p.body.h, 0) / a.length) : 0;
-  $('#stats').innerHTML = `<div><b>${a.length}</b>passports</div><div><b>${a.length ? avg + '%' : '—'}</b>average health</div><div><b>${reuse}</b>reusable</div>`;
-  $('#recent').innerHTML = a.length ? a.slice(0, 3).map(itemHTML).join('') : '<div class="empty">No passports yet. Tap <b>Scan</b> and point the camera at a Cellvage QR code.</div>';
-  bindOpen($('#recent'));
-}
-function renderMine() {
-  const a = mineGet().slice().reverse();
-  $('#mine').innerHTML = a.length ? a.map(itemHTML).join('') : '<div class="empty">Passports you scan and save appear here.</div>';
-  bindOpen($('#mine'));
-}
-
-// ---------- passport view ----------
-let cur = null, tampered = false;
+function verify(P, bodyOverride) { const msg = bodyOverride ? enc.encode(JSON.stringify(bodyOverride)) : P.msg; return { ok: PPCrypto.verify(P.sig, msg, P.pub), hash: PPCrypto.sha256hex(msg), kfp: PPCrypto.sha256hex(P.pub).slice(0, 16) }; }
+let cur = null, tampered = false, passFrom = 'scan';
 function openPassport(frag, from) {
   const P = parseFrag(frag); if (!P) { toast('That is not a Cellvage passport'); return false; }
-  cur = P; tampered = false;
-  const mine = mineGet(), i = mine.findIndex(p => p.frag === P.frag);
-  if (i < 0 && from === 'scan') { /* show first, save on demand */ }
-  renderPassport(); go('pass'); return true;
+  cur = P; tampered = false; passFrom = from || 'scan'; renderPassport(); go('pass', { from: passFrom, hash: '#' + P.frag }); return true;
 }
 function renderPassport() {
-  const P = cur, base = P.body;
-  const body = tampered ? Object.assign({}, base, { h: Math.min(99, Math.round(base.h + 17)), g: 'A' }) : base;
-  const v = verify(P, tampered ? body : null), G = GRADE[body.g] || GRADE.R;
-  const saved = mineGet().some(p => p.frag === P.frag);
+  const P = cur, base = P.body, body = tampered ? Object.assign({}, base, { h: Math.min(99, Math.round(base.h + 17)), g: 'A' }) : base;
+  const v = verify(P, tampered ? body : null), G = GRADE[body.g] || GRADE.R, saved = store.get('passports', []).some(p => p.frag === P.frag);
   const pos = Math.max(0, Math.min(100, body.h)), lo = Math.max(0, Math.min(100, body.lo)), hi = Math.max(0, Math.min(100, body.hi));
   $('#pass').innerHTML = `
   <div class="status ${v.ok ? 'ok' : 'bad'}"><div class="ic">${v.ok ? '✓' : '✕'}</div><div><b>${v.ok ? 'Genuine passport' : 'This passport was altered'}</b><span>${v.ok ? `Signed by rig ${esc(body.rg)} · key ${v.kfp.slice(0, 8)}` : 'Its contents no longer match the rig’s signature.'}</span></div></div>
-  <div class="pcard">
-    <div class="row1"><div><div class="pid">${esc(body.id)}</div><div class="cell">${esc(body.c)} · ${esc(FAM[body.f] || body.f)}</div></div><div class="g" style="background:${G[0]}">${body.g === 'R' ? '♻' : body.g}</div></div>
+  <div class="pcard"><div class="row1"><div><div class="pid">${esc(body.id)}</div><div class="cell">${esc(body.c)} · ${esc(FAM[body.f] || body.f)}</div></div><div class="g" style="background:${G[0]}">${body.g === 'R' ? '♻' : body.g}</div></div>
     <div class="big"><b>${Math.round(body.h)}%</b><span>health · range ${Math.round(body.lo)}–${Math.round(body.hi)}%</span></div>
     <div class="bar"><i style="left:${lo}%;width:${Math.max(1, hi - lo)}%"></i><b style="left:${pos}%"></b></div>
     <div class="scale"><span style="left:0">0</span><span style="left:60%">60</span><span style="left:70%">70</span><span style="left:85%">85</span><span style="left:100%">100</span></div>
-    <div class="verdict"><b>${G[1]}.</b> ${G[2]}${body.b === 'ref' ? '<span class="tag ok">vs new cell</span>' : '<span class="tag">indicative</span>'}</div>
-  </div>
+    <div class="verdict"><b>${G[1]}.</b> ${G[2]}${body.b === 'ref' ? '<span class="tag ok">vs new cell</span>' : '<span class="tag">indicative</span>'}</div></div>
+  <div class="actions">${saved ? '' : '<button class="btn primary" id="save">Save to My batteries</button>'}</div>
   <h4>Test record</h4>
-  <div class="card"><dl>
-    <dt>Tested on</dt><dd>${esc(body.rg)} · ${new Date(body.t).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}</dd>
-    <dt>Rest voltage</dt><dd>${(+body.v0).toFixed(3)} V</dd>
-    <dt>Pulse current</dt><dd>${Math.round(body.i * 1000)} mA</dd>
-    <dt>Internal resistance</dt><dd>${(+body.r0).toFixed(1)} mΩ</dd>
-    <dt>Resistance after 5 s</dt><dd>${(+body.r5).toFixed(1)} mΩ</dd>
-    <dt>Samples</dt><dd>${body.n} at 50 Hz</dd>
-    <dt>Rig program</dt><dd>${esc(body.fw)}</dd>
-  </dl></div>
+  <div class="card"><dl><dt>Tested on</dt><dd>${esc(body.rg)} · ${new Date(body.t).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}</dd>
+    <dt>Rest voltage</dt><dd>${(+body.v0).toFixed(3)} V</dd><dt>Pulse current</dt><dd>${Math.round(body.i * 1000)} mA</dd>
+    <dt>Internal resistance</dt><dd>${(+body.r0).toFixed(1)} mΩ</dd><dt>Resistance after 5 s</dt><dd>${(+body.r5).toFixed(1)} mΩ</dd>
+    <dt>Samples</dt><dd>${body.n} at 50 Hz</dd><dt>Rig program</dt><dd>${esc(body.fw)}</dd></dl></div>
   <h4>History</h4>
   <div class="card"><ul class="trail">
     <li><span class="d"><i></i><b></b></span><span class="x"><b>Pulse-tested and graded ${esc(body.g === 'R' ? 'Recycle' : body.g)}</b><small>${when(body.t)} · rig ${esc(body.rg)}</small></span></li>
     <li><span class="d"><i></i><b></b></span><span class="x"><b>Passport issued and signed</b><small>${when(body.is)}</small></span></li>
-    <li><span class="d"><i class="${saved ? '' : 'o'}"></i></span><span class="x"><b>${saved ? 'Saved to My batteries' : 'Not saved yet'}</b><small>${saved ? 'on this phone' : 'Save it to keep it with your batteries'}</small></span></li>
-  </ul></div>
+    <li><span class="d"><i class="${saved ? '' : 'o'}"></i></span><span class="x"><b>${saved ? 'Saved to My batteries' : 'Not saved yet'}</b><small>${saved ? 'on this phone' : 'Save it to keep it with your batteries'}</small></span></li></ul></div>
   <h4>Proof</h4>
-  <div class="card"><dl>
-    <dt>Passport hash</dt><dd class="hash">${v.hash}</dd>
-    <dt>Previous passport</dt><dd class="hash">${esc(body.pv)}</dd>
-    <dt>Test data hash</dt><dd class="hash">${esc(body.dh)}</dd>
-    <dt>Rig key</dt><dd class="hash">${v.kfp}</dd>
-  </dl>
+  <div class="card"><dl><dt>Passport hash</dt><dd class="hash">${v.hash}</dd><dt>Previous passport</dt><dd class="hash">${esc(body.pv)}</dd><dt>Test data hash</dt><dd class="hash">${esc(body.dh)}</dd><dt>Rig key</dt><dd class="hash">${v.kfp}</dd></dl>
   <p class="note">The signature proves this passport came from that rig and has not been edited since. The test data hash links it to the rig’s saved measurement log.${body.b === 'ref' ? '' : ' Health is an indicative model estimate; the voltages, currents and resistances are measured.'}</p></div>
-  <div class="actions">
-    ${saved ? '<button class="btn" id="unsave">Remove from My batteries</button>' : '<button class="btn primary" id="save">Save to My batteries</button>'}
-    <button class="btn" id="tamper">${tampered ? 'Undo the edit' : 'Try changing the health to ' + Math.min(99, Math.round(base.h + 17)) + '%'}</button>
+  <div class="actions"><button class="btn" id="tamper">${tampered ? 'Undo the edit' : 'Try changing the health to ' + Math.min(99, Math.round(base.h + 17)) + '%'}</button>
     <p class="note" style="text-align:center;margin-top:0">${tampered ? 'This is what a buyer sees if someone edits a passport.' : 'Shows what happens if someone edits a passport.'}</p>
-  </div>`;
+    ${saved ? '<button class="btn ghost" id="unsave" style="color:var(--bad)">Remove from My batteries</button>' : ''}</div>`;
   const sv = $('#save'), us = $('#unsave');
-  if (sv) sv.onclick = () => { if (tampered) { toast('Undo the edit first'); return; } const a = mineGet(); if (!a.some(p => p.frag === P.frag)) a.push({ frag: P.frag, body: P.body, saved: new Date().toISOString() }); mineSet(a); toast('Saved to My batteries'); renderPassport(); };
-  if (us) us.onclick = () => { mineSet(mineGet().filter(p => p.frag !== P.frag)); toast('Removed'); renderPassport(); };
+  if (sv) sv.onclick = () => { if (tampered) { toast('Undo the edit first'); return; } const a = store.get('passports', []); if (!a.some(p => p.frag === P.frag)) a.push({ frag: P.frag, body: P.body, saved: new Date().toISOString() }); store.set('passports', a); toast('Saved to My batteries'); renderPassport(); };
+  if (us) us.onclick = () => { store.set('passports', store.get('passports', []).filter(p => p.frag !== P.frag)); toast('Removed'); renderPassport(); };
   $('#tamper').onclick = () => { tampered = !tampered; renderPassport(); scrollTo({ top: 0, behavior: 'smooth' }); };
 }
 
-// ---------- camera scanning ----------
-let stream = null, raf = 0, detector = null, busy = false;
+// ================= camera scanning =================
+let stream = null, raf = 0, detector = null, busy = false, lastScan = { frag: '', t: 0 };
 const cv = document.createElement('canvas'), cx = cv.getContext('2d', { willReadFrequently: true });
 async function startCam() {
   const box = $('#cam');
-  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { box.className = 'cam idle'; box.innerHTML = '<div>This browser cannot open the camera here. Use the phone’s camera app on the QR code, or paste the link below.</div>'; return; }
-  try {
-    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 960 } }, audio: false });
-  } catch (e) { box.className = 'cam idle'; box.innerHTML = '<div>Camera permission was not given. Allow the camera for this site, or paste the passport link below.</div>'; return; }
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { box.className = 'cam idle'; box.innerHTML = '<div>This browser can’t open the camera here. Use the phone’s camera app on the QR code, or paste the link below.</div>'; return; }
+  try { stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 960 } }, audio: false }); }
+  catch (e) { box.className = 'cam idle'; box.innerHTML = '<div>Camera permission wasn’t given. Allow the camera for this site, or paste the passport link below.</div>'; return; }
   if (view !== 'scan') { stopCam(); return; }
   box.className = 'cam'; box.innerHTML = '<video playsinline muted autoplay></video><div class="frame"></div><div class="msg">Hold the QR code inside the frame</div>';
   const vid = box.querySelector('video'); vid.srcObject = stream; try { await vid.play(); } catch (e) {}
@@ -320,13 +670,9 @@ async function startCam() {
       try {
         let text = null;
         if (detector) { const r = await detector.detect(vid); if (r.length) text = r[0].rawValue; }
-        else {
-          const w = vid.videoWidth, h = vid.videoHeight, s = Math.min(1, 720 / Math.max(w, h));
-          cv.width = Math.round(w * s); cv.height = Math.round(h * s); cx.drawImage(vid, 0, 0, cv.width, cv.height);
-          const d = cx.getImageData(0, 0, cv.width, cv.height), q = jsQR(d.data, d.width, d.height, { inversionAttempts: 'dontInvert' });
-          if (q) text = q.data;
-        }
-        if (text) { if (parseFrag(text)) { if (navigator.vibrate) navigator.vibrate(40); openPassport(text, 'scan'); return; } else { const m = box.querySelector('.msg'); if (m) m.textContent = 'That QR is not a Cellvage passport'; } }
+        else { const w = vid.videoWidth, h = vid.videoHeight, s = Math.min(1, 720 / Math.max(w, h)); cv.width = Math.round(w * s); cv.height = Math.round(h * s); cx.drawImage(vid, 0, 0, cv.width, cv.height);
+          const d = cx.getImageData(0, 0, cv.width, cv.height), q = jsQR(d.data, d.width, d.height, { inversionAttempts: 'dontInvert' }); if (q) text = q.data; }
+        if (text) { const PF = parseFrag(text); if (PF && PF.frag === lastScan.frag && Date.now() - lastScan.t < 5000) { busy = false; raf = requestAnimationFrame(tick); return; } if (PF) { lastScan = { frag: PF.frag, t: Date.now() }; if (navigator.vibrate) navigator.vibrate(40); openPassport(text, 'scan'); return; } const m = box.querySelector('.msg'); if (m) m.textContent = 'That QR isn’t a Cellvage passport'; }
       } catch (e) {}
       busy = false;
     }
@@ -334,15 +680,17 @@ async function startCam() {
   };
   raf = requestAnimationFrame(tick);
 }
-function stopCam() { cancelAnimationFrame(raf); busy = false; if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; } const box = $('#cam'); if (box) { box.className = 'cam idle'; box.innerHTML = '<div id="camIdle">Starting the camera…</div>'; } }
-$('#pasteGo').onclick = () => { const v = $('#paste').value.trim(); if (!openPassport(v, 'scan')) return; $('#paste').value = ''; };
+function stopCam() { if (lastScan.frag) lastScan.t = Date.now(); cancelAnimationFrame(raf); busy = false; if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; } const box = $('#cam'); if (box && !box.classList.contains('idle')) { box.className = 'cam idle'; box.innerHTML = '<div>Starting the camera…</div>'; } }
+$('#pasteGo').onclick = () => { const v = $('#paste').value.trim(); if (openPassport(v, 'scan')) $('#paste').value = ''; };
 $('#paste').addEventListener('keydown', e => { if (e.key === 'Enter') $('#pasteGo').click(); });
 document.addEventListener('visibilitychange', () => { if (document.hidden) stopCam(); else if (view === 'scan') startCam(); });
 
-// ---------- start: a passport link opens straight to the passport ----------
-function fromHash() { const h = location.hash.slice(1); if (h && parseFrag(h)) { prevView = 'home'; openPassport(h, 'scan'); return true; } return false; }
-addEventListener('hashchange', fromHash);
-if (!fromHash()) go('home');
+// ================= start =================
+// migrate passports saved by the first version of the app
+try { const old = JSON.parse(localStorage.getItem('cellvage-app-passports-v1') || 'null'); if (old && old.length && !store.get('passports', []).length) store.set('passports', old); } catch (e) {}
+function fromHash() { const P = parseFrag(location.hash); if (!P) return false; cur = P; tampered = false; renderPassport(); if (!history.state || history.state.v !== 'pass') history.replaceState({ v: 'pass', d: depth() }, '', location.href); show('pass', { from: (history.state && history.state.from) || 'scan' }); return true; }
+addEventListener('hashchange', () => { if (parseFrag(location.hash) && (!cur || !location.hash.includes(cur.frag))) fromHash(); });
+if (!fromHash()) goHomeRoot();
 </script>
 </body>
 </html>
