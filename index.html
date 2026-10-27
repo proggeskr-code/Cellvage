@@ -208,6 +208,113 @@ dt{color:var(--muted)}dd{margin:0;text-align:right;font-family:var(--fm);font-si
 .toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#111A24;color:#fff;padding:10px 16px;border-radius:12px;font-size:.88rem;opacity:0;transition:opacity .2s;pointer-events:none;z-index:50;max-width:90vw;text-align:center}
 .toast.on{opacity:1}
 :focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+/* ---------- marketplace look ---------- */
+body.flow .tabs{display:none}
+body.flow .view{padding-bottom:calc(110px + env(safe-area-inset-bottom))}
+.hdr{display:flex;align-items:center;gap:8px;min-height:48px}
+.loc{display:inline-flex;align-items:center;gap:5px;min-height:36px;padding:0 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:.82rem;font-weight:500;color:var(--ink)}
+.mode{display:grid;grid-template-columns:1fr 1fr;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:4px;margin:12px 0 14px;gap:4px}
+.mode button{min-height:46px;border:0;border-radius:12px;background:transparent;font-weight:600;font-size:.98rem;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.mode button[aria-pressed="true"]{background:var(--blue);color:var(--on-blue);box-shadow:0 2px 8px rgba(33,72,192,.25)}
+.search{display:flex;align-items:center;gap:10px;min-height:50px;padding:0 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface);margin-bottom:16px}
+.search input{flex:1;min-width:0;border:0;background:transparent;font-size:.95rem;outline:none;color:var(--ink)}
+.banner{border-radius:20px;padding:20px;color:#fff;background:#2148C0;position:relative;overflow:hidden;margin-bottom:18px}
+.banner h2{font:800 1.45rem/1.15 var(--fd);margin:6px 0 6px;max-width:13em;position:relative}
+.banner p{margin:0 0 14px;color:#DCE4F7;font-size:.9rem;max-width:20em;position:relative}
+.banner .label{color:#C9D6FF;position:relative}
+.banner .btn{background:#fff;color:#111A24;border-color:#fff;width:auto;display:inline-flex;min-height:44px;position:relative}
+.banner .art{position:absolute;right:-10px;bottom:-14px;opacity:.95}
+.banner.sell{background:#17723B}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .banner{background:#1C3A9E}:root:not([data-theme="light"]) .banner.sell{background:#145C31}}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.tile{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 4px 10px;background:var(--surface);border:1px solid var(--line);border-radius:16px;cursor:pointer;font-size:.76rem;font-weight:600;text-align:center;line-height:1.2;color:var(--ink)}
+.tile .ti{width:46px;height:46px;border-radius:14px;background:var(--blue-soft);display:flex;align-items:center;justify-content:center;color:var(--blue)}
+.tile[aria-pressed="true"]{border-color:var(--blue);background:var(--blue-soft)}
+.grades{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.gcard{padding:12px;border-radius:16px;border:1px solid var(--line);background:var(--surface);cursor:pointer;text-align:left}
+.gcard b{display:block;font:800 1.05rem var(--fd)}.gcard small{color:var(--muted);font-size:.76rem}
+.gcard i{display:block;height:4px;border-radius:2px;margin-bottom:10px;width:34px}
+.rail{display:flex;gap:12px;overflow-x:auto;margin:0 -18px;padding:2px 18px 6px;scroll-snap-type:x mandatory;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.rail .lc{flex:none;width:250px;scroll-snap-align:start}
+.trust{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.trust div{display:flex;flex-direction:column;gap:6px;padding:12px;border-radius:16px;background:var(--surface);border:1px solid var(--line);font-size:.76rem;color:var(--muted);line-height:1.3}
+.trust b{color:var(--ink);font-size:.82rem}
+.trust .ti{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--ok-bg);color:var(--ok)}
+.scanbn{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:18px;background:#111A24;color:#fff;cursor:pointer;width:100%;text-align:left;border:0;margin-top:18px}
+.scanbn .ti{flex:none;width:44px;height:44px;border-radius:12px;background:#2148C0;display:flex;align-items:center;justify-content:center}
+.scanbn b{display:block}.scanbn small{color:#AEB9C8}
+/* listing card */
+.lc{display:block;width:100%;text-align:left;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:18px;cursor:pointer;overflow:hidden;color:var(--ink)}
+.lc .img{position:relative;height:132px;display:flex;align-items:center;justify-content:center;background:var(--surface-2);border-bottom:1px solid var(--line)}
+.lc .rib{position:absolute;left:10px;top:10px;font:700 .74rem var(--f);color:#fff;padding:4px 9px;border-radius:8px}
+.lc .pp{position:absolute;right:10px;top:10px;display:inline-flex;align-items:center;gap:4px;font:700 .64rem var(--fm);letter-spacing:.06em;text-transform:uppercase;color:var(--ok);background:var(--surface);padding:4px 8px;border-radius:8px;border:1px solid var(--line)}
+.lc .smp{position:absolute;right:10px;bottom:10px;font:600 .6rem var(--fm);letter-spacing:.06em;text-transform:uppercase;color:var(--warn);background:var(--warn-bg);padding:3px 6px;border-radius:6px}
+.lc .bd{padding:12px 14px 14px}
+.lc h3{font-size:1rem;margin:0 0 6px}
+.specs{display:flex;flex-wrap:wrap;gap:6px}
+.specs span{font-size:.74rem;padding:3px 8px;border-radius:7px;background:var(--surface-2);border:1px solid var(--line);color:var(--muted)}
+.lc .hl{display:flex;align-items:baseline;justify-content:space-between;margin-top:10px;gap:8px}
+.lc .hl b{font:800 1.05rem var(--fd)}.lc .hl small{color:var(--muted);font-size:.74rem}
+.lc .pr{font-weight:700;font-size:.86rem;color:var(--blue)}
+.count{font-size:.86rem;color:var(--muted);margin:0 2px 10px}
+.stick{position:sticky;top:0;z-index:5;background:var(--bg);margin:0 -18px;padding:8px 18px 2px}
+/* detail */
+.dimg{height:190px;border-radius:20px;display:flex;align-items:center;justify-content:center;background:var(--surface-2);border:1px solid var(--line);position:relative;margin-bottom:14px}
+.kv4{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+.kv4 div{padding:10px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line)}
+.kv4 small{display:block;font-size:.7rem;color:var(--muted)}.kv4 b{font-size:.92rem}
+.rep{display:flex;align-items:center;gap:16px}
+.ring{position:relative;width:92px;height:92px;flex:none}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .v{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font:800 1.25rem var(--fd)}
+.ring .v small{font:600 .58rem var(--fm);letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+.bars{display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.bars .r{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;font-size:.86rem}
+.bars .t{grid-column:1/-1;height:6px;border-radius:4px;background:var(--line);overflow:hidden}
+.bars .t i{display:block;height:100%;border-radius:4px}
+.bars em{font-style:normal;font-weight:600;font-size:.8rem}
+.cta{position:fixed;left:0;right:0;bottom:0;z-index:12;background:var(--surface);border-top:1px solid var(--line);padding:10px 18px calc(10px + env(safe-area-inset-bottom))}
+.cta .in{max-width:484px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.cta .pr{flex:1}.cta .pr small{display:block;color:var(--muted);font-size:.74rem}.cta .pr b{font:800 1.05rem var(--fd)}
+.cta .btn{width:auto;flex:none;min-width:150px}
+/* flow */
+.fhead{display:flex;align-items:center;gap:6px;min-height:48px;margin-bottom:6px}
+.fhead .t{flex:1;font-weight:600;font-size:.95rem;text-align:center}
+.prog{height:4px;border-radius:3px;background:var(--line);margin:0 0 20px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--blue);border-radius:3px;transition:width .25s}
+.tiles2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btile{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:16px 14px;min-height:122px;border-radius:18px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;text-align:left}
+.btile .ti{width:46px;height:46px;border-radius:14px;background:var(--blue-soft);color:var(--blue);display:flex;align-items:center;justify-content:center}
+.btile b{font-size:.95rem;line-height:1.2}.btile small{font-size:.76rem;color:var(--muted)}
+.btile[aria-pressed="true"]{border-color:var(--blue);background:var(--blue-soft)}
+.cgroup{margin-bottom:20px}
+.cgroup p{font-weight:600;margin:0 0 10px}
+.cgroup .chips{margin:0;padding:0;flex-wrap:wrap;overflow:visible}
+.warncard{display:flex;gap:12px;padding:14px;border-radius:16px;background:var(--bad-bg);color:var(--ink);font-size:.88rem;margin-bottom:16px}
+.warncard b{color:var(--bad)}
+.outc{display:flex;flex-direction:column;gap:10px}
+.outc div{display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;align-items:center;padding:14px;border-radius:16px;background:var(--surface);border:1px solid var(--line)}
+.outc .ti{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font:800 .9rem var(--fd)}
+.outc b{display:block;font-size:.95rem}.outc small{color:var(--muted);font-size:.84rem}
+.days{display:flex;gap:8px;overflow-x:auto;margin:0 -18px 18px;padding:2px 18px 4px;scrollbar-width:none}
+.days::-webkit-scrollbar{display:none}
+.day{flex:none;width:68px;padding:10px 0;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;text-align:center}
+.day small{display:block;font-size:.72rem;color:var(--muted)}.day b{display:block;font:800 1.2rem var(--fd)}
+.day[aria-pressed="true"]{border-color:var(--blue);background:var(--blue-soft)}
+.slots{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.slot{min-height:46px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-size:.88rem;font-weight:500;cursor:pointer}
+.slot[aria-pressed="true"]{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:600}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:8px}
+.faq summary{list-style:none;cursor:pointer;padding:14px 16px;font-weight:600;font-size:.92rem;display:flex;justify-content:space-between;gap:10px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-weight:700;color:var(--blue)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{margin:0;padding:0 16px 14px;color:var(--muted);font-size:.88rem}
+.steps3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.steps3 div{padding:12px 10px;border-radius:16px;background:var(--surface);border:1px solid var(--line);font-size:.76rem;color:var(--muted);line-height:1.3}
+.steps3 .n{width:28px;height:28px;border-radius:50%;background:var(--ok-bg);color:var(--ok);display:flex;align-items:center;justify-content:center;font:700 .82rem var(--fd);margin-bottom:8px}
+.steps3 b{display:block;color:var(--ink);font-size:.84rem;margin-bottom:2px}
 </style>
 </head>
 <body>
@@ -215,29 +322,22 @@ dt{color:var(--muted)}dd{margin:0;text-align:right;font-family:var(--fm);font-si
 
 <!-- ================= HOME ================= -->
 <section class="view on" id="v-home" aria-label="Home">
-  <div class="top"><div class="brand"><svg aria-hidden="true" width="30" height="30" viewBox="0 0 64 64"><rect width="64" height="64" rx="15" fill="#111A24"/><path d="M47.6 26.5A17 17 0 1 1 41 17.4" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M36.5 10.5L44.2 17.1L37.3 24.4" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="32" r="7.5" fill="#2E9E5B"/></svg>Cellvage</div>
+  <div class="hdr"><div class="brand"><svg aria-hidden="true" width="30" height="30" viewBox="0 0 64 64"><rect width="64" height="64" rx="15" fill="#111A24"/><path d="M47.6 26.5A17 17 0 1 1 41 17.4" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M36.5 10.5L44.2 17.1L37.3 24.4" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="32" r="7.5" fill="#2E9E5B"/></svg>Cellvage</div>
+    <span class="loc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Greater Noida</span>
     <button class="iconbtn" id="helpBtn" aria-label="How Cellvage works"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6"/><circle cx="12" cy="17.2" r=".6" fill="currentColor"/></svg></button></div>
+  <div class="mode" role="group" aria-label="Buy or sell"><button data-mode="buy" aria-pressed="true">Buy cells</button><button data-mode="sell" aria-pressed="false">Sell batteries</button></div>
   <div id="homeTip"></div>
-  <div class="hero" id="hero"></div>
-  <div class="acts" id="acts"></div>
-  <div class="sec"><h3>How it works</h3><button data-sheet="how">Learn more</button></div>
-  <div class="how">
-    <div><span class="n">1</span><b>Collect</b>old batteries</div>
-    <div><span class="n">2</span><b>10 s test</b>every cell</div>
-    <div><span class="n">3</span><b>Passport</b>signed record</div>
-    <div><span class="n">4</span><b>Reuse</b>or recycle</div>
-  </div>
-  <div class="sec"><h3 id="homeListTitle">Your activity</h3><button data-go="mine">See all</button></div>
-  <div class="list" id="homeList"></div>
+  <div id="homeBody"></div>
 </section>
 
 <!-- ================= BUY ================= -->
 <section class="view" id="v-buy" aria-label="Buy">
-  <div class="top"><h1>Buy tested cells</h1></div>
+  <div class="stick"><div class="top" style="margin-bottom:8px"><h1>Tested cells</h1></div>
+    <div class="chips" role="group" aria-label="Filter by use" id="useChips"></div></div>
   <div id="buyTip"></div>
-  <div class="chips" role="group" aria-label="Filter by use" id="useChips"></div>
+  <p class="count" id="lotCount"></p>
   <div class="list" id="lots"></div>
-  <p class="note"><span class="demo">Sample listings</span> Lots shown here are examples for the demo. Real lots come from cells graded on the rig.</p>
+  <p class="note"><span class="demo">Sample listings</span> Lots here are examples for the demo. Real lots come from cells graded on the rig.</p>
 </section>
 
 <section class="view" id="v-lot" aria-label="Lot"><div id="lot"></div></section>
@@ -367,6 +467,7 @@ function show(v, opts) {
   opts = opts || {};
   if (view !== v) { const ob = document.getElementById(view + 'Tip'); if (ob && tipShown[view]) { ob.innerHTML = ''; } }
   view = v;
+  document.body.classList.toggle('flow', v === 'lot' || (v === 'sell' && sell.step > 0 && sell.step < 5));
   document.querySelectorAll('.view').forEach(s => s.classList.toggle('on', s.id === 'v-' + v));
   const tab = TABS.includes(v) ? v : v === 'lot' ? 'buy' : v === 'pass' ? (opts.from || 'mine') : null;
   document.querySelectorAll('.tabs button').forEach(b => b.dataset.go === tab ? b.setAttribute('aria-current', 'page') : b.removeAttribute('aria-current'));
@@ -423,31 +524,89 @@ function openOnboarding() { ob.classList.add('on'); obIdx = 0; track.scrollLeft 
 
 // ================= sample marketplace data (clearly labelled in the UI) =================
 const LOTS = [
-  { id: 'L-A1', g: 'A', fam: 'NMC-2500HD', n: 24, lo: 86, hi: 94, src: 'ex e-bike pack', uses: ['ebike', 'storage'] },
-  { id: 'L-A2', g: 'A', fam: 'NMC-2600', n: 40, lo: 85, hi: 92, src: 'ex laptop packs', uses: ['ebike', 'storage'] },
-  { id: 'L-B1', g: 'B', fam: 'NMC-2600', n: 36, lo: 72, hi: 84, src: 'ex laptop packs', uses: ['storage', 'light'] },
-  { id: 'L-B2', g: 'B', fam: 'NMC-2500HD', n: 18, lo: 70, hi: 81, src: 'ex power tools', uses: ['storage', 'light'] },
-  { id: 'L-C1', g: 'C', fam: 'NMC-2600', n: 30, lo: 60, hi: 69, src: 'ex laptop packs', uses: ['light'] },
+  { id: 'L-A1', g: 'A', fam: 'NMC-2500HD', n: 24, lo: 86, hi: 94, src: 'ex e-bike pack', uses: ['ebike', 'tools'], mah: 2500, r: 92, rec: 90 },
+  { id: 'L-A2', g: 'A', fam: 'NMC-2600', n: 40, lo: 85, hi: 92, src: 'ex laptop packs', uses: ['ebike', 'storage'], mah: 2600, r: 88, rec: 87 },
+  { id: 'L-B1', g: 'B', fam: 'NMC-2600', n: 36, lo: 72, hi: 84, src: 'ex laptop packs', uses: ['storage', 'light'], mah: 2600, r: 76, rec: 78 },
+  { id: 'L-B2', g: 'B', fam: 'NMC-2500HD', n: 18, lo: 70, hi: 81, src: 'ex power tools', uses: ['tools', 'storage'], mah: 2500, r: 73, rec: 74 },
+  { id: 'L-C1', g: 'C', fam: 'NMC-2600', n: 30, lo: 60, hi: 69, src: 'ex laptop packs', uses: ['light'], mah: 2600, r: 62, rec: 64 },
 ];
-const USES = { all: 'All', ebike: 'E-bike & tools', storage: 'Solar & UPS', light: 'Lights & low-drain' };
-const USE_HINT = { ebike: 'needs high, steady current', storage: 'slow, deep cycling', light: 'low current, forgiving' };
+const USES = { all: 'All', ebike: 'E-bike', storage: 'Solar & UPS', tools: 'Power tools', light: 'Lights' };
+const USE_HINT = { ebike: 'needs high, steady current', storage: 'slow, deep cycling', tools: 'short bursts of high current', light: 'low current, forgiving' };
+const UI = {
+  ebike: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="16.5" r="3.5"/><circle cx="18.5" cy="16.5" r="3.5"/><path d="M5.5 16.5L9 9h6l3.5 7.5M9 9l3 7.5h6.5M13 6h3"/></svg>',
+  storage: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M12 1.5v1.5M4.5 8H3M21 8h-1.5M6.7 2.7l1 1M17.3 2.7l-1 1"/><rect x="5" y="14" width="14" height="7" rx="1.5"/><path d="M9 14v7M15 14v7"/></svg>',
+  tools: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h12l2 3h4v3h-4l-2 2H9"/><path d="M8 15l-2 6h4l1.5-6"/></svg>',
+  light: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>',
+  laptop: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/></svg>',
+  cells: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="5" height="14" rx="1.5"/><rect x="9.5" y="7" width="5" height="14" rx="1.5"/><rect x="16" y="7" width="5" height="14" rx="1.5"/><path d="M4.5 5h2M11 5h2M17.5 5h2"/></svg>',
+  bank: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12.5 8l-2 4h3l-2 4"/></svg>',
+  shield: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>',
+  bolt: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>',
+  layers: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg>',
+  recycle: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 19H4l3.5-6M17 19h3l-3.5-6M9 5l3-2 3 2M12 3v6M8.5 13L6 9M15.5 13L18 9M8 19h8"/></svg>',
+  upi: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg>',
+};
+function cellsArt(g, w) { // a little bundle of 18650s, coloured by grade
+  const c = { A: '#2E9E5B', B: '#4B74E0', C: '#D08A1E', R: '#D0473A' }[g] || '#8C99AA', W = w || 150, n = 6, gap = 6, cw = (W - gap * (n - 1)) / n, h = W * .52;
+  let s = `<svg width="${W}" height="${h + 8}" viewBox="0 0 ${W} ${h + 8}" aria-hidden="true">`;
+  for (let i = 0; i < n; i++) { const x = i * (cw + gap), y = 6 + (i % 2) * 4, hh = h - (i % 2) * 4;
+    s += `<rect x="${x}" y="${y}" width="${cw}" height="${hh}" rx="${cw / 3.2}" fill="${c}" opacity="${.78 + (i % 3) * .08}"/><rect x="${x + cw * .3}" y="${y - 4}" width="${cw * .4}" height="5" rx="1.5" fill="${c}"/><rect x="${x + cw * .18}" y="${y + hh * .38}" width="${cw * .64}" height="${hh * .18}" rx="2" fill="#fff" opacity=".85"/>`; }
+  return s + '</svg>';
+}
+function lotCard(l, cls) { const G = GRADE[l.g];
+  return `<button class="lc ${cls || ''}" data-lot="${l.id}"><div class="img">${cellsArt(l.g)}<span class="rib" style="background:${G[0]}">${G[1]}</span><span class="pp">${UI.shield}Passported</span><span class="smp">Sample</span></div>
+    <div class="bd"><h3>${esc(FAM[l.fam].replace(' laptop cell', ' · laptop').replace(' high-drain', ' · high-drain'))}</h3>
+    <div class="specs"><span>${l.n} cells</span><span>${l.mah} mAh</span><span>NMC</span><span>${esc(l.src)}</span></div>
+    <div class="hl"><span><b>${l.lo}–${l.hi}%</b> <small>health</small></span><span class="pr">Price on request</span></div></div></button>`; }
 
 // ================= HOME =================
+function homeMode() { const r = store.get('role', 'buy'); return r === 'sell' ? 'sell' : 'buy'; }
+document.querySelectorAll('[data-mode]').forEach(b => b.onclick = () => { store.set('role', b.dataset.mode); renderHome(); });
 function renderHome() {
-  const role = store.get('role', 'look');
-  const H = {
-    sell: ['For sellers', 'Turn old batteries into a payout', 'Every cell gets tested and graded. You get an offer for what you bring, and the rest is recycled properly.', 'Sell my batteries', 'sell'],
-    buy: ['For builders', 'Second-life cells you can trust', 'Each cell is pulse-tested and comes with a passport you can scan before you buy.', 'Browse tested cells', 'buy'],
-    look: ['Battery passports', 'Scan a cell. See if its grade is genuine.', 'Every cell tested on a Cellvage rig gets a signed passport. Your phone checks the signature itself.', 'Scan a passport', 'scan'],
-  }[role] || [];
-  $('#hero').innerHTML = `<svg class="deco" width="180" height="180" viewBox="0 0 64 64" aria-hidden="true"><path d="M47.6 26.5A17 17 0 1 1 41 17.4" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M36.5 10.5L44.2 17.1L37.3 24.4" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <div class="label">${H[0]}</div><h2>${H[1]}</h2><p>${H[2]}</p><button class="btn" data-go="${H[4]}">${H[3]}</button>`;
-  const A = [['sell', 'Sell', 'Old batteries', '#2E9E5B'], ['buy', 'Buy', 'Tested cells', '#2148C0'], ['scan', 'Scan', 'Check a passport', '#3A4656']];
-  $('#acts').innerHTML = A.filter(a => a[0] !== H[4]).concat(A.filter(a => a[0] === H[4])).slice(0, 3)
-    .map(a => `<button class="act" data-go="${a[0]}"><span class="ic" style="background:${a[3]}">${ICON[a[0]]}</span><span><b>${a[1]}</b><br><small>${a[2]}</small></span></button>`).join('');
-  const items = activity().slice(0, 3);
-  $('#homeList').innerHTML = items.length ? items.map(x => x.html).join('') : `<div class="empty">Nothing yet. ${role === 'sell' ? 'Start a sale' : role === 'buy' ? 'Open a lot and request a quote' : 'Scan a passport'} and it shows up here.</div>`;
-  bindItems($('#homeList'));
+  const m = homeMode();
+  document.querySelectorAll('[data-mode]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
+  const act = activity().slice(0, 3);
+  const actHTML = `<div class="sec"><h3>Your activity</h3>${act.length ? '<button data-go="mine">See all</button>' : ''}</div>` + (act.length ? `<div class="list" id="homeList">${act.map(x => x.html).join('')}</div>` : `<div class="empty">${m === 'sell' ? 'Book a free test and it shows up here.' : 'Request a quote or save a passport and it shows up here.'}</div>`);
+  if (m === 'buy') {
+    $('#homeBody').innerHTML = `
+    <label class="search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="q" type="search" placeholder="Search cells, uses or a passport link" aria-label="Search"></label>
+    <div class="banner"><div class="label">Second-life cells</div><h2>Every cell tested. Every cell passported.</h2><p>Graded 18650s for e-bike, solar and UPS packs. Scan any cell to check its test.</p><button class="btn" data-go="buy">Browse all lots</button>
+      <div class="art">${cellsArt('A', 118)}</div></div>
+    <div class="sec" style="margin-top:6px"><h3>Shop by use</h3></div>
+    <div class="grid4">${['ebike', 'storage', 'tools', 'light'].map(u => `<button class="tile" data-use-go="${u}"><span class="ti">${UI[u]}</span>${USES[u]}</button>`).join('')}</div>
+    <div class="sec"><h3>Shop by grade</h3><button data-sheet="grades">What grades mean</button></div>
+    <div class="grades">${[['A', '85–100%', 'Packs'], ['B', '70–85%', 'Storage'], ['C', '60–70%', 'Low power']].map(g => `<button class="gcard" data-grade-go="${g[0]}"><i style="background:${GRADE[g[0]][0]}"></i><b>Grade ${g[0]}</b><small>${g[1]} health<br>${g[2]}</small></button>`).join('')}</div>
+    <div class="sec"><h3>Fresh from the rig</h3><button data-go="buy">See all</button></div>
+    <div class="rail">${LOTS.slice(0, 4).map(l => lotCard(l)).join('')}</div>
+    <div class="sec"><h3>Why buy from Cellvage</h3></div>
+    <div class="trust"><div><span class="ti">${UI.shield}</span><b>Passport on every cell</b>Scan to check its test</div><div><span class="ti">${UI.bolt}</span><b>Tested one by one</b>10-second pulse each</div><div><span class="ti">${UI.layers}</span><b>Matched packs</b>No weak cell holding it back</div></div>
+    <button class="scanbn" data-go="scan"><span class="ti">${ICON.scan}</span><span><b>Got a cell? Check its passport</b><small>Scan the QR on any Cellvage test result</small></span></button>
+    ${actHTML}`;
+  } else {
+    $('#homeBody').innerHTML = `
+    <div class="banner sell"><div class="label">Sell old batteries</div><h2>Get the best offer for your old batteries</h2><p>Free 10-second test for every cell. You see the grades before you decide.</p>
+      <div class="art">${cellsArt('B', 110)}</div></div>
+    <div class="card" style="margin-top:-4px"><p class="q" style="font-size:1.05rem;margin-bottom:12px">What are you selling?</p>
+      <div class="grid4">${SELL_KIND.map(k => `<button class="tile" data-sell-kind="${k[0]}"><span class="ti">${UI[k[3]]}</span>${k[4]}</button>`).join('')}</div></div>
+    <div class="sec"><h3>How selling works</h3></div>
+    <div class="steps3"><div><span class="n">1</span><b>Book a free test</b>At a bench or at your door</div><div><span class="n">2</span><b>Every cell graded</b>10 seconds each, with a passport</div><div><span class="n">3</span><b>Accept and get paid</b>To your UPI, or take cells back</div></div>
+    <div class="sec"><h3>Why sell to Cellvage</h3></div>
+    <div class="trust"><div><span class="ti">${UI.bolt}</span><b>Free testing</b>No charge to find out</div><div><span class="ti">${UI.recycle}</span><b>Nothing wasted</b>Dead cells recycled properly</div><div><span class="ti">${UI.upi}</span><b>Paid by UPI</b>Once you accept</div></div>
+    <div class="sec"><h3>Questions</h3></div>
+    <div class="faq">
+      <details><summary>How is my offer worked out?</summary><p>Each cell is graded A, B, C or Recycle from its pulse test. Your offer is based on how many cells land in each grade.</p></details>
+      <details><summary>What if my battery is swollen or damaged?</summary><p>Don’t charge or open it. Keep it somewhere cool, away from anything flammable, and tell us when you book. We handle it separately and recycle it safely.</p></details>
+      <details><summary>Do I have to accept the offer?</summary><p>No. If you don’t like it, you take your cells back.</p></details>
+      <details><summary>What happens to cells that can’t be reused?</summary><p>They go to a recycler, sorted and still carrying their passports.</p></details>
+    </div>
+    ${actHTML}`;
+  }
+  const q = $('#q'); if (q) q.addEventListener('keydown', e => { if (e.key !== 'Enter') return; const v = q.value.trim(); if (parseFrag(v)) { openPassport(v, 'home'); return; } buyQuery = v.toLowerCase(); useFilter = 'all'; gradeFilter = null; go('buy'); });
+  $('#homeBody').querySelectorAll('[data-use-go]').forEach(b => b.onclick = () => { useFilter = b.dataset.useGo; gradeFilter = null; buyQuery = ''; go('buy'); });
+  $('#homeBody').querySelectorAll('[data-grade-go]').forEach(b => b.onclick = () => { gradeFilter = b.dataset.gradeGo; useFilter = 'all'; buyQuery = ''; go('buy'); });
+  $('#homeBody').querySelectorAll('[data-lot]').forEach(b => b.onclick = () => openLot(b.dataset.lot));
+  $('#homeBody').querySelectorAll('[data-sell-kind]').forEach(b => b.onclick = () => { sell = newSell(); sell.kind = b.dataset.sellKind; sell.step = 1; go('sell'); });
+  const hl = $('#homeList'); if (hl) bindItems(hl);
 }
 function activity() {
   const out = [];
@@ -458,83 +617,114 @@ function activity() {
 }
 
 // ================= BUY =================
-let useFilter = 'all';
+let useFilter = 'all', gradeFilter = null, buyQuery = '';
 function renderBuy() {
-  $('#useChips').innerHTML = Object.entries(USES).map(([k, v]) => `<button class="chip" data-use="${k}" aria-pressed="${k === useFilter}">${v}</button>`).join('');
-  $('#useChips').querySelectorAll('[data-use]').forEach(b => b.onclick = () => { useFilter = b.dataset.use; renderBuy(); });
-  const lots = LOTS.filter(l => useFilter === 'all' || l.uses.includes(useFilter));
-  $('#lots').innerHTML = lots.map(l => { const G = GRADE[l.g];
-    return `<button class="lot" data-lot="${l.id}"><div class="r1"><span class="gchip" style="background:${G[0]}">${G[1]}</span><span class="price">Price on request</span></div>
-      <h3>${l.n} × ${esc(FAM[l.fam])}</h3><div class="meta">Health ${l.lo}–${l.hi}% · ${esc(l.src)}</div>
-      <div class="ver">${ICON.check}${l.n} of ${l.n} cells passported</div>
-      <div class="uses">${l.uses.map(u => `<span>${USES[u]}</span>`).join('')}</div></button>`; }).join('');
+  $('#useChips').innerHTML = Object.entries(USES).map(([k, v]) => `<button class="chip" data-use="${k}" aria-pressed="${k === useFilter && !gradeFilter}">${v}</button>`).join('')
+    + ['A', 'B', 'C'].map(g => `<button class="chip" data-g="${g}" aria-pressed="${gradeFilter === g}">Grade ${g}</button>`).join('');
+  $('#useChips').querySelectorAll('[data-use]').forEach(b => b.onclick = () => { useFilter = b.dataset.use; gradeFilter = null; buyQuery = ''; renderBuy(); });
+  $('#useChips').querySelectorAll('[data-g]').forEach(b => b.onclick = () => { gradeFilter = gradeFilter === b.dataset.g ? null : b.dataset.g; useFilter = 'all'; buyQuery = ''; renderBuy(); });
+  const lots = LOTS.filter(l => (useFilter === 'all' || l.uses.includes(useFilter)) && (!gradeFilter || l.g === gradeFilter)
+    && (!buyQuery || (FAM[l.fam] + ' ' + l.src + ' ' + l.uses.map(u => USES[u]).join(' ') + ' grade ' + l.g).toLowerCase().includes(buyQuery)));
+  $('#lotCount').textContent = `${lots.length} lot${lots.length === 1 ? '' : 's'} · ${lots.reduce((s, l) => s + l.n, 0)} tested cells${buyQuery ? ` for “${buyQuery}”` : ''}`;
+  $('#lots').innerHTML = lots.length ? lots.map(l => lotCard(l)).join('') : '<div class="empty">No lots match. Try another filter.</div>';
   $('#lots').querySelectorAll('[data-lot]').forEach(b => b.onclick = () => openLot(b.dataset.lot));
 }
 let curLot = null;
+function bar(label, val, word) { const c = val >= 85 ? 'var(--gA)' : val >= 70 ? 'var(--gB)' : val >= 60 ? 'var(--gC)' : 'var(--gR)'; return `<div class="r"><span>${label}</span><em style="color:${c}">${word}</em><span class="t"><i style="width:${val}%;background:${c}"></i></span></div>`; }
+const word = v => v >= 85 ? 'Excellent' : v >= 70 ? 'Good' : v >= 60 ? 'Fair' : 'Poor';
 function openLot(id) {
-  const l = LOTS.find(x => x.id === id); curLot = l; const G = GRADE[l.g];
-  $('#lot').innerHTML = `<div class="top"><button class="iconbtn back" data-back aria-label="Back">${ICON.back}</button><h1>${G[1]} lot</h1><span class="demo">Sample</span></div>
-  <div class="card"><div class="label">${l.n} cells · ${esc(l.src)}</div><h3 style="margin:6px 0 2px;font-size:1.25rem">${esc(FAM[l.fam])}</h3>
-    <p class="muted small" style="margin:0">${G[2]}</p>
-    <div class="rbar" style="margin-top:18px"><i style="left:${l.lo}%;width:${l.hi - l.lo}%"></i></div>
-    <div class="scale"><span style="left:0">0</span><span style="left:60%">60</span><span style="left:70%">70</span><span style="left:85%">85</span><span style="left:100%">100%</span></div>
-    <p class="small" style="margin:12px 0 0">Every cell in this lot measured between <b>${l.lo}% and ${l.hi}%</b> health.</p></div>
+  const l = LOTS.find(x => x.id === id); curLot = l; const G = GRADE[l.g], mid = Math.round((l.lo + l.hi) / 2), r = 34, c = 2 * Math.PI * r;
+  $('#lot').innerHTML = `<div class="top" style="margin-bottom:8px"><button class="iconbtn back" data-back aria-label="Back">${ICON.back}</button><h1 style="font-size:1.1rem">${G[1]} lot · ${l.n} cells</h1><span class="demo">Sample</span></div>
+  <div class="dimg">${cellsArt(l.g, 200)}</div>
+  <h2 style="font:800 1.35rem/1.2 var(--fd);margin:0 0 4px">${esc(FAM[l.fam])}</h2>
+  <p class="muted small" style="margin:0">${esc(l.src)} · ${G[2]}</p>
+  <div class="kv4"><div><small>Cells</small><b>${l.n}</b></div><div><small>Capacity (new)</small><b>${l.mah} mAh</b></div><div><small>Chemistry</small><b>NMC 18650</b></div><div><small>Health</small><b>${l.lo}–${l.hi}%</b></div><div><small>Grade</small><b>${G[1]}</b></div><div><small>Passports</small><b>${l.n} / ${l.n}</b></div></div>
+  <h4>Cellvage test report</h4>
+  <div class="card"><div class="rep"><div class="ring"><svg viewBox="0 0 86 86"><circle cx="43" cy="43" r="${r}" fill="none" stroke="var(--line)" stroke-width="9"/><circle cx="43" cy="43" r="${r}" fill="none" stroke="${G[0]}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${(c * mid / 100).toFixed(1)} ${c.toFixed(1)}"/></svg><div class="v">${mid}%<small>average</small></div></div>
+    <div><b style="font-size:1rem">${word(mid)} condition</b><p class="muted small" style="margin:4px 0 0">Every cell had a 10-second pulse test. Borderline cells also had a full capacity test.</p></div></div>
+    <div class="bars">${bar('Capacity left', mid, word(mid))}${bar('Internal resistance', l.r, word(l.r))}${bar('Voltage hold under load', l.r - 2, word(l.r - 2))}${bar('Recovery after load', l.rec, word(l.rec))}
+      <div class="r"><span>Safety checks</span><em style="color:var(--gA)">6 of 6 passed</em><span class="t"><i style="width:100%;background:var(--gA)"></i></span></div></div></div>
   <h4>Good for</h4>
-  <div class="list">${l.uses.map(u => `<div class="card" style="padding:12px 14px"><b>${USES[u]}</b> <span class="muted small">· ${USE_HINT[u]}</span></div>`).join('')}</div>
-  <h4>What you get</h4>
-  <div class="card"><ul class="trail">
-    <li><span class="d"><i></i><b></b></span><span class="x"><b>A passport for every cell</b><small>Scan any cell when it arrives to check its test result</small></span></li>
-    <li><span class="d"><i></i><b></b></span><span class="x"><b>Matched cells</b><small>Ask for a pack and we group similar cells so it isn’t held back by one weak cell</small></span></li>
-    <li><span class="d"><i></i></span><span class="x"><b>Graded, not guessed</b><small>Borderline cells get a full capacity test before they’re listed</small></span></li>
-  </ul></div>
-  <div class="foot"><button class="btn primary" data-sheet="quote">Request a quote</button></div>`;
+  <div class="list">${l.uses.map(u => `<div class="card" style="padding:12px 14px;display:flex;gap:12px;align-items:center"><span class="ti" style="width:40px;height:40px;border-radius:12px;background:var(--blue-soft);color:var(--blue);display:flex;align-items:center;justify-content:center">${UI[u]}</span><span><b>${USES[u]}</b><br><span class="muted small">${USE_HINT[u]}</span></span></div>`).join('')}</div>
+  <h4>Included with every order</h4>
+  <div class="trust"><div><span class="ti">${UI.shield}</span><b>Passports</b>One per cell, scannable</div><div><span class="ti">${UI.layers}</span><b>Pack matching</b>On request</div><div><span class="ti">${UI.bolt}</span><b>Retest on arrival</b>Scan and compare</div></div>
+  <div class="cta"><div class="in"><div class="pr"><small>${l.n} cells available</small><b>Price on request</b></div><button class="btn primary" data-sheet="quote">Request quote</button></div></div>`;
   go('lot');
 }
 
-// ================= SELL (4 steps) =================
-const SELL_KIND = [['ebike', 'E-bike or scooter pack', 'Usually 40–60 cells'], ['laptop', 'Laptop battery', 'Usually 6–9 cells'], ['loose', 'Loose 18650 cells', 'Count them roughly'], ['tool', 'Power-tool or power bank', 'Usually 5–20 cells']];
-const SELL_HAND = [['bench', 'Drop it at a Cellvage bench', 'Tested while you wait'], ['pickup', 'Book a pickup', 'We collect it and send you the results']];
-let sell = { step: 0, kind: null, count: 10, hand: null };
-const DEF_COUNT = { ebike: 52, laptop: 6, loose: 10, tool: 10 };
+// ================= SELL (book a free test) =================
+const SELL_KIND = [['ebike', 'E-bike or scooter pack', 'Usually 40–60 cells', 'ebike', 'E-bike pack'], ['laptop', 'Laptop battery', 'Usually 6–9 cells', 'laptop', 'Laptop battery'], ['loose', 'Loose 18650 cells', 'Count them roughly', 'cells', 'Loose cells'], ['tool', 'Power tool or power bank', 'Usually 5–20 cells', 'bank', 'Tool / power bank']];
+const SIZE = { ebike: ['24 V', '36 V', '48 V', '60 V', 'Not sure'], laptop: ['1 battery', '2', '3', '4 or more'], loose: ['Under 10', '10–50', '50–200', '200+'], tool: ['1', '2–5', '6 or more'] };
+const SELL_HAND = [['bench', 'Drop it at a Cellvage bench', 'Tested while you wait'], ['pickup', 'Pickup from your door', 'We collect it and send you the results']];
+const SLOTS = ['10–12 am', '12–2 pm', '2–4 pm', '4–6 pm'];
+const newSell = () => ({ step: 0, kind: null, size: null, charge: null, damage: null, hand: null, day: 0, slot: null });
+let sell = newSell();
 function renderSell() {
-  const s = sell, st = ['What', 'Hand over', 'What next', 'Confirm'];
-  if (s.step === 4) return renderSellDone();
-  let body = '';
-  if (s.step === 0) body = `<p class="q">What are you selling?</p><div class="opts" role="radiogroup">${SELL_KIND.map(k => `<button class="opt" role="radio" data-k="${k[0]}" aria-checked="${s.kind === k[0]}"><span class="rd"></span><span><b>${k[1]}</b><small>${k[2]}</small></span></button>`).join('')}</div>
-    <div class="stepper" ${s.kind ? '' : 'hidden'}><span><b>About how many cells?</b><br><small class="muted">A guess is fine</small></span><span style="display:flex;align-items:center;gap:8px"><button aria-label="Fewer" data-n="-1">−</button><span class="v" id="cnt">${s.count}</span><button aria-label="More" data-n="1">+</button></span></div>`;
-  if (s.step === 1) body = `<p class="q">How do you want to hand it over?</p><div class="opts" role="radiogroup">${SELL_HAND.map(k => `<button class="opt" role="radio" data-h="${k[0]}" aria-checked="${s.hand === k[0]}"><span class="rd"></span><span><b>${k[1]}</b><small>${k[2]}</small></span></button>`).join('')}</div>`;
-  if (s.step === 2) body = `<p class="q">Here’s what happens next</p><div class="card"><ul class="trail">
-    <li><span class="d"><i class="now"></i><b></b></span><span class="x"><b>${s.hand === 'pickup' ? 'We pick it up' : 'You drop it at the bench'}</b><small>We open the pack safely and take the cells out</small></span></li>
-    <li><span class="d"><i class="o"></i><b></b></span><span class="x"><b>Every cell gets a 10-second test</b><small>About ${Math.max(1, Math.round(s.count * 14 / 60))} min for ${s.count} cells</small></span></li>
-    <li><span class="d"><i class="o"></i><b></b></span><span class="x"><b>Each cell gets a passport and a grade</b><small>A, B or C go back into use. The rest is recycled properly.</small></span></li>
-    <li><span class="d"><i class="o"></i><b></b></span><span class="x"><b>You get an offer, then you decide</b><small>Accept and get paid to your UPI, or take your cells back</small></span></li></ul></div>
-    <p class="note">No prices up front: the offer depends on how healthy your cells turn out to be.</p>`;
-  if (s.step === 3) { const k = SELL_KIND.find(x => x[0] === s.kind), h = SELL_HAND.find(x => x[0] === s.hand);
-    body = `<p class="q">Check and send</p><div class="card"><dl><dt>Selling</dt><dd style="font-family:var(--f)">${k[1]}</dd><dt>About</dt><dd style="font-family:var(--f)">${s.count} cells</dd><dt>Hand-over</dt><dd style="font-family:var(--f)">${h[1].replace('Drop it at a Cellvage bench', 'Cellvage bench').replace('Book a pickup', 'Pickup')}</dd><dt>Offer</dt><dd style="font-family:var(--f)">After testing</dd></dl></div>
-    <p class="note"><span class="demo">Demo</span> This sends nothing. It shows how a request is tracked.</p>`; }
-  const ok = s.step === 0 ? !!s.kind : s.step === 1 ? !!s.hand : true;
-  $('#sell').innerHTML = `<div class="top">${s.step ? `<button class="iconbtn back" id="sellBack" aria-label="Back">${ICON.back}</button>` : ''}<h1>Sell batteries</h1></div><div id="sellTip"></div>
-    <div class="steps" aria-label="Step ${s.step + 1} of 4">${st.map((t, i) => `<div class="${i <= s.step ? 'on' : ''}"><i></i><span>${t}</span></div>`).join('')}</div>${body}
-    <div class="foot"><button class="btn primary" id="sellNext" ${ok ? '' : 'disabled'}>${s.step === 3 ? 'Send request' : 'Continue'}</button></div>`;
-  showTip('sell');
-  $('#sell').querySelectorAll('[data-k]').forEach(b => b.onclick = () => { s.kind = b.dataset.k; s.count = DEF_COUNT[s.kind]; renderSell(); });
-  $('#sell').querySelectorAll('[data-h]').forEach(b => b.onclick = () => { s.hand = b.dataset.h; renderSell(); });
-  $('#sell').querySelectorAll('[data-n]').forEach(b => b.onclick = () => { s.count = Math.max(1, Math.min(500, s.count + (+b.dataset.n) * (s.count >= 20 ? 5 : 1))); $('#cnt').textContent = s.count; });
-  const bk = $('#sellBack'); if (bk) bk.onclick = () => { s.step--; renderSell(); scrollTo(0, 0); };
-  $('#sellNext').onclick = () => { if (s.step === 3) { const sales = store.get('sales', []); const ref = 'S-' + String(Date.now()).slice(-5); sales.push({ ref, kind: s.kind, count: s.count, hand: s.hand, ts: new Date().toISOString() }); store.set('sales', sales); s.ref = ref; } s.step++; renderSell(); scrollTo(0, 0); };
+  const s = sell, N = 5;
+  if (s.step === N) return renderSellDone();
+  if (s.step === 0) {   // landing = choose what you sell
+    document.body.classList.remove('flow');
+    $('#sell').innerHTML = `<div class="top"><h1>Sell batteries</h1></div><div id="sellTip"></div>
+      <p class="q">What are you selling?</p><div class="tiles2">${SELL_KIND.map(k => `<button class="btile" data-k="${k[0]}"><span class="ti">${UI[k[3]]}</span><span><b>${k[1]}</b><br><small>${k[2]}</small></span></button>`).join('')}</div>
+      <div class="sec"><h3>How selling works</h3></div>
+      <div class="steps3"><div><span class="n">1</span><b>Book a free test</b>At a bench or at your door</div><div><span class="n">2</span><b>Every cell graded</b>10 seconds each, with a passport</div><div><span class="n">3</span><b>Accept and get paid</b>To your UPI, or take cells back</div></div>`;
+    showTip('sell');
+    $('#sell').querySelectorAll('[data-k]').forEach(b => b.onclick = () => { s.kind = b.dataset.k; s.step = 1; renderSell(); scrollTo(0, 0); });
+    return;
+  }
+  document.body.classList.add('flow');
+  const k = SELL_KIND.find(x => x[0] === s.kind), titles = ['', 'How much?', 'Its condition', 'What you’ll get', 'Book your free test'];
+  let body = '', ok = true;
+  if (s.step === 1) { ok = !!s.size;
+    body = `<p class="q">${s.kind === 'ebike' ? 'What voltage is the pack?' : s.kind === 'laptop' ? 'How many batteries?' : s.kind === 'loose' ? 'About how many cells?' : 'How many?'}</p>
+      <div class="chips" style="flex-wrap:wrap;margin:0;padding:0;overflow:visible">${SIZE[s.kind].map(v => `<button class="chip" data-size="${v}" aria-pressed="${s.size === v}">${v}</button>`).join('')}</div>
+      <p class="note">${s.kind === 'ebike' ? 'It’s usually printed on the pack or the charger. A guess is fine.' : 'A rough number is fine. We count properly at the test.'}</p>`; }
+  if (s.step === 2) { ok = !!s.charge && !!s.damage;
+    body = `<div class="cgroup"><p>Does it still hold a charge?</p><div class="chips">${['Yes', 'Partly', 'No', 'Not sure'].map(v => `<button class="chip" data-charge="${v}" aria-pressed="${s.charge === v}">${v}</button>`).join('')}</div></div>
+      <div class="cgroup"><p>Any swelling, leaks or damage?</p><div class="chips">${['No', 'Yes', 'Not sure'].map(v => `<button class="chip" data-damage="${v}" aria-pressed="${s.damage === v}">${v}</button>`).join('')}</div></div>
+      ${s.damage === 'Yes' ? `<div class="warncard"><span style="font-size:1.2rem">⚠</span><span><b>Handle it carefully.</b> Don’t charge or open it. Keep it somewhere cool, away from anything that can burn. We’ll collect it separately and recycle it safely.</span></div>` : ''}`; }
+  if (s.step === 3) {
+    body = `<p class="q">Your offer comes after the test</p><p class="muted small" style="margin:-4px 0 14px">We don’t guess from photos. Each cell is pulse-tested, and the offer follows the grades.</p>
+      <div class="outc"><div><span class="ti" style="background:var(--gA)">A</span><span><b>Grade A, B and C cells</b><small>Go back into use. These are what you’re paid for.</small></span></div>
+      <div><span class="ti" style="background:var(--gR)">♻</span><span><b>Cells too worn to reuse</b><small>Recycled properly at no cost to you.</small></span></div>
+      <div><span class="ti" style="background:#3A4656">${ICON.check}</span><span><b>You decide</b><small>Accept and get paid to your UPI, or take your cells back.</small></span></div></div>`; }
+  if (s.step === 4) { ok = !!s.hand && s.slot != null;
+    const days = [...Array(5)].map((_, i) => { const d = new Date(); d.setDate(d.getDate() + i); return d; });
+    body = `<div class="opts" role="radiogroup" style="margin-bottom:18px">${SELL_HAND.map(h => `<button class="opt" role="radio" data-h="${h[0]}" aria-checked="${s.hand === h[0]}"><span class="rd"></span><span><b>${h[1]}</b><small>${h[2]}</small></span></button>`).join('')}</div>
+      <p style="font-weight:600;margin:0 0 10px">Pick a day</p><div class="days">${days.map((d, i) => `<button class="day" data-day="${i}" aria-pressed="${s.day === i}"><small>${i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : d.toLocaleDateString(undefined, { weekday: 'short' })}</small><b>${d.getDate()}</b><small>${d.toLocaleDateString(undefined, { month: 'short' })}</small></button>`).join('')}</div>
+      <p style="font-weight:600;margin:0 0 10px">Pick a time</p><div class="slots">${SLOTS.map((t, i) => `<button class="slot" data-slot="${i}" aria-pressed="${s.slot === i}">${t}</button>`).join('')}</div>
+      <p class="note"><span class="demo">Demo</span> Booking sends nothing. It shows how a request is tracked.</p>`; }
+  $('#sell').innerHTML = `<div class="fhead"><button class="iconbtn" id="sellBack" aria-label="Back">${ICON.back}</button><span class="t">${esc(k[4])}</span><button class="iconbtn" id="sellClose" aria-label="Close">${ICON.x}</button></div>
+    <div class="prog" aria-label="Step ${s.step} of 4"><i style="width:${s.step / 4 * 100}%"></i></div>
+    <h2 style="font:800 1.35rem var(--fd);margin:0 0 16px">${titles[s.step]}</h2>${body}
+    <div class="cta"><div class="in"><button class="btn primary" id="sellNext" style="flex:1" ${ok ? '' : 'disabled'}>${s.step === 4 ? 'Book free test' : 'Continue'}</button></div></div>`;
+  const S = $('#sell');
+  S.querySelectorAll('[data-size]').forEach(b => b.onclick = () => { s.size = b.dataset.size; renderSell(); });
+  S.querySelectorAll('[data-charge]').forEach(b => b.onclick = () => { s.charge = b.dataset.charge; renderSell(); });
+  S.querySelectorAll('[data-damage]').forEach(b => b.onclick = () => { s.damage = b.dataset.damage; renderSell(); });
+  S.querySelectorAll('[data-h]').forEach(b => b.onclick = () => { s.hand = b.dataset.h; renderSell(); });
+  S.querySelectorAll('[data-day]').forEach(b => b.onclick = () => { s.day = +b.dataset.day; renderSell(); });
+  S.querySelectorAll('[data-slot]').forEach(b => b.onclick = () => { s.slot = +b.dataset.slot; renderSell(); });
+  $('#sellBack').onclick = () => { s.step--; renderSell(); scrollTo(0, 0); };
+  $('#sellClose').onclick = () => { sell = newSell(); renderSell(); scrollTo(0, 0); };
+  $('#sellNext').onclick = () => {
+    if (s.step === 4) { const d = new Date(); d.setDate(d.getDate() + s.day); const ref = 'CV-' + String(Date.now()).slice(-6);
+      const sales = store.get('sales', []); sales.push({ ref, kind: s.kind, size: s.size, count: s.size, hand: s.hand, date: d.toISOString(), slot: SLOTS[s.slot], damage: s.damage, ts: new Date().toISOString() }); store.set('sales', sales); s.ref = ref; s.date = d; }
+    s.step++; renderSell(); scrollTo(0, 0); };
 }
 function renderSellDone() {
-  const k = SELL_KIND.find(x => x[0] === sell.kind);
+  document.body.classList.remove('flow');
+  const s = sell, k = SELL_KIND.find(x => x[0] === s.kind), dstr = s.date.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' });
   $('#sell').innerHTML = `<div class="done"><div class="tick"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></div>
-    <h2>Request sent</h2><p class="muted">${esc(k[1])}, about ${sell.count} cells · ref ${sell.ref}</p><span class="demo">Demo request</span></div>
-    <div class="card" style="margin-top:16px"><ul class="trail">
-      <li><span class="d"><i></i><b></b></span><span class="x"><b>Request sent</b><small>Just now</small></span></li>
-      <li><span class="d"><i class="now"></i><b></b></span><span class="x"><b>${sell.hand === 'pickup' ? 'Pickup' : 'Bench drop-off'}</b><small>Next step</small></span></li>
-      <li><span class="d"><i class="o"></i><b></b></span><span class="x"><b>Testing and passports</b><small>Each cell, 10 seconds</small></span></li>
-      <li><span class="d"><i class="o"></i></span><span class="x"><b>Your offer</b><small>Based on the grades</small></span></li></ul></div>
+    <h2>Free test booked</h2><p class="muted" style="margin:0 0 10px">${dstr} · ${SLOTS[s.slot]} · ${s.hand === 'pickup' ? 'pickup from your door' : 'Cellvage bench'}</p><span class="demo">Demo booking · ${s.ref}</span></div>
+    <div class="card" style="margin-top:16px"><dl><dt>Selling</dt><dd style="font-family:var(--f)">${esc(k[1])}</dd><dt>Size</dt><dd style="font-family:var(--f)">${esc(s.size)}</dd><dt>Holds a charge</dt><dd style="font-family:var(--f)">${esc(s.charge)}</dd><dt>Offer</dt><dd style="font-family:var(--f)">After testing</dd></dl></div>
+    <h4>Before the test</h4>
+    <div class="card"><ul class="trail"><li><span class="d"><i></i><b></b></span><span class="x"><b>Keep the pack in one piece</b><small>Don’t open it. We take the cells out safely.</small></span></li>
+      <li><span class="d"><i></i><b></b></span><span class="x"><b>Bring the charger if you have it</b><small>It tells us the pack voltage</small></span></li>
+      <li><span class="d"><i class="o"></i></span><span class="x"><b>Keep your UPI ID handy</b><small>For payment once you accept</small></span></li></ul></div>
     <div class="actions"><button class="btn primary" id="seeSale">Track it in My batteries</button><button class="btn ghost" id="sellAgain">Sell something else</button></div>`;
-  $('#seeSale').onclick = () => { mineSeg = 'sold'; sell = { step: 0, kind: null, count: 10, hand: null }; go('mine'); };
-  $('#sellAgain').onclick = () => { sell = { step: 0, kind: null, count: 10, hand: null }; renderSell(); };
+  $('#seeSale').onclick = () => { mineSeg = 'sold'; sell = newSell(); go('mine'); };
+  $('#sellAgain').onclick = () => { sell = newSell(); renderSell(); scrollTo(0, 0); };
 }
 
 // ================= MY BATTERIES =================
@@ -542,7 +732,7 @@ let mineSeg = 'pass';
 function passItem(p) { const b = p.body, G = GRADE[b.g] || GRADE.R, ok = (() => { const P = parseFrag(p.frag); return P && verify(P).ok; })();
   return `<button class="item" data-open="${esc(p.frag)}"><span class="gbox" style="background:${G[0]}">${b.g === 'R' ? '♻' : b.g}</span><span style="min-width:0"><span class="t">${esc(b.c)}${ok ? '' : ' <span style="color:var(--bad)">· altered</span>'}</span><span class="s">Passport ${esc(b.id)} · ${day(p.saved)}</span></span><span class="p">${Math.round(b.h)}%<small>health</small></span></button>`; }
 function saleItem(s) { const k = SELL_KIND.find(x => x[0] === s.kind) || ['', 'Batteries'];
-  return `<button class="item" data-sale="${s.ref}"><span class="gbox" style="background:#2E9E5B">${ICON.sell}</span><span style="min-width:0"><span class="t">${esc(k[1])}</span><span class="s">${s.count} cells · ${s.ref} · ${day(s.ts)}</span></span><span class="p" style="font:600 .8rem var(--f);color:var(--blue)">Awaiting<br>${s.hand === 'pickup' ? 'pickup' : 'drop-off'}</span></button>`; }
+  return `<button class="item" data-sale="${s.ref}"><span class="gbox" style="background:#2E9E5B">${ICON.sell}</span><span style="min-width:0"><span class="t">${esc(k[1])}</span><span class="s">${esc(s.size || s.count)} · ${s.ref}</span></span><span class="p" style="font:600 .8rem var(--f);color:var(--blue)">${s.date ? 'Test ' + day(s.date) : 'Requested'}<br>${s.slot ? esc(s.slot) : s.hand === 'pickup' ? 'pickup' : 'drop-off'}</span></button>`; }
 function quoteItem(q) { const l = LOTS.find(x => x.id === q.lot) || LOTS[0], G = GRADE[l.g];
   return `<button class="item" data-quote="${q.ref}"><span class="gbox" style="background:#2148C0">${ICON.buy}</span><span style="min-width:0"><span class="t">${q.qty} × ${G[1]} cells${q.pack ? ' as a pack' : ''}</span><span class="s">Quote ${q.ref} · ${day(q.ts)}</span></span><span class="p" style="font:600 .8rem var(--f);color:var(--blue)">Quote<br>requested</span></button>`; }
 function renderMine() {
@@ -569,6 +759,9 @@ function openSheet(kind, arg) {
       <div class="card"><div class="label" style="color:var(--gR)">Recyclers</div><b style="display:block;margin:4px 0">Get the cells that can’t be reused</b><span class="muted small">Cells too worn to reuse go to recyclers already sorted, each still carrying its passport.</span></div>
       <div class="card" style="background:var(--surface-2)"><div class="label">Cellvage</div><b style="display:block;margin:4px 0">Earns on the difference</b><span class="muted small">Cellvage buys retired batteries, tests and grades every cell, and sells the graded cells. The test and passport are what make a used cell worth buying.</span></div>
     </div><div class="actions"><button class="btn" id="replayTour">Replay the intro</button><button class="btn ghost" data-close>Close</button></div>`;
+  if (kind === 'grades') h = `<h2 id="sheetTitle" style="font:800 1.35rem var(--fd);margin:4px 0 6px">What the grades mean</h2><p class="muted small" style="margin:0 0 14px">Health is how much of its original capacity a cell still holds, estimated from its 10-second pulse test.</p>
+    <div class="list">${[['A', '85–100%', 'E-bike, scooter and power-tool packs that need strong current.'], ['B', '70–85%', 'Solar storage and UPS, where current is gentler.'], ['C', '60–70%', 'Lights, torches and other low-drain uses.'], ['R', 'below 60%', 'Recycled for materials, still with its passport.']].map(g => `<div class="card" style="display:flex;gap:12px;align-items:center;padding:12px 14px"><span class="gbox" style="background:${GRADE[g[0]][0]}">${g[0] === 'R' ? '♻' : g[0]}</span><span><b>${GRADE[g[0]][1]} · ${g[1]}</b><br><span class="muted small">${g[2]}</span></span></div>`).join('')}</div>
+    <p class="note">Cells that land close to a grade boundary get a full capacity test before they are listed.</p><div class="actions"><button class="btn ghost" data-close>Close</button></div>`;
   if (kind === 'quote') { const l = curLot, G = GRADE[l.g];
     h = `<h2 id="sheetTitle" style="font:800 1.35rem var(--fd);margin:4px 0 4px">Request a quote</h2><p class="muted small" style="margin:0 0 14px">${G[1]} · ${esc(FAM[l.fam])} · ${l.n} available</p>
     <div class="stepper" style="margin-top:0"><span><b>How many cells?</b></span><span style="display:flex;align-items:center;gap:8px"><button aria-label="Fewer" data-q="-1">−</button><span class="v" id="qty">${Math.min(10, l.n)}</span><button aria-label="More" data-q="1">+</button></span></div>
@@ -577,9 +770,9 @@ function openSheet(kind, arg) {
     <p class="note"><span class="demo">Demo</span> No order is placed. The price comes back as a quote.</p>
     <div class="actions"><button class="btn primary" id="sendQuote">Send request</button></div>`; }
   if (kind === 'sale') { const s = store.get('sales', []).find(x => x.ref === arg), k = SELL_KIND.find(x => x[0] === s.kind);
-    h = `<h2 id="sheetTitle" style="font:800 1.35rem var(--fd);margin:4px 0 4px">${esc(k[1])}</h2><p class="muted small" style="margin:0 0 14px">About ${s.count} cells · ref ${s.ref} · <span class="demo">Demo</span></p>
+    h = `<h2 id="sheetTitle" style="font:800 1.35rem var(--fd);margin:4px 0 4px">${esc(k[1])}</h2><p class="muted small" style="margin:0 0 14px">${esc(s.size || s.count)} · ref ${s.ref} · <span class="demo">Demo</span></p>
     <div class="card"><ul class="trail"><li><span class="d"><i></i><b></b></span><span class="x"><b>Request sent</b><small>${when(s.ts)}</small></span></li>
-    <li><span class="d"><i class="now"></i><b></b></span><span class="x"><b>${s.hand === 'pickup' ? 'Pickup' : 'Bench drop-off'}</b><small>Next step</small></span></li>
+    <li><span class="d"><i class="now"></i><b></b></span><span class="x"><b>Free test · ${s.hand === 'pickup' ? 'pickup' : 'Cellvage bench'}</b><small>${s.date ? new Date(s.date).toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' }) + ' · ' + esc(s.slot) : 'Next step'}</small></span></li>
     <li><span class="d"><i class="o"></i><b></b></span><span class="x"><b>Testing and passports</b><small>Each cell, 10 seconds</small></span></li>
     <li><span class="d"><i class="o"></i></span><span class="x"><b>Your offer</b><small>Accept to get paid, or take your cells back</small></span></li></ul></div>
     <div class="actions"><button class="btn danger" id="cancelSale" style="color:var(--bad)">Cancel this request</button><button class="btn ghost" data-close>Close</button></div>`; }
