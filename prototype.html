@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cellvage · selling flow prototype</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+html,body{margin:0;height:100%}
+body{background:#1B2430;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Sans',Arial,sans-serif}
+a{color:#2148C0}
+.phone{margin-top:34px;width:390px;height:844px;border-radius:44px;overflow:hidden;background:#EEF1F4;box-shadow:0 0 0 12px #0B1118,0 30px 80px rgba(0,0,0,.5);position:relative}
+.screen{position:absolute;inset:0}
+.screen[hidden]{display:none}
+.screen [style*="overflow: auto"] > *{flex-shrink:0}
+.tabbtn{min-height:44px;border:0;border-radius:9px;background:transparent;color:#4A5566;font:500 15px 'IBM Plex Sans',Arial,sans-serif;cursor:pointer}
+.tabbtn[aria-selected="true"]{background:#FBFCFD;color:#111A24;font-weight:600;box-shadow:0 1px 2px rgba(17,26,36,.12)}
+@media (max-width:430px),(max-height:880px){ body{align-items:flex-start} .phone{width:100vw;height:100vh;border-radius:0;box-shadow:none} }
+</style>
+</head>
+<body>
+<div style="position:fixed;left:0;right:0;top:0;z-index:50;background:#A5541F;color:#fff;font:600 13px 'IBM Plex Sans',Arial,sans-serif;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px"><span>Prototype screens · sample data</span><a href="./" style="color:#fff">Back to the app</a></div>
+<div class="phone">
+<section class="screen" id="s-main" hidden><div style="width: 100%; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; background: #EEF1F4; color: #111A24; font-family: 'IBM Plex Sans', Arial, sans-serif">
+<div style="flex: 1; overflow: auto; padding: 20px 20px 24px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<div style="display: flex; align-items: center; gap: 10px">
+<svg aria-hidden="true" width="26" height="26" viewBox="0 0 26 26"><rect x="5" y="3" width="16" height="21" rx="3" fill="none" stroke="#2148C0" stroke-width="2.2"></rect><rect x="10" y="1" width="6" height="3" rx="1" fill="#2148C0"></rect><path d="M8 17 l3-4 3 3 4-6" fill="none" stroke="#A5541F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span style="font-family: 'Archivo', Arial, sans-serif; font-weight: 800; font-size: 22px">Cellvage</span>
+</div>
+<button type="button" style="display: flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 12px; border: 1px solid #BCC6D2; border-radius: 999px; background: #FBFCFD; color: #111A24; font: 500 14px 'IBM Plex Sans', Arial, sans-serif"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A5541F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>Greater Noida</button>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="search" style="font: 600 12px 'IBM Plex Mono', monospace; letter-spacing: 1px; color: #4A5566">SEARCH</label>
+<input id="search" type="search" placeholder="Cells, packs or a passport ID" style="min-height: 48px; box-sizing: border-box; padding: 0 14px; border: 1px solid #BCC6D2; border-radius: 12px; background: #FBFCFD; font: 400 16px 'IBM Plex Sans', Arial, sans-serif; color: #111A24">
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 22px; border-radius: 20px; background: #2148C0; color: #F4F6FB">
+<span style="font: 600 12px 'IBM Plex Mono', monospace; letter-spacing: 1.5px; color: #F5C9A8">SELL YOUR OLD BATTERY</span>
+<h1 style="margin: 0; font-family: 'Archivo', Arial, sans-serif; font-weight: 800; font-size: 28px; line-height: 1.1">Find out what it is worth in 10 seconds</h1>
+<p style="margin: 0; font-size: 15px; line-height: 1.45; color: #DCE4F7">Bring it to a Cellvage bench or book a pickup. Every cell is graded and gets a passport.</p>
+<a href="#sell" style="align-self: flex-start; display: inline-flex; align-items: center; min-height: 48px; padding: 0 20px; border-radius: 12px; background: #FBFCFD; color: #16318A; font-weight: 600; font-size: 16px; text-decoration: none">Sell a battery</a>
+</div>
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<h2 style="margin: 0; font-family: 'Archivo', Arial, sans-serif; font-weight: 700; font-size: 20px">Buy graded cells</h2>
+<a href="#listing" style="font-size: 14px; font-weight: 600">See all</a>
+</div>
+<div style="display: flex; gap: 8px; overflow-x: auto; margin: 0 -20px; padding: 0 20px 2px">
+<button type="button" style="flex: none; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid #111A24; background: #111A24; color: #FBFCFD; font: 500 14px 'IBM Plex Sans', Arial, sans-serif">18650 cells</button>
+<button type="button" style="flex: none; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid #BCC6D2; background: #FBFCFD; color: #111A24; font: 500 14px 'IBM Plex Sans', Arial, sans-serif">E-bike packs</button>
+<button type="button" style="flex: none; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid #BCC6D2; background: #FBFCFD; color: #111A24; font: 500 14px 'IBM Plex Sans', Arial, sans-serif">Laptop packs</button>
+<button type="button" style="flex: none; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid #BCC6D2; background: #FBFCFD; color: #111A24; font: 500 14px 'IBM Plex Sans', Arial, sans-serif">Solar storage</button>
+</div>
+<a href="#listing" style="display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 16px; background: #FBFCFD; border: 1px solid #D3DAE3; color: #111A24; text-decoration: none">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+<span style="display: inline-flex; align-items: center; justify-content: center; min-width: 34px; height: 30px; padding: 0 8px; border-radius: 8px; background: #DDF1E4; color: #17723B; font: 700 15px 'IBM Plex Mono', monospace">A</span>
+<span style="font: 600 18px 'Archivo', Arial, sans-serif">Price on request</span>
+</div>
+<span style="font-weight: 600; font-size: 16px">18650 NMC 2500 mAh high-drain</span>
+<span style="font-size: 14px; color: #4A5566">12 cells · health 86–94% · ex e-bike pack</span>
+<span style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: #17723B"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg>12 of 12 passports verified</span>
+</a>
+<a href="#listing" style="display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 16px; background: #FBFCFD; border: 1px solid #D3DAE3; color: #111A24; text-decoration: none">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+<span style="display: inline-flex; align-items: center; justify-content: center; min-width: 34px; height: 30px; padding: 0 8px; border-radius: 8px; background: #D9EFF2; color: #0B6F7D; font: 700 15px 'IBM Plex Mono', monospace">B</span>
+<span style="font: 600 18px 'Archivo', Arial, sans-serif">Price on request</span>
+</div>
+<span style="font-weight: 600; font-size: 16px">18650 NMC 2600 mAh laptop pull</span>
+<span style="font-size: 14px; color: #4A5566">24 cells · health 72–84% · for solar storage and UPS</span>
+<span style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: #17723B"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg>24 of 24 passports verified</span>
+</a>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 12px; border-radius: 12px; background: #E3E8EE"><span style="font: 700 16px 'Archivo', Arial, sans-serif">10 s</span><span style="font-size: 12px; line-height: 1.35; color: #4A5566">pulse test per cell</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 12px; border-radius: 12px; background: #E3E8EE"><span style="font: 700 16px 'Archivo', Arial, sans-serif">±10</span><span style="font-size: 12px; line-height: 1.35; color: #4A5566">health range shown</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 12px; border-radius: 12px; background: #E3E8EE"><span style="font: 700 16px 'Archivo', Arial, sans-serif">Passport</span><span style="font-size: 12px; line-height: 1.35; color: #4A5566">on every cell</span></div>
+</div>
+</div>
+<nav aria-label="Main" style="display: flex; background: #FBFCFD; border-top: 1px solid #D3DAE3; padding: 6px 8px 12px">
+<a href="#main" aria-current="page" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #2148C0; font-size: 12px; font-weight: 600"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"></path><path d="M5 10v10h14V10"></path></svg>Home</a>
+<a href="#sell" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #4A5566; font-size: 12px; font-weight: 500"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v8M8 12h8"></path></svg>Sell</a>
+<a href="#mybatteries" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #4A5566; font-size: 12px; font-weight: 500"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="4" width="10" height="17" rx="2"></rect><path d="M10 2h4"></path><path d="M10 13l2-3v6l2-3"></path></svg>My batteries</a>
+<a href="#passport" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #4A5566; font-size: 12px; font-weight: 500"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"></path><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg>Passports</a>
+</nav>
+</div></section>
+<section class="screen" id="s-sell" hidden><div style="width: 100%; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; background: #EEF1F4; color: #111A24; font-family: 'IBM Plex Sans', Arial, sans-serif">
+<div style="display: flex; align-items: center; gap: 8px; padding: 12px 12px 8px; background: #FBFCFD; border-bottom: 1px solid #D3DAE3">
+<a href="#main" aria-label="Back to home" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; color: #111A24"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></a>
+<h1 style="margin: 0; font-family: 'Archivo', Arial, sans-serif; font-weight: 700; font-size: 20px">Sell a battery</h1>
+</div>
+<div style="flex: 1; overflow: auto; padding: 18px 20px 24px; display: flex; flex-direction: column; gap: 22px">
+<ol aria-label="Steps" style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px">
+<li style="display: flex; flex-direction: column; gap: 6px"><span style="height: 4px; border-radius: 2px; background: #2148C0"></span><span style="font: 600 12px 'IBM Plex Mono', monospace; color: #2148C0">1 Describe</span></li>
+<li style="display: flex; flex-direction: column; gap: 6px"><span style="height: 4px; border-radius: 2px; background: #BCC6D2"></span><span style="font: 500 12px 'IBM Plex Mono', monospace; color: #4A5566">2 Test</span></li>
+<li style="display: flex; flex-direction: column; gap: 6px"><span style="height: 4px; border-radius: 2px; background: #BCC6D2"></span><span style="font: 500 12px 'IBM Plex Mono', monospace; color: #4A5566">3 Quote</span></li>
+<li style="display: flex; flex-direction: column; gap: 6px"><span style="height: 4px; border-radius: 2px; background: #BCC6D2"></span><span style="font: 500 12px 'IBM Plex Mono', monospace; color: #4A5566">4 Payout</span></li>
+</ol>
+<fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 10px">
+<legend style="padding: 0; margin-bottom: 10px; font: 700 18px 'Archivo', Arial, sans-serif">What are you selling?</legend>
+<label for="k1" style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 14px; border-radius: 14px; border: 2px solid #2148C0; background: #FBFCFD; font-size: 16px"><input id="k1" type="radio" name="kind" checked style="width: 20px; height: 20px; accent-color: #2148C0">E-bike or scooter pack</label>
+<label for="k2" style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 14px; border-radius: 14px; border: 1px solid #BCC6D2; background: #FBFCFD; font-size: 16px"><input id="k2" type="radio" name="kind" style="width: 20px; height: 20px; accent-color: #2148C0">Laptop battery pack</label>
+<label for="k3" style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 14px; border-radius: 14px; border: 1px solid #BCC6D2; background: #FBFCFD; font-size: 16px"><input id="k3" type="radio" name="kind" style="width: 20px; height: 20px; accent-color: #2148C0">Loose 18650 cells</label>
+<label for="k4" style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 14px; border-radius: 14px; border: 1px solid #BCC6D2; background: #FBFCFD; font-size: 16px"><input id="k4" type="radio" name="kind" style="width: 20px; height: 20px; accent-color: #2148C0">Power bank</label>
+</fieldset>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px">
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="cells" style="font-weight: 600; font-size: 14px">About how many cells?</label><input id="cells" type="number" inputmode="numeric" value="52" style="min-height: 48px; box-sizing: border-box; padding: 0 12px; border: 1px solid #BCC6D2; border-radius: 12px; background: #FBFCFD; font: 400 16px 'IBM Plex Sans', Arial, sans-serif; color: #111A24"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="volt" style="font-weight: 600; font-size: 14px">Pack voltage</label><input id="volt" type="text" value="48 V" style="min-height: 48px; box-sizing: border-box; padding: 0 12px; border: 1px solid #BCC6D2; border-radius: 12px; background: #FBFCFD; font: 400 16px 'IBM Plex Sans', Arial, sans-serif; color: #111A24"></div>
+</div>
+<fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 10px">
+<legend style="padding: 0; margin-bottom: 10px; font: 700 18px 'Archivo', Arial, sans-serif">How should we test it?</legend>
+<label for="t1" style="display: flex; align-items: flex-start; gap: 12px; padding: 14px; border-radius: 14px; border: 2px solid #2148C0; background: #FBFCFD"><input id="t1" type="radio" name="test" checked style="width: 20px; height: 20px; margin-top: 2px; accent-color: #2148C0"><span style="display: flex; flex-direction: column; gap: 3px"><span style="font-weight: 600; font-size: 16px">Drop it at a bench</span><span style="font-size: 14px; color: #4A5566">Cellvage bench, Knowledge Park III, Greater Noida. Results while you wait.</span></span></label>
+<label for="t2" style="display: flex; align-items: flex-start; gap: 12px; padding: 14px; border-radius: 14px; border: 1px solid #BCC6D2; background: #FBFCFD"><input id="t2" type="radio" name="test" style="width: 20px; height: 20px; margin-top: 2px; accent-color: #2148C0"><span style="display: flex; flex-direction: column; gap: 3px"><span style="font-weight: 600; font-size: 16px">Book a pickup</span><span style="font-size: 14px; color: #4A5566">We collect it, test every cell and send you the graded quote.</span></span></label>
+</fieldset>
+<div role="note" style="display: flex; gap: 10px; padding: 14px; border-radius: 14px; background: #F6E7DC; color: #6E3412; font-size: 14px; line-height: 1.45"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 1px"><path d="M12 3l10 18H2z"></path><path d="M12 10v5M12 18v.5"></path></svg><span>Swollen, leaking or hot battery? Don’t carry it in. Book a pickup and say so, and we arrange safe collection.</span></div>
+<a href="#quote" style="display: flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 14px; background: #2148C0; color: #F7F9FC; font-weight: 600; font-size: 17px; text-decoration: none">Book a 10-second test</a>
+</div>
+<nav aria-label="Main" style="display: flex; background: #FBFCFD; border-top: 1px solid #D3DAE3; padding: 6px 8px 12px">
+<a href="#main" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #4A5566; font-size: 12px; font-weight: 500"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"></path><path d="M5 10v10h14V10"></path></svg>Home</a>
+<a href="#sell" aria-current="page" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #2148C0; font-size: 12px; font-weight: 600"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v8M8 12h8"></path></svg>Sell</a>
+<a href="#mybatteries" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #4A5566; font-size: 12px; font-weight: 500"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="4" width="10" height="17" rx="2"></rect><path d="M10 2h4"></path><path d="M10 13l2-3v6l2-3"></path></svg>My batteries</a>
+<a href="#passport" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #4A5566; font-size: 12px; font-weight: 500"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"></path><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg>Passports</a>
+</nav>
+</div></section>
+<section class="screen" id="s-quote" hidden><div style="width: 100%; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; background: #EEF1F4; color: #111A24; font-family: 'IBM Plex Sans', Arial, sans-serif">
+<div style="display: flex; align-items: center; gap: 8px; padding: 12px 12px 8px; background: #FBFCFD; border-bottom: 1px solid #D3DAE3">
+<a href="#sell" aria-label="Back to sell" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; color: #111A24"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></a>
+<h1 style="margin: 0; font-family: 'Archivo', Arial, sans-serif; font-weight: 700; font-size: 20px">Your graded quote</h1>
+</div>
+<div style="flex: 1; overflow: auto; padding: 18px 20px 24px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font: 600 12px 'IBM Plex Mono', monospace; letter-spacing: 1px; color: #A5541F">SAMPLE RESULT · E-BIKE PACK, 48 V</span>
+<span style="font: 800 30px/1.1 'Archivo', Arial, sans-serif">52 cells tested</span>
+<span style="font-size: 15px; color: #4A5566">8 min 40 s of pulse testing. Each cell now has a passport.</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div role="img" aria-label="Grade split: 19 A, 17 B, 5 C, 5 to verify, 6 to recycle" style="display: flex; height: 36px; border-radius: 10px; overflow: hidden; gap: 2px">
+<span style="flex: 19; display: flex; align-items: center; justify-content: center; background: #DDF1E4; color: #17723B; font: 700 14px 'IBM Plex Mono', monospace">A 19</span>
+<span style="flex: 17; display: flex; align-items: center; justify-content: center; background: #D9EFF2; color: #0B6F7D; font: 700 14px 'IBM Plex Mono', monospace">B 17</span>
+<span style="flex: 5; display: flex; align-items: center; justify-content: center; background: #F7EBD4; color: #93600E; font: 700 14px 'IBM Plex Mono', monospace">C</span>
+<span style="flex: 5; display: flex; align-items: center; justify-content: center; background: #E9E2F8; color: #5B3BB0; font: 700 14px 'IBM Plex Mono', monospace">V</span>
+<span style="flex: 6; display: flex; align-items: center; justify-content: center; background: #F8DFDB; color: #B03224; font: 700 14px 'IBM Plex Mono', monospace">R</span>
+</div>
+<span style="font-size: 13px; color: #4A5566">41 cells go back into service. 6 go to a recycler with their passports.</span>
+</div>
+<div style="display: flex; flex-direction: column; background: #FBFCFD; border: 1px solid #D3DAE3; border-radius: 16px; overflow: hidden">
+<div style="display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 14px 16px; border-bottom: 1px solid #E3E8EE"><span style="display: inline-flex; align-items: center; justify-content: center; height: 28px; border-radius: 7px; background: #DDF1E4; color: #17723B; font: 700 14px 'IBM Plex Mono', monospace">A</span><span style="display: flex; flex-direction: column"><span style="font-weight: 600; font-size: 15px">19 cells, 85% and up</span><span style="font-size: 13px; color: #4A5566">E-bike and tool packs</span></span><span style="font: 600 15px 'IBM Plex Mono', monospace">Graded rate</span></div>
+<div style="display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 14px 16px; border-bottom: 1px solid #E3E8EE"><span style="display: inline-flex; align-items: center; justify-content: center; height: 28px; border-radius: 7px; background: #D9EFF2; color: #0B6F7D; font: 700 14px 'IBM Plex Mono', monospace">B</span><span style="display: flex; flex-direction: column"><span style="font-weight: 600; font-size: 15px">17 cells, 70–85%</span><span style="font-size: 13px; color: #4A5566">Solar storage and UPS</span></span><span style="font: 600 15px 'IBM Plex Mono', monospace">Graded rate</span></div>
+<div style="display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 14px 16px; border-bottom: 1px solid #E3E8EE"><span style="display: inline-flex; align-items: center; justify-content: center; height: 28px; border-radius: 7px; background: #F7EBD4; color: #93600E; font: 700 14px 'IBM Plex Mono', monospace">C</span><span style="display: flex; flex-direction: column"><span style="font-weight: 600; font-size: 15px">5 cells, 66–70%</span><span style="font-size: 13px; color: #4A5566">Lights and low-drain devices</span></span><span style="font: 600 15px 'IBM Plex Mono', monospace">Graded rate</span></div>
+<div style="display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 14px 16px; border-bottom: 1px solid #E3E8EE"><span style="display: inline-flex; align-items: center; justify-content: center; height: 28px; border-radius: 7px; background: #E9E2F8; color: #5B3BB0; font: 700 14px 'IBM Plex Mono', monospace">V</span><span style="display: flex; flex-direction: column"><span style="font-weight: 600; font-size: 15px">5 cells to verify</span><span style="font-size: 13px; color: #4A5566">Capacity test, price confirmed after</span></span><span style="font: 600 15px 'IBM Plex Mono', monospace">Pending</span></div>
+<div style="display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 14px 16px"><span style="display: inline-flex; align-items: center; justify-content: center; height: 28px; border-radius: 7px; background: #F8DFDB; color: #B03224; font: 700 14px 'IBM Plex Mono', monospace">R</span><span style="display: flex; flex-direction: column"><span style="font-weight: 600; font-size: 15px">6 cells to recycle</span><span style="font-size: 13px; color: #4A5566">Sent to a recycler, by weight</span></span><span style="font: 600 15px 'IBM Plex Mono', monospace">By weight</span></div>
+</div>
+<div style="display: flex; align-items: baseline; justify-content: space-between; padding: 0 4px"><span style="font-weight: 600; font-size: 16px">Total offer</span><span style="font: 700 18px 'Archivo', Arial, sans-serif">Confirmed at the bench</span></div>
+<a href="#mybatteries" style="display: flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 14px; background: #2148C0; color: #F7F9FC; font-weight: 600; font-size: 17px; text-decoration: none">Accept offer</a>
+<a href="#passport" style="display: flex; align-items: center; justify-content: center; min-height: 48px; border-radius: 14px; border: 1px solid #BCC6D2; background: #FBFCFD; color: #111A24; font-weight: 600; font-size: 16px; text-decoration: none">See a cell passport</a>
+</div>
+<nav aria-label="Main" style="display: flex; background: #FBFCFD; border-top: 1px solid #D3DAE3; padding: 6px 8px 12px">
+<a href="#main" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #4A5566; font-size: 12px; font-weight: 500"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"></path><path d="M5 10v10h14V10"></path></svg>Home</a>
+<a href="#sell" aria-current="page" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #2148C0; font-size: 12px; font-weight: 600"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v8M8 12h8"></path></svg>Sell</a>
+<a href="#mybatteries" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #4A5566; font-size: 12px; font-weight: 500"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="4" width="10" height="17" rx="2"></rect><path d="M10 2h4"></path><path d="M10 13l2-3v6l2-3"></path></svg>My batteries</a>
+<a href="#passport" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #4A5566; font-size: 12px; font-weight: 500"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"></path><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg>Passports</a>
+</nav>
+</div></section>
+<section class="screen" id="s-listing" hidden><div style="width: 100%; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; background: #EEF1F4; color: #111A24; font-family: 'IBM Plex Sans', Arial, sans-serif">
+<div style="display: flex; align-items: center; gap: 8px; padding: 12px 12px 8px; background: #FBFCFD; border-bottom: 1px solid #D3DAE3">
+<a href="#main" aria-label="Back to home" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; color: #111A24"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></a>
+<span style="font-family: 'Archivo', Arial, sans-serif; font-weight: 700; font-size: 20px">Listing</span>
+</div>
+<div style="flex: 1; overflow: auto; padding: 18px 20px 24px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: center; gap: 10px"><span style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 34px; padding: 0 10px; border-radius: 9px; background: #DDF1E4; color: #17723B; font: 700 16px 'IBM Plex Mono', monospace">A</span><span style="font: 600 12px 'IBM Plex Mono', monospace; letter-spacing: 1px; color: #4A5566">SAMPLE LOT · GRADED 27 OCT 2026</span></div>
+<h1 style="margin: 0; font-family: 'Archivo', Arial, sans-serif; font-weight: 800; font-size: 26px; line-height: 1.15">18650 NMC 2500 mAh high-drain</h1>
+<span style="font-size: 15px; color: #4A5566">12 cells from a retired e-bike pack</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<div style="display: flex; flex-direction: column; gap: 2px; padding: 14px; border-radius: 14px; background: #FBFCFD; border: 1px solid #D3DAE3"><span style="font-size: 13px; color: #4A5566">Health range</span><span style="font: 700 20px 'Archivo', Arial, sans-serif">86–94%</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px; padding: 14px; border-radius: 14px; background: #FBFCFD; border: 1px solid #D3DAE3"><span style="font-size: 13px; color: #4A5566">Mean health</span><span style="font: 700 20px 'Archivo', Arial, sans-serif">90%</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px; padding: 14px; border-radius: 14px; background: #FBFCFD; border: 1px solid #D3DAE3"><span style="font-size: 13px; color: #4A5566">Each reading</span><span style="font: 700 20px 'Archivo', Arial, sans-serif">±10 points</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px; padding: 14px; border-radius: 14px; background: #DDF1E4; border: 1px solid #B8DFC6"><span style="font-size: 13px; color: #17723B">Passports</span><span style="font: 700 20px 'Archivo', Arial, sans-serif; color: #17723B">12 of 12 verified</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<h2 style="margin: 0; font: 700 17px 'Archivo', Arial, sans-serif">Good for</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 6px"><span style="padding: 6px 12px; border-radius: 999px; background: #E3E8EE; font-size: 14px">E-bike packs</span><span style="padding: 6px 12px; border-radius: 999px; background: #E3E8EE; font-size: 14px">Tool packs</span><span style="padding: 6px 12px; border-radius: 999px; background: #E3E8EE; font-size: 14px">Power banks</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<h2 style="margin: 0; font: 700 17px 'Archivo', Arial, sans-serif">Cells in this lot</h2>
+<div style="display: flex; flex-direction: column; background: #FBFCFD; border: 1px solid #D3DAE3; border-radius: 14px; overflow: hidden">
+<a href="#passport" style="display: flex; align-items: center; justify-content: space-between; min-height: 52px; padding: 0 16px; border-bottom: 1px solid #E3E8EE; color: #111A24; text-decoration: none"><span style="font: 600 15px 'IBM Plex Mono', monospace">CV-10302</span><span style="display: flex; align-items: center; gap: 10px; font-size: 15px">91%<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5566" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></span></a>
+<a href="#passport" style="display: flex; align-items: center; justify-content: space-between; min-height: 52px; padding: 0 16px; border-bottom: 1px solid #E3E8EE; color: #111A24; text-decoration: none"><span style="font: 600 15px 'IBM Plex Mono', monospace">CV-10318</span><span style="display: flex; align-items: center; gap: 10px; font-size: 15px">93%<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5566" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></span></a>
+<a href="#passport" style="display: flex; align-items: center; justify-content: space-between; min-height: 52px; padding: 0 16px; border-bottom: 1px solid #E3E8EE; color: #111A24; text-decoration: none"><span style="font: 600 15px 'IBM Plex Mono', monospace">CV-10325</span><span style="display: flex; align-items: center; gap: 10px; font-size: 15px">88%<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5566" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></span></a>
+<span style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; font-size: 14px; color: #4A5566">and 9 more, each with its passport</span>
+</div>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-radius: 14px; background: #FBFCFD; border: 1px solid #D3DAE3">
+<span style="display: flex; flex-direction: column"><span style="font-size: 13px; color: #4A5566">Sold by</span><span style="font-weight: 600; font-size: 15px">Cellvage bench, Greater Noida</span></span>
+<button type="button" style="min-height: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid #BCC6D2; background: #FBFCFD; color: #111A24; font: 600 14px 'IBM Plex Sans', Arial, sans-serif">Ask a question</button>
+</div>
+</div>
+<div style="display: flex; align-items: center; gap: 14px; padding: 12px 20px 14px; background: #FBFCFD; border-top: 1px solid #D3DAE3">
+<span style="display: flex; flex-direction: column"><span style="font-size: 13px; color: #4A5566">12 cells</span><span style="font: 800 22px 'Archivo', Arial, sans-serif">Price on request</span></span>
+<a href="#mybatteries" style="flex: 1; display: flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 14px; background: #2148C0; color: #F7F9FC; font-weight: 600; font-size: 17px; text-decoration: none">Buy this lot</a>
+</div>
+</div></section>
+<section class="screen" id="s-mybatteries" hidden><div style="width: 100%; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; background: #EEF1F4; color: #111A24; font-family: 'IBM Plex Sans', Arial, sans-serif">
+<div style="display: flex; flex-direction: column; gap: 14px; padding: 18px 20px 14px; background: #FBFCFD; border-bottom: 1px solid #D3DAE3">
+<h1 style="margin: 0; font-family: 'Archivo', Arial, sans-serif; font-weight: 800; font-size: 26px">My batteries</h1>
+<div role="tablist" aria-label="Sold or bought" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 12px; background: #E3E8EE">
+<button type="button" role="tab" aria-selected="true" data-tab="sold" class="tabbtn">Sold · 1</button>
+<button type="button" role="tab" aria-selected="false" data-tab="bought" class="tabbtn">Bought · 1</button>
+</div>
+</div>
+<div style="flex: 1; overflow: auto; padding: 18px 20px 24px; display: flex; flex-direction: column; gap: 16px">
+<div data-pane="sold" style="display:flex;flex-direction:column;gap:16px">
+<div style="display: flex; flex-direction: column; gap: 14px; padding: 18px; border-radius: 16px; background: #FBFCFD; border: 1px solid #D3DAE3">
+<div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 10px">
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600; font-size: 17px">E-bike pack, 48 V</span><span style="font-size: 14px; color: #4A5566">52 cells · sold 27 Oct 2026</span></span>
+<span style="padding: 5px 10px; border-radius: 999px; background: #DDF1E4; color: #17723B; font: 600 12px 'IBM Plex Mono', monospace">PAID</span>
+</div>
+<ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0">
+<li style="display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px"><span style="display: flex; flex-direction: column; align-items: center"><span style="width: 14px; height: 14px; border-radius: 50%; background: #17723B; margin-top: 4px"></span><span style="flex: 1; width: 2px; background: #B8DFC6; min-height: 22px"></span></span><span style="padding-bottom: 12px"><span style="display: block; font-weight: 600; font-size: 15px">Test booked</span><span style="font-size: 13px; color: #4A5566">10:05 · bench drop-off</span></span></li>
+<li style="display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px"><span style="display: flex; flex-direction: column; align-items: center"><span style="width: 14px; height: 14px; border-radius: 50%; background: #17723B; margin-top: 4px"></span><span style="flex: 1; width: 2px; background: #B8DFC6; min-height: 22px"></span></span><span style="padding-bottom: 12px"><span style="display: block; font-weight: 600; font-size: 15px">52 cells tested and graded</span><span style="font-size: 13px; color: #4A5566">10:18 · 41 reusable, 5 to verify, 6 to recycle</span></span></li>
+<li style="display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px"><span style="display: flex; flex-direction: column; align-items: center"><span style="width: 14px; height: 14px; border-radius: 50%; background: #17723B; margin-top: 4px"></span><span style="flex: 1; width: 2px; background: #B8DFC6; min-height: 22px"></span></span><span style="padding-bottom: 12px"><span style="display: block; font-weight: 600; font-size: 15px">Offer accepted</span><span style="font-size: 13px; color: #4A5566">10:20</span></span></li>
+<li style="display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px"><span style="display: flex; flex-direction: column; align-items: center"><span style="width: 14px; height: 14px; border-radius: 50%; background: #17723B; margin-top: 4px"></span></span><span><span style="display: block; font-weight: 600; font-size: 15px">Payout sent</span><span style="font-size: 13px; color: #4A5566">10:21 · to your UPI</span></span></li>
+</ol>
+<a href="#passport" style="display: flex; align-items: center; justify-content: center; min-height: 48px; border-radius: 12px; border: 1px solid #BCC6D2; color: #111A24; font-weight: 600; font-size: 15px; text-decoration: none">View the 52 passports</a>
+</div>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4A5566">Your cells keep their passports when they are resold, so you can see where they went next.</p>
+</div>
+<div data-pane="bought" style="display:none;flex-direction:column;gap:16px">
+<div style="display: flex; flex-direction: column; gap: 14px; padding: 18px; border-radius: 16px; background: #FBFCFD; border: 1px solid #D3DAE3">
+<div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 10px">
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600; font-size: 17px">Grade A lot, 12 cells</span><span style="font-size: 14px; color: #4A5566">18650 NMC 2500 mAh high-drain</span></span>
+<span style="padding: 5px 10px; border-radius: 999px; background: #DDE5FA; color: #16318A; font: 600 12px 'IBM Plex Mono', monospace">ON THE WAY</span>
+</div>
+<ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0">
+<li style="display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px"><span style="display: flex; flex-direction: column; align-items: center"><span style="width: 14px; height: 14px; border-radius: 50%; background: #17723B; margin-top: 4px"></span><span style="flex: 1; width: 2px; background: #B8DFC6; min-height: 22px"></span></span><span style="padding-bottom: 12px"><span style="display: block; font-weight: 600; font-size: 15px">Paid</span><span style="font-size: 13px; color: #4A5566">27 Oct, 11:02</span></span></li>
+<li style="display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px"><span style="display: flex; flex-direction: column; align-items: center"><span style="width: 14px; height: 14px; border-radius: 50%; background: #17723B; margin-top: 4px"></span><span style="flex: 1; width: 2px; background: #BCC6D2; min-height: 22px"></span></span><span style="padding-bottom: 12px"><span style="display: block; font-weight: 600; font-size: 15px">Packed with 12 passports</span><span style="font-size: 13px; color: #4A5566">27 Oct, 14:30 · chain verified</span></span></li>
+<li style="display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px"><span style="display: flex; flex-direction: column; align-items: center"><span style="width: 14px; height: 14px; border-radius: 50%; background: #2148C0; box-shadow: 0 0 0 4px #DDE5FA; margin-top: 4px"></span><span style="flex: 1; width: 2px; background: #BCC6D2; min-height: 22px"></span></span><span style="padding-bottom: 12px"><span style="display: block; font-weight: 600; font-size: 15px; color: #16318A">Out for delivery</span><span style="font-size: 13px; color: #4A5566">Expected 28 Oct</span></span></li>
+<li style="display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px"><span style="display: flex; flex-direction: column; align-items: center"><span style="width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; border: 2px solid #8C99AA; margin-top: 4px"></span></span><span><span style="display: block; font-weight: 600; font-size: 15px; color: #4A5566">Delivered</span><span style="font-size: 13px; color: #4A5566">Scan any cell to check its passport</span></span></li>
+</ol>
+<a href="#passport" style="display: flex; align-items: center; justify-content: center; min-height: 48px; border-radius: 12px; border: 1px solid #BCC6D2; color: #111A24; font-weight: 600; font-size: 15px; text-decoration: none">View the 12 passports</a>
+</div>
+<a href="#listing" style="font-size: 14px; font-weight: 600">See the original listing</a>
+</div>
+</div>
+<nav aria-label="Main" style="display: flex; background: #FBFCFD; border-top: 1px solid #D3DAE3; padding: 6px 8px 12px">
+<a href="#main" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #4A5566; font-size: 12px; font-weight: 500"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"></path><path d="M5 10v10h14V10"></path></svg>Home</a>
+<a href="#sell" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #4A5566; font-size: 12px; font-weight: 500"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v8M8 12h8"></path></svg>Sell</a>
+<a href="#mybatteries" aria-current="page" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #2148C0; font-size: 12px; font-weight: 600"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="4" width="10" height="17" rx="2"></rect><path d="M10 2h4"></path><path d="M10 13l2-3v6l2-3"></path></svg>My batteries</a>
+<a href="#passport" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #4A5566; font-size: 12px; font-weight: 500"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"></path><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg>Passports</a>
+</nav>
+</div></section>
+<section class="screen" id="s-passport" hidden><div style="width: 100%; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; background: #EEF1F4; color: #111A24; font-family: 'IBM Plex Sans', Arial, sans-serif">
+<div style="display: flex; align-items: center; gap: 8px; padding: 12px 12px 8px; background: #FBFCFD; border-bottom: 1px solid #D3DAE3">
+<a href="#listing" aria-label="Back to listing" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; color: #111A24"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></a>
+<h1 style="margin: 0; font-family: 'Archivo', Arial, sans-serif; font-weight: 700; font-size: 20px">Cell passport</h1>
+</div>
+<div style="flex: 1; overflow: auto; padding: 18px 20px 24px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 14px; padding: 18px; border-radius: 18px; background: #0F1720; color: #E8EDF3">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+<span style="font: 600 24px 'IBM Plex Mono', monospace">CV-10302</span>
+<span style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 34px; padding: 0 10px; border-radius: 9px; background: #DDF1E4; color: #17723B; font: 700 16px 'IBM Plex Mono', monospace">A</span>
+</div>
+<span style="font-size: 15px; color: #A9B6C6">18650 NMC 2500 mAh high-drain</span>
+<div style="display: flex; align-items: baseline; gap: 10px"><span style="font: 800 44px/1 'Archivo', Arial, sans-serif; color: #F2F5F8">91%</span><span style="font: 500 14px 'IBM Plex Mono', monospace; color: #A9B6C6">± 11, 90% range</span></div>
+<div role="img" aria-label="Health 91 percent, range 80 to 100, above the grade A line at 85" style="position: relative; height: 26px">
+<div style="position: absolute; left: 0; right: 0; top: 9px; height: 8px; border-radius: 4px; overflow: hidden; display: flex"><span style="width: 60%; background: #6B2A22"></span><span style="width: 10%; background: #6B5216"></span><span style="width: 15%; background: #145863"></span><span style="width: 15%; background: #1B5E36"></span></div>
+<div style="position: absolute; top: 4px; bottom: 4px; left: 80%; width: 20%; box-sizing: border-box; border: 2px solid #E8EDF3; border-radius: 5px"></div>
+<div style="position: absolute; top: 0; bottom: 0; left: 91%; width: 3px; margin-left: -1.5px; border-radius: 2px; background: #F2F5F8"></div>
+</div>
+<span style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #8FE0AE"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"></path><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg>Chain verified · block #537</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<h2 style="margin: 0; font: 700 17px 'Archivo', Arial, sans-serif">Test record</h2>
+<dl style="margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px 12px; padding: 16px; border-radius: 14px; background: #FBFCFD; border: 1px solid #D3DAE3; font-size: 14px">
+<dt style="color: #4A5566">Tested on</dt><dd style="margin: 0; font-family: 'IBM Plex Mono', monospace; text-align: right">RIG-A · 27 Oct 2026</dd>
+<dt style="color: #4A5566">Rest voltage</dt><dd style="margin: 0; font-family: 'IBM Plex Mono', monospace; text-align: right">3.563 V</dd>
+<dt style="color: #4A5566">Pulse current</dt><dd style="margin: 0; font-family: 'IBM Plex Mono', monospace; text-align: right">509 mA</dd>
+<dt style="color: #4A5566">Instant resistance, above reference</dt><dd style="margin: 0; font-family: 'IBM Plex Mono', monospace; text-align: right">0.7 mΩ</dd>
+<dt style="color: #4A5566">Resistance at 5 s, above reference</dt><dd style="margin: 0; font-family: 'IBM Plex Mono', monospace; text-align: right">9.4 mΩ</dd>
+<dt style="color: #4A5566">Model</dt><dd style="margin: 0; font-family: 'IBM Plex Mono', monospace; text-align: right">sim-2026.10.27</dd>
+</dl>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<h2 style="margin: 0; font: 700 17px 'Archivo', Arial, sans-serif">History</h2>
+<ol style="list-style: none; margin: 0; padding: 16px; border-radius: 14px; background: #FBFCFD; border: 1px solid #D3DAE3; display: flex; flex-direction: column; gap: 0">
+<li style="display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px"><span style="display: flex; flex-direction: column; align-items: center"><span style="width: 12px; height: 12px; border-radius: 50%; background: #17723B; margin-top: 4px"></span><span style="flex: 1; width: 2px; background: #B8DFC6; min-height: 18px"></span></span><span style="padding-bottom: 10px"><span style="display: block; font-weight: 600; font-size: 15px">Retired from an e-bike pack</span><span style="font-size: 13px; color: #4A5566">Sold to Cellvage by its owner</span></span></li>
+<li style="display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px"><span style="display: flex; flex-direction: column; align-items: center"><span style="width: 12px; height: 12px; border-radius: 50%; background: #17723B; margin-top: 4px"></span><span style="flex: 1; width: 2px; background: #B8DFC6; min-height: 18px"></span></span><span style="padding-bottom: 10px"><span style="display: block; font-weight: 600; font-size: 15px">Tested and graded A</span><span style="font-size: 13px; color: #4A5566">10-second pulse test · block #537</span></span></li>
+<li style="display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px"><span style="display: flex; flex-direction: column; align-items: center"><span style="width: 12px; height: 12px; border-radius: 50%; background: #17723B; margin-top: 4px"></span><span style="flex: 1; width: 2px; background: #BCC6D2; min-height: 18px"></span></span><span style="padding-bottom: 10px"><span style="display: block; font-weight: 600; font-size: 15px">Listed in a Grade A lot</span><span style="font-size: 13px; color: #4A5566">12 cells, all with passports</span></span></li>
+<li style="display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px"><span style="display: flex; flex-direction: column; align-items: center"><span style="width: 12px; height: 12px; border-radius: 50%; background: #2148C0; box-shadow: 0 0 0 4px #DDE5FA; margin-top: 4px"></span></span><span><span style="display: block; font-weight: 600; font-size: 15px; color: #16318A">Bought by you</span><span style="font-size: 13px; color: #4A5566">Out for delivery</span></span></li>
+</ol>
+</div>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px">
+<button type="button" style="min-height: 48px; border-radius: 12px; border: 0; background: #2148C0; color: #F7F9FC; font: 600 15px 'IBM Plex Sans', Arial, sans-serif">Share passport</button>
+<button type="button" style="min-height: 48px; border-radius: 12px; border: 1px solid #BCC6D2; background: #FBFCFD; color: #111A24; font: 600 15px 'IBM Plex Sans', Arial, sans-serif">Report a problem</button>
+</div>
+<p style="margin: 0; font-size: 13px; line-height: 1.5; color: #4A5566">Simulation build: this cell and its readings come from the Cellvage simulator, the same cell graded in the live demo.</p>
+</div>
+<nav aria-label="Main" style="display: flex; background: #FBFCFD; border-top: 1px solid #D3DAE3; padding: 6px 8px 12px">
+<a href="#main" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #4A5566; font-size: 12px; font-weight: 500"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"></path><path d="M5 10v10h14V10"></path></svg>Home</a>
+<a href="#sell" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #4A5566; font-size: 12px; font-weight: 500"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v8M8 12h8"></path></svg>Sell</a>
+<a href="#mybatteries" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #4A5566; font-size: 12px; font-weight: 500"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="4" width="10" height="17" rx="2"></rect><path d="M10 2h4"></path><path d="M10 13l2-3v6l2-3"></path></svg>My batteries</a>
+<a href="#passport" aria-current="page" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #2148C0; font-size: 12px; font-weight: 600"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"></path><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg>Passports</a>
+</nav>
+</div></section>
+</div>
+<script>
+const ids=['main','sell','quote','listing','mybatteries','passport'];
+function show(){const h=(location.hash||'#main').slice(1);const v=ids.includes(h)?h:'main';
+  ids.forEach(i=>document.getElementById('s-'+i).hidden=i!==v);}
+addEventListener('hashchange',show);show();
+document.addEventListener('click',e=>{const b=e.target.closest('.tabbtn');if(!b)return;
+  document.querySelectorAll('.tabbtn').forEach(x=>x.setAttribute('aria-selected',String(x===b)));
+  document.querySelectorAll('[data-pane]').forEach(p=>p.style.display=p.dataset.pane===b.dataset.tab?'flex':'none');});
+</script>
+</body>
+</html>
