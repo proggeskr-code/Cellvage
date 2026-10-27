@@ -12,6 +12,7 @@
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="icon-180.png">
 <title>Cellvage</title>
+<script>try{var t=JSON.parse(localStorage.getItem("cv-theme")||"null");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap">
 <style>
@@ -212,7 +213,9 @@ dt{color:var(--muted)}dd{margin:0;text-align:right;font-family:var(--fm);font-si
 body.flow .tabs{display:none}
 body.flow .view{padding-bottom:calc(110px + env(safe-area-inset-bottom))}
 .hdr{display:flex;align-items:center;gap:8px;min-height:48px}
-.loc{display:inline-flex;align-items:center;gap:5px;min-height:36px;padding:0 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:.82rem;font-weight:500;color:var(--ink)}
+.hdr .brand{font-size:1.2rem;gap:8px;min-width:0}
+.hdr .iconbtn{width:40px}
+.loc{display:inline-flex;align-items:center;gap:4px;min-height:34px;padding:0 9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:42vw;flex:none;font-size:.78rem!important;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:.82rem;font-weight:500;color:var(--ink)}
 .mode{display:grid;grid-template-columns:1fr 1fr;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:4px;margin:12px 0 14px;gap:4px}
 .mode button{min-height:46px;border:0;border-radius:12px;background:transparent;font-weight:600;font-size:.98rem;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
 .mode button[aria-pressed="true"]{background:var(--blue);color:var(--on-blue);box-shadow:0 2px 8px rgba(33,72,192,.25)}
@@ -226,6 +229,8 @@ body.flow .view{padding-bottom:calc(110px + env(safe-area-inset-bottom))}
 .banner .art{position:absolute;right:-10px;bottom:-14px;opacity:.95}
 .banner.sell{background:#17723B}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .banner{background:#1C3A9E}:root:not([data-theme="light"]) .banner.sell{background:#145C31}}
+
+:root[data-theme="dark"] .banner{background:#1C3A9E}:root[data-theme="dark"] .banner.sell{background:#145C31}
 .grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 .tile{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 4px 10px;background:var(--surface);border:1px solid var(--line);border-radius:16px;cursor:pointer;font-size:.76rem;font-weight:600;text-align:center;line-height:1.2;color:var(--ink)}
 .tile .ti{width:46px;height:46px;border-radius:14px;background:var(--blue-soft);display:flex;align-items:center;justify-content:center;color:var(--blue)}
@@ -324,6 +329,7 @@ body.flow .view{padding-bottom:calc(110px + env(safe-area-inset-bottom))}
 <section class="view on" id="v-home" aria-label="Home">
   <div class="hdr"><div class="brand"><svg aria-hidden="true" width="30" height="30" viewBox="0 0 64 64"><rect width="64" height="64" rx="15" fill="#111A24"/><path d="M47.6 26.5A17 17 0 1 1 41 17.4" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M36.5 10.5L44.2 17.1L37.3 24.4" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="32" r="7.5" fill="#2E9E5B"/></svg>Cellvage</div>
     <span class="loc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Greater Noida</span>
+    <button class="iconbtn" id="themeBtn" aria-label="Switch to dark mode"></button>
     <button class="iconbtn" id="helpBtn" aria-label="How Cellvage works"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6"/><circle cx="12" cy="17.2" r=".6" fill="currentColor"/></svg></button></div>
   <div class="mode" role="group" aria-label="Buy or sell"><button data-mode="buy" aria-pressed="true">Buy cells</button><button data-mode="sell" aria-pressed="false">Sell batteries</button></div>
   <div id="homeTip"></div>
@@ -492,6 +498,23 @@ document.addEventListener('click', e => {
   const b = e.target.closest('[data-back]'); if (b) { e.preventDefault(); if (depth() > 0) history.back(); else goHomeRoot(); return; }
   const s = e.target.closest('[data-sheet]'); if (s) { e.preventDefault(); openSheet(s.dataset.sheet); }
 });
+
+// ================= light / dark =================
+const SUN = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>';
+const MOON = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>';
+const sysDark = matchMedia('(prefers-color-scheme: dark)');
+const isDark = () => { const t = store.get('theme', null); return t ? t === 'dark' : sysDark.matches; };
+function applyTheme() {
+  const t = store.get('theme', null);
+  if (t) document.documentElement.setAttribute('data-theme', t); else document.documentElement.removeAttribute('data-theme');
+  const d = isDark(), b = $('#themeBtn'); if (b) { b.innerHTML = d ? SUN : MOON; b.setAttribute('aria-label', d ? 'Switch to light mode' : 'Switch to dark mode'); }
+  document.querySelector('meta[name="theme-color"]').setAttribute('content', d ? '#0B1118' : '#EEF1F4');
+  document.querySelectorAll('[data-theme-opt]').forEach(x => x.setAttribute('aria-selected', String((t || 'auto') === x.dataset.themeOpt)));
+}
+function setTheme(t) { store.set('theme', t === 'auto' ? null : t); applyTheme(); }
+$('#themeBtn').onclick = () => { setTheme(isDark() ? 'light' : 'dark'); toast(isDark() ? 'Dark mode' : 'Light mode'); };
+sysDark.addEventListener('change', applyTheme);
+applyTheme();
 
 // ================= first-visit tips =================
 const TIPS = {
@@ -758,7 +781,10 @@ function openSheet(kind, arg) {
       <div class="card"><div class="label" style="color:var(--blue)">Buyers</div><b style="display:block;margin:4px 0">Buy tested second-life cells</b><span class="muted small">Builders of e-bike, solar and UPS packs get graded cells with a passport each, or matched packs.</span></div>
       <div class="card"><div class="label" style="color:var(--gR)">Recyclers</div><b style="display:block;margin:4px 0">Get the cells that can’t be reused</b><span class="muted small">Cells too worn to reuse go to recyclers already sorted, each still carrying its passport.</span></div>
       <div class="card" style="background:var(--surface-2)"><div class="label">Cellvage</div><b style="display:block;margin:4px 0">Earns on the difference</b><span class="muted small">Cellvage buys retired batteries, tests and grades every cell, and sells the graded cells. The test and passport are what make a used cell worth buying.</span></div>
-    </div><div class="actions"><button class="btn" id="replayTour">Replay the intro</button><button class="btn ghost" data-close>Close</button></div>`;
+    </div>
+    <p style="font-weight:600;margin:20px 2px 10px">Appearance</p>
+    <div class="seg" role="tablist" aria-label="Appearance"><button role="tab" data-theme-opt="auto">Auto</button><button role="tab" data-theme-opt="light">Light</button><button role="tab" data-theme-opt="dark">Dark</button></div>
+    <div class="actions" style="margin-top:6px"><button class="btn" id="replayTour">Replay the intro</button><button class="btn ghost" data-close>Close</button></div>`;
   if (kind === 'grades') h = `<h2 id="sheetTitle" style="font:800 1.35rem var(--fd);margin:4px 0 6px">What the grades mean</h2><p class="muted small" style="margin:0 0 14px">Health is how much of its original capacity a cell still holds, estimated from its 10-second pulse test.</p>
     <div class="list">${[['A', '85–100%', 'E-bike, scooter and power-tool packs that need strong current.'], ['B', '70–85%', 'Solar storage and UPS, where current is gentler.'], ['C', '60–70%', 'Lights, torches and other low-drain uses.'], ['R', 'below 60%', 'Recycled for materials, still with its passport.']].map(g => `<div class="card" style="display:flex;gap:12px;align-items:center;padding:12px 14px"><span class="gbox" style="background:${GRADE[g[0]][0]}">${g[0] === 'R' ? '♻' : g[0]}</span><span><b>${GRADE[g[0]][1]} · ${g[1]}</b><br><span class="muted small">${g[2]}</span></span></div>`).join('')}</div>
     <p class="note">Cells that land close to a grade boundary get a full capacity test before they are listed.</p><div class="actions"><button class="btn ghost" data-close>Close</button></div>`;
@@ -785,6 +811,7 @@ function openSheet(kind, arg) {
   B.innerHTML = h; $('#sheet').classList.add('on'); history.pushState(Object.assign({}, history.state, { sheet: 1, d: depth() + 1 }), '', location.href);
   B.querySelectorAll('[data-close]').forEach(b => b.onclick = () => closeSheet());
   const rt = $('#replayTour'); if (rt) rt.onclick = () => { closeSheet(); openOnboarding(); };
+  B.querySelectorAll('[data-theme-opt]').forEach(x => x.onclick = () => setTheme(x.dataset.themeOpt)); applyTheme();
   if (kind === 'quote') { let qty = Math.min(10, curLot.n), pack = 0;
     B.querySelectorAll('[data-q]').forEach(b => b.onclick = () => { qty = Math.max(1, Math.min(curLot.n, qty + (+b.dataset.q))); $('#qty').textContent = qty; });
     B.querySelectorAll('[data-p]').forEach(b => b.onclick = () => { pack = +b.dataset.p; B.querySelectorAll('[data-p]').forEach(x => x.setAttribute('aria-checked', String(x === b))); });
