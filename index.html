@@ -215,7 +215,7 @@ body.flow .view{padding-bottom:calc(110px + env(safe-area-inset-bottom))}
 .hdr{display:flex;align-items:center;gap:8px;min-height:48px}
 .hdr .brand{font-size:1.2rem;gap:8px;min-width:0}
 .hdr .iconbtn{width:40px}
-.loc{display:inline-flex;align-items:center;gap:4px;min-height:34px;padding:0 9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:42vw;flex:none;font-size:.78rem!important;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:.82rem;font-weight:500;color:var(--ink)}
+.loc{cursor:pointer;display:inline-flex;align-items:center;gap:4px;min-height:34px;padding:0 9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:42vw;flex:none;font-size:.78rem!important;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:.82rem;font-weight:500;color:var(--ink)}
 .mode{display:grid;grid-template-columns:1fr 1fr;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:4px;margin:12px 0 14px;gap:4px}
 .mode button{min-height:46px;border:0;border-radius:12px;background:transparent;font-weight:600;font-size:.98rem;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
 .mode button[aria-pressed="true"]{background:var(--blue);color:var(--on-blue);box-shadow:0 2px 8px rgba(33,72,192,.25)}
@@ -320,6 +320,33 @@ body.flow .view{padding-bottom:calc(110px + env(safe-area-inset-bottom))}
 .steps3 div{padding:12px 10px;border-radius:16px;background:var(--surface);border:1px solid var(--line);font-size:.76rem;color:var(--muted);line-height:1.3}
 .steps3 .n{width:28px;height:28px;border-radius:50%;background:var(--ok-bg);color:var(--ok);display:flex;align-items:center;justify-content:center;font:700 .82rem var(--fd);margin-bottom:8px}
 .steps3 b{display:block;color:var(--ink);font-size:.84rem;margin-bottom:2px}
+
+/* ---------- nearby / home actions ---------- */
+.map{height:260px;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--surface-2);margin-bottom:10px;position:relative;z-index:0}
+.map .ph{height:100%;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.9rem;padding:20px;text-align:center}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.85) contrast(.9)}}
+:root[data-theme="dark"] .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.85) contrast(.9)}
+.row2{display:flex;justify-content:space-between;align-items:center;margin:0 2px 10px}
+.linkbtn{border:0;background:none;color:var(--blue);font-weight:600;font-size:.88rem;cursor:pointer;padding:8px 4px}
+.bench{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;padding:14px;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.bench .mi{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font:800 .78rem var(--fd);color:#fff}
+.bench b{display:block}.bench small{display:block;color:var(--muted);font-size:.82rem}
+.bench .acts2{display:flex;gap:8px;margin-top:10px}
+.bench .acts2 a,.bench .acts2 button{flex:1;min-height:40px;border-radius:10px;border:1px solid var(--line);background:var(--surface-2);display:flex;align-items:center;justify-content:center;gap:6px;font-weight:600;font-size:.84rem;color:var(--ink);text-decoration:none;cursor:pointer}
+.bench .acts2 .p{background:var(--blue);border-color:var(--blue);color:var(--on-blue)}
+.bench .km{font:700 .82rem var(--fm);color:var(--blue);white-space:nowrap}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px}
+.big{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:16px 14px;border-radius:20px;border:0;cursor:pointer;text-align:left;color:#fff;min-height:168px;position:relative;overflow:hidden}
+.big .ti{width:44px;height:44px;border-radius:14px;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center}
+.big b{font:800 1.08rem/1.15 var(--fd)}.big small{font-size:.8rem;opacity:.9;line-height:1.3}
+.big .go{margin-top:auto;font-weight:700;font-size:.84rem;display:flex;align-items:center;gap:4px}
+.big.home{background:#17723B}.big.near{background:#2148C0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .big.home{background:#145C31}:root:not([data-theme="light"]) .big.near{background:#1C3A9E}}
+:root[data-theme="dark"] .big.home{background:#145C31}:root[data-theme="dark"] .big.near{background:#1C3A9E}
+.cityl{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.cityl button{display:flex;justify-content:space-between;align-items:center;min-height:50px;padding:0 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface);font-weight:500;cursor:pointer;color:var(--ink);text-align:left}
+.cityl button[aria-pressed="true"]{border-color:var(--blue);background:var(--blue-soft);font-weight:600}
+.cityl small{color:var(--muted);font-size:.78rem;font-weight:400}
 </style>
 </head>
 <body>
@@ -328,10 +355,9 @@ body.flow .view{padding-bottom:calc(110px + env(safe-area-inset-bottom))}
 <!-- ================= HOME ================= -->
 <section class="view on" id="v-home" aria-label="Home">
   <div class="hdr"><div class="brand"><svg aria-hidden="true" width="30" height="30" viewBox="0 0 64 64"><rect width="64" height="64" rx="15" fill="#111A24"/><path d="M47.6 26.5A17 17 0 1 1 41 17.4" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M36.5 10.5L44.2 17.1L37.3 24.4" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="32" r="7.5" fill="#2E9E5B"/></svg>Cellvage</div>
-    <span class="loc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Greater Noida</span>
+    <button class="loc" id="locBtn" aria-label="Change your city"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span id="locName">Greater Noida</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
     <button class="iconbtn" id="themeBtn" aria-label="Switch to dark mode"></button>
     <button class="iconbtn" id="helpBtn" aria-label="How Cellvage works"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6"/><circle cx="12" cy="17.2" r=".6" fill="currentColor"/></svg></button></div>
-  <div class="mode" role="group" aria-label="Buy or sell"><button data-mode="buy" aria-pressed="true">Buy cells</button><button data-mode="sell" aria-pressed="false">Sell batteries</button></div>
   <div id="homeTip"></div>
   <div id="homeBody"></div>
 </section>
@@ -346,6 +372,14 @@ body.flow .view{padding-bottom:calc(110px + env(safe-area-inset-bottom))}
   <p class="note"><span class="demo">Sample listings</span> Lots here are examples for the demo. Real lots come from cells graded on the rig.</p>
 </section>
 
+<section class="view" id="v-near" aria-label="Cellvage benches near you">
+  <div class="top"><button class="iconbtn back" data-back aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><h1>Find us nearby</h1></div>
+  <p class="muted small" style="margin:-6px 2px 12px">Cellvage benches sit at metro stations. Drop your batteries off on your way and they're tested while you wait.</p>
+  <div id="map" class="map" role="region" aria-label="Map of Cellvage benches"></div>
+  <div class="row2"><span id="nearFrom" class="muted small"></span><button class="linkbtn" id="nearCity">Change city</button></div>
+  <div class="list" id="benchList"></div>
+  <p class="note"><span class="demo">Planned locations</span> Bench sites are the stations proposed for the pilot.</p>
+</section>
 <section class="view" id="v-lot" aria-label="Lot"><div id="lot"></div></section>
 
 <!-- ================= SELL ================= -->
@@ -478,7 +512,7 @@ function show(v, opts) {
   const tab = TABS.includes(v) ? v : v === 'lot' ? 'buy' : v === 'pass' ? (opts.from || 'mine') : null;
   document.querySelectorAll('.tabs button').forEach(b => b.dataset.go === tab ? b.setAttribute('aria-current', 'page') : b.removeAttribute('aria-current'));
   if (v === 'scan') startCam(); else stopCam();
-  ({ home: renderHome, buy: renderBuy, sell: renderSell, mine: renderMine })[v] && ({ home: renderHome, buy: renderBuy, sell: renderSell, mine: renderMine })[v]();
+  const R = { home: renderHome, buy: renderBuy, sell: renderSell, mine: renderMine, near: renderNear }; if (R[v]) R[v]();
   showTip(v);
   if (!opts.keepScroll) scrollTo(0, 0);
 }
@@ -582,55 +616,94 @@ function lotCard(l, cls) { const G = GRADE[l.g];
     <div class="specs"><span>${l.n} cells</span><span>${l.mah} mAh</span><span>NMC</span><span>${esc(l.src)}</span></div>
     <div class="hl"><span><b>${l.lo}–${l.hi}%</b> <small>health</small></span><span class="pr">Price on request</span></div></div></button>`; }
 
+// ================= benches at metro stations (planned pilot sites) and cities =================
+const BENCHES = [
+  { id: 'pari', name: 'Pari Chowk', line: 'Aqua Line', city: 'Greater Noida', lat: 28.4650, lng: 77.5110 },
+  { id: 'bot', name: 'Botanical Garden', line: 'Blue & Magenta Lines', city: 'Noida', lat: 28.5640, lng: 77.3334 },
+  { id: 'ncc', name: 'Noida City Centre', line: 'Blue Line', city: 'Noida', lat: 28.5753, lng: 77.3561 },
+  { id: 'ecity', name: 'Noida Electronic City', line: 'Blue Line', city: 'Noida', lat: 28.6295, lng: 77.3752 },
+  { id: 'vai', name: 'Vaishali', line: 'Blue Line', city: 'Ghaziabad', lat: 28.6497, lng: 77.3401 },
+  { id: 'rc', name: 'Rajiv Chowk', line: 'Blue & Yellow Lines', city: 'Delhi', lat: 28.6328, lng: 77.2197 },
+  { id: 'kg', name: 'Kashmere Gate', line: 'Red, Yellow & Violet Lines', city: 'Delhi', lat: 28.6676, lng: 77.2281 },
+  { id: 'mcc', name: 'Millennium City Centre', line: 'Yellow Line', city: 'Gurugram', lat: 28.4593, lng: 77.0727 },
+];
+const CITIES = [['Greater Noida', 28.4744, 77.5040], ['Noida', 28.5355, 77.3910], ['Delhi', 28.6139, 77.2090], ['Ghaziabad', 28.6692, 77.4538], ['Gurugram', 28.4595, 77.0266], ['Faridabad', 28.4089, 77.3178]];
+function here() { return store.get('loc', { name: 'Greater Noida', lat: 28.4744, lng: 77.5040 }); }
+function km(a, b) { const R = 6371, r = x => x * Math.PI / 180, dl = r(b.lat - a.lat), dn = r(b.lng - a.lng); const h = Math.sin(dl / 2) ** 2 + Math.cos(r(a.lat)) * Math.cos(r(b.lat)) * Math.sin(dn / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(h)); }
+function benchesByDistance() { const h = here(); return BENCHES.map(b => Object.assign({ d: km(h, b) }, b)).sort((a, b) => a.d - b.d); }
+const fmtKm = d => d < 1 ? Math.round(d * 1000) + ' m' : d < 10 ? d.toFixed(1) + ' km' : Math.round(d) + ' km';
+const dirURL = b => 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(b.name + ' Metro Station, ' + b.city);
+function setLoc(l) { store.set('loc', l); $('#locName').textContent = l.name; if (view === 'home') renderHome(); if (view === 'near') renderNear(); }
+$('#locName').textContent = here().name;
+$('#locBtn').onclick = () => openSheet('loc');
+
 // ================= HOME =================
-function homeMode() { const r = store.get('role', 'buy'); return r === 'sell' ? 'sell' : 'buy'; }
-document.querySelectorAll('[data-mode]').forEach(b => b.onclick = () => { store.set('role', b.dataset.mode); renderHome(); });
 function renderHome() {
-  const m = homeMode();
-  document.querySelectorAll('[data-mode]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
-  const act = activity().slice(0, 3);
-  const actHTML = `<div class="sec"><h3>Your activity</h3>${act.length ? '<button data-go="mine">See all</button>' : ''}</div>` + (act.length ? `<div class="list" id="homeList">${act.map(x => x.html).join('')}</div>` : `<div class="empty">${m === 'sell' ? 'Book a free test and it shows up here.' : 'Request a quote or save a passport and it shows up here.'}</div>`);
-  if (m === 'buy') {
-    $('#homeBody').innerHTML = `
+  const act = activity().slice(0, 3), nb = benchesByDistance()[0];
+  const actHTML = `<div class="sec"><h3>Your activity</h3>${act.length ? '<button data-go="mine">See all</button>' : ''}</div>` + (act.length ? `<div class="list" id="homeList">${act.map(x => x.html).join('')}</div>` : `<div class="empty">Book a test, request a quote or save a passport and it shows up here.</div>`);
+  $('#homeBody').innerHTML = `
     <label class="search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="q" type="search" placeholder="Search cells, uses or a passport link" aria-label="Search"></label>
-    <div class="banner"><div class="label">Second-life cells</div><h2>Every cell tested. Every cell passported.</h2><p>Graded 18650s for e-bike, solar and UPS packs. Scan any cell to check its test.</p><button class="btn" data-go="buy">Browse all lots</button>
-      <div class="art">${cellsArt('A', 118)}</div></div>
-    <div class="sec" style="margin-top:6px"><h3>Shop by use</h3></div>
+    <div class="duo">
+      <button class="big home" id="bookHome"><span class="ti"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/></svg></span><b>Book a test at home</b><small>Our tester brings the rig to your door. Free.</small><span class="go">Book now →</span></button>
+      <button class="big near" data-go="near"><span class="ti"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><b>Find us nearby</b><small>Nearest bench: ${esc(nb.name)} metro · ${fmtKm(nb.d)}</small><span class="go">Open map →</span></button>
+    </div>
+    <div class="sec"><h3>Shop by use</h3><button data-go="buy">All lots</button></div>
     <div class="grid4">${['ebike', 'storage', 'tools', 'light'].map(u => `<button class="tile" data-use-go="${u}"><span class="ti">${UI[u]}</span>${USES[u]}</button>`).join('')}</div>
     <div class="sec"><h3>Shop by grade</h3><button data-sheet="grades">What grades mean</button></div>
     <div class="grades">${[['A', '85–100%', 'Packs'], ['B', '70–85%', 'Storage'], ['C', '60–70%', 'Low power']].map(g => `<button class="gcard" data-grade-go="${g[0]}"><i style="background:${GRADE[g[0]][0]}"></i><b>Grade ${g[0]}</b><small>${g[1]} health<br>${g[2]}</small></button>`).join('')}</div>
     <div class="sec"><h3>Fresh from the rig</h3><button data-go="buy">See all</button></div>
     <div class="rail">${LOTS.slice(0, 4).map(l => lotCard(l)).join('')}</div>
-    <div class="sec"><h3>Why buy from Cellvage</h3></div>
-    <div class="trust"><div><span class="ti">${UI.shield}</span><b>Passport on every cell</b>Scan to check its test</div><div><span class="ti">${UI.bolt}</span><b>Tested one by one</b>10-second pulse each</div><div><span class="ti">${UI.layers}</span><b>Matched packs</b>No weak cell holding it back</div></div>
+    <div class="sec"><h3>How Cellvage works</h3><button data-sheet="how">Learn more</button></div>
+    <div class="how"><div><span class="n">1</span><b>Collect</b>at home or a bench</div><div><span class="n">2</span><b>10 s test</b>every cell</div><div><span class="n">3</span><b>Passport</b>signed record</div><div><span class="n">4</span><b>Reuse</b>or recycle</div></div>
     <button class="scanbn" data-go="scan"><span class="ti">${ICON.scan}</span><span><b>Got a cell? Check its passport</b><small>Scan the QR on any Cellvage test result</small></span></button>
     ${actHTML}`;
-  } else {
-    $('#homeBody').innerHTML = `
-    <div class="banner sell"><div class="label">Sell old batteries</div><h2>Get the best offer for your old batteries</h2><p>Free 10-second test for every cell. You see the grades before you decide.</p>
-      <div class="art">${cellsArt('B', 110)}</div></div>
-    <div class="card" style="margin-top:-4px"><p class="q" style="font-size:1.05rem;margin-bottom:12px">What are you selling?</p>
-      <div class="grid4">${SELL_KIND.map(k => `<button class="tile" data-sell-kind="${k[0]}"><span class="ti">${UI[k[3]]}</span>${k[4]}</button>`).join('')}</div></div>
-    <div class="sec"><h3>How selling works</h3></div>
-    <div class="steps3"><div><span class="n">1</span><b>Book a free test</b>At a bench or at your door</div><div><span class="n">2</span><b>Every cell graded</b>10 seconds each, with a passport</div><div><span class="n">3</span><b>Accept and get paid</b>To your UPI, or take cells back</div></div>
-    <div class="sec"><h3>Why sell to Cellvage</h3></div>
-    <div class="trust"><div><span class="ti">${UI.bolt}</span><b>Free testing</b>No charge to find out</div><div><span class="ti">${UI.recycle}</span><b>Nothing wasted</b>Dead cells recycled properly</div><div><span class="ti">${UI.upi}</span><b>Paid by UPI</b>Once you accept</div></div>
-    <div class="sec"><h3>Questions</h3></div>
-    <div class="faq">
-      <details><summary>How is my offer worked out?</summary><p>Each cell is graded A, B, C or Recycle from its pulse test. Your offer is based on how many cells land in each grade.</p></details>
-      <details><summary>What if my battery is swollen or damaged?</summary><p>Don’t charge or open it. Keep it somewhere cool, away from anything flammable, and tell us when you book. We handle it separately and recycle it safely.</p></details>
-      <details><summary>Do I have to accept the offer?</summary><p>No. If you don’t like it, you take your cells back.</p></details>
-      <details><summary>What happens to cells that can’t be reused?</summary><p>They go to a recycler, sorted and still carrying their passports.</p></details>
-    </div>
-    ${actHTML}`;
-  }
   const q = $('#q'); if (q) q.addEventListener('keydown', e => { if (e.key !== 'Enter') return; const v = q.value.trim(); if (parseFrag(v)) { openPassport(v, 'home'); return; } buyQuery = v.toLowerCase(); useFilter = 'all'; gradeFilter = null; go('buy'); });
   $('#homeBody').querySelectorAll('[data-use-go]').forEach(b => b.onclick = () => { useFilter = b.dataset.useGo; gradeFilter = null; buyQuery = ''; go('buy'); });
   $('#homeBody').querySelectorAll('[data-grade-go]').forEach(b => b.onclick = () => { gradeFilter = b.dataset.gradeGo; useFilter = 'all'; buyQuery = ''; go('buy'); });
   $('#homeBody').querySelectorAll('[data-lot]').forEach(b => b.onclick = () => openLot(b.dataset.lot));
-  $('#homeBody').querySelectorAll('[data-sell-kind]').forEach(b => b.onclick = () => { sell = newSell(); sell.kind = b.dataset.sellKind; sell.step = 1; go('sell'); });
+  $('#bookHome').onclick = () => { sell = newSell(); sell.hand = 'home'; go('sell'); };
   const hl = $('#homeList'); if (hl) bindItems(hl);
 }
+
+// ================= NEARBY (map of benches) =================
+let leafletP = null, map = null, mapLayer = null;
+function loadLeaflet() {
+  if (window.L) return Promise.resolve();
+  if (leafletP) return leafletP;
+  leafletP = new Promise((res, rej) => {
+    const css = document.createElement('link'); css.rel = 'stylesheet'; css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'; document.head.appendChild(css);
+    const js = document.createElement('script'); js.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'; js.onload = res; js.onerror = () => { leafletP = null; rej(); }; document.head.appendChild(js);
+  });
+  return leafletP;
+}
+function renderNear() {
+  const h = here(), list = benchesByDistance();
+  $('#nearFrom').textContent = 'Distances from ' + h.name;
+  $('#benchList').innerHTML = list.map((b, i) => `<div class="bench"><span class="mi" style="background:${i === 0 ? '#17723B' : '#2148C0'}">M</span><div><div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline"><b>${esc(b.name)} metro</b><span class="km">${fmtKm(b.d)}</span></div>
+    <small>${esc(b.line)} · ${esc(b.city)}${i === 0 ? ' · nearest to you' : ''}</small><small>Bench hours 10 am – 7 pm</small>
+    <div class="acts2"><a href="${dirURL(b)}" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-8-8 18-2-8z"/></svg>Directions</a><button class="p" data-bench="${b.id}">Book here</button></div></div></div>`).join('');
+  $('#benchList').querySelectorAll('[data-bench]').forEach(x => x.onclick = () => { sell = newSell(); sell.hand = 'bench'; sell.bench = x.dataset.bench; go('sell'); });
+  const box = $('#map');
+  loadLeaflet().then(() => {
+    if (view !== 'near') return;
+    if (!map) {
+      box.innerHTML = '';
+      map = L.map(box, { zoomControl: false, attributionControl: true }).setView([h.lat, h.lng], 11);
+      L.control.zoom({ position: 'bottomright' }).addTo(map);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '© OpenStreetMap contributors' }).addTo(map);
+    }
+    if (mapLayer) mapLayer.remove();
+    mapLayer = L.layerGroup().addTo(map);
+    const pin = (c, t) => L.divIcon({ className: '', html: `<div style="width:30px;height:30px;border-radius:50% 50% 50% 4px;transform:rotate(-45deg);background:${c};border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center"><span style="transform:rotate(45deg);color:#fff;font:800 12px system-ui">${t}</span></div>`, iconSize: [30, 30], iconAnchor: [15, 30] });
+    list.forEach((b, i) => L.marker([b.lat, b.lng], { icon: pin(i === 0 ? '#17723B' : '#2148C0', 'M'), title: b.name }).addTo(mapLayer)
+      .bindPopup(`<b>${esc(b.name)} metro</b><br>${fmtKm(b.d)} · ${esc(b.line)}<br><a href="${dirURL(b)}" target="_blank" rel="noopener">Directions</a>`));
+    L.circleMarker([h.lat, h.lng], { radius: 8, color: '#fff', weight: 3, fillColor: '#2148C0', fillOpacity: 1 }).addTo(mapLayer).bindPopup('You: ' + esc(h.name));
+    map.fitBounds(L.latLngBounds([[h.lat, h.lng], [list[0].lat, list[0].lng], [list[1].lat, list[1].lng]]).pad(0.35));
+    setTimeout(() => map.invalidateSize(), 60);
+  }).catch(() => { box.innerHTML = '<div class="ph">The map needs an internet connection. The list below still works, and Directions opens your maps app.</div>'; });
+}
+$('#nearCity').onclick = () => openSheet('loc');
+
 function activity() {
   const out = [];
   for (const p of store.get('passports', [])) out.push({ t: p.saved, html: passItem(p) });
@@ -678,19 +751,29 @@ function openLot(id) {
 // ================= SELL (book a free test) =================
 const SELL_KIND = [['ebike', 'E-bike or scooter pack', 'Usually 40–60 cells', 'ebike', 'E-bike pack'], ['laptop', 'Laptop battery', 'Usually 6–9 cells', 'laptop', 'Laptop battery'], ['loose', 'Loose 18650 cells', 'Count them roughly', 'cells', 'Loose cells'], ['tool', 'Power tool or power bank', 'Usually 5–20 cells', 'bank', 'Tool / power bank']];
 const SIZE = { ebike: ['24 V', '36 V', '48 V', '60 V', 'Not sure'], laptop: ['1 battery', '2', '3', '4 or more'], loose: ['Under 10', '10–50', '50–200', '200+'], tool: ['1', '2–5', '6 or more'] };
-const SELL_HAND = [['bench', 'Drop it at a Cellvage bench', 'Tested while you wait'], ['pickup', 'Pickup from your door', 'We collect it and send you the results']];
+const HAND_LABEL = h => h === 'bench' ? 'Cellvage bench' : 'Test at home';
 const SLOTS = ['10–12 am', '12–2 pm', '2–4 pm', '4–6 pm'];
-const newSell = () => ({ step: 0, kind: null, size: null, charge: null, damage: null, hand: null, day: 0, slot: null });
+const newSell = () => ({ step: 0, kind: null, size: null, charge: null, damage: null, hand: null, bench: null, day: 0, slot: null });
 let sell = newSell();
 function renderSell() {
   const s = sell, N = 5;
   if (s.step === N) return renderSellDone();
   if (s.step === 0) {   // landing = choose what you sell
     document.body.classList.remove('flow');
-    $('#sell').innerHTML = `<div class="top"><h1>Sell batteries</h1></div><div id="sellTip"></div>
+    const pre = s.hand === 'home' ? '<div class="tip" style="background:var(--ok-bg)"><div><b>Booking a test at home</b>First tell us what you have.</div></div>' : s.hand === 'bench' ? `<div class="tip"><div><b>Booking at ${esc((BENCHES.find(b => b.id === s.bench) || benchesByDistance()[0]).name)} metro</b>First tell us what you have.</div></div>` : '';
+    $('#sell').innerHTML = `<div class="top"><h1>Sell batteries</h1></div><div id="sellTip"></div>${pre}
       <p class="q">What are you selling?</p><div class="tiles2">${SELL_KIND.map(k => `<button class="btile" data-k="${k[0]}"><span class="ti">${UI[k[3]]}</span><span><b>${k[1]}</b><br><small>${k[2]}</small></span></button>`).join('')}</div>
       <div class="sec"><h3>How selling works</h3></div>
       <div class="steps3"><div><span class="n">1</span><b>Book a free test</b>At a bench or at your door</div><div><span class="n">2</span><b>Every cell graded</b>10 seconds each, with a passport</div><div><span class="n">3</span><b>Accept and get paid</b>To your UPI, or take cells back</div></div>`;
+    const nb0 = benchesByDistance()[0];
+    $('#sell').insertAdjacentHTML('beforeend', `<div class="sec"><h3>Where to test</h3><button data-go="near">Map</button></div>
+      <div class="duo"><button class="big home" id="sellHome" style="min-height:130px"><b>Test at home</b><small>Free · we come to you</small></button><button class="big near" data-go="near" style="min-height:130px"><b>${esc(nb0.name)} metro</b><small>${fmtKm(nb0.d)} away · nearest bench</small></button></div>
+      <div class="sec"><h3>Questions</h3></div>
+      <div class="faq"><details><summary>How is my offer worked out?</summary><p>Each cell is graded A, B, C or Recycle from its pulse test. Your offer is based on how many cells land in each grade.</p></details>
+      <details><summary>What if my battery is swollen or damaged?</summary><p>Don’t charge or open it. Keep it somewhere cool, away from anything flammable, and tell us when you book. We handle it separately and recycle it safely.</p></details>
+      <details><summary>Do I have to accept the offer?</summary><p>No. If you don’t like it, you take your cells back.</p></details>
+      <details><summary>What happens to cells that can’t be reused?</summary><p>They go to a recycler, sorted and still carrying their passports.</p></details></div>`);
+    $('#sellHome').onclick = () => { s.hand = 'home'; renderSell(); scrollTo(0, 0); };
     showTip('sell');
     $('#sell').querySelectorAll('[data-k]').forEach(b => b.onclick = () => { s.kind = b.dataset.k; s.step = 1; renderSell(); scrollTo(0, 0); });
     return;
@@ -713,7 +796,9 @@ function renderSell() {
       <div><span class="ti" style="background:#3A4656">${ICON.check}</span><span><b>You decide</b><small>Accept and get paid to your UPI, or take your cells back.</small></span></div></div>`; }
   if (s.step === 4) { ok = !!s.hand && s.slot != null;
     const days = [...Array(5)].map((_, i) => { const d = new Date(); d.setDate(d.getDate() + i); return d; });
-    body = `<div class="opts" role="radiogroup" style="margin-bottom:18px">${SELL_HAND.map(h => `<button class="opt" role="radio" data-h="${h[0]}" aria-checked="${s.hand === h[0]}"><span class="rd"></span><span><b>${h[1]}</b><small>${h[2]}</small></span></button>`).join('')}</div>
+    const nb = BENCHES.find(b => b.id === s.bench) || benchesByDistance()[0];
+    body = `<div class="opts" role="radiogroup" style="margin-bottom:18px"><button class="opt" role="radio" data-h="home" aria-checked="${s.hand === 'home'}"><span class="rd"></span><span><b>Test at home</b><small>A tester brings the rig to your door, free</small></span></button>
+      <button class="opt" role="radio" data-h="bench" aria-checked="${s.hand === 'bench'}"><span class="rd"></span><span><b>${esc(nb.name)} metro bench</b><small>${fmtKm(km(here(), nb))} away · tested while you wait</small></span></button></div>
       <p style="font-weight:600;margin:0 0 10px">Pick a day</p><div class="days">${days.map((d, i) => `<button class="day" data-day="${i}" aria-pressed="${s.day === i}"><small>${i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : d.toLocaleDateString(undefined, { weekday: 'short' })}</small><b>${d.getDate()}</b><small>${d.toLocaleDateString(undefined, { month: 'short' })}</small></button>`).join('')}</div>
       <p style="font-weight:600;margin:0 0 10px">Pick a time</p><div class="slots">${SLOTS.map((t, i) => `<button class="slot" data-slot="${i}" aria-pressed="${s.slot === i}">${t}</button>`).join('')}</div>
       <p class="note"><span class="demo">Demo</span> Booking sends nothing. It shows how a request is tracked.</p>`; }
@@ -725,21 +810,21 @@ function renderSell() {
   S.querySelectorAll('[data-size]').forEach(b => b.onclick = () => { s.size = b.dataset.size; renderSell(); });
   S.querySelectorAll('[data-charge]').forEach(b => b.onclick = () => { s.charge = b.dataset.charge; renderSell(); });
   S.querySelectorAll('[data-damage]').forEach(b => b.onclick = () => { s.damage = b.dataset.damage; renderSell(); });
-  S.querySelectorAll('[data-h]').forEach(b => b.onclick = () => { s.hand = b.dataset.h; renderSell(); });
+  S.querySelectorAll('[data-h]').forEach(b => b.onclick = () => { s.hand = b.dataset.h; if (s.hand === 'bench' && !s.bench) s.bench = benchesByDistance()[0].id; renderSell(); });
   S.querySelectorAll('[data-day]').forEach(b => b.onclick = () => { s.day = +b.dataset.day; renderSell(); });
   S.querySelectorAll('[data-slot]').forEach(b => b.onclick = () => { s.slot = +b.dataset.slot; renderSell(); });
   $('#sellBack').onclick = () => { s.step--; renderSell(); scrollTo(0, 0); };
   $('#sellClose').onclick = () => { sell = newSell(); renderSell(); scrollTo(0, 0); };
   $('#sellNext').onclick = () => {
     if (s.step === 4) { const d = new Date(); d.setDate(d.getDate() + s.day); const ref = 'CV-' + String(Date.now()).slice(-6);
-      const sales = store.get('sales', []); sales.push({ ref, kind: s.kind, size: s.size, count: s.size, hand: s.hand, date: d.toISOString(), slot: SLOTS[s.slot], damage: s.damage, ts: new Date().toISOString() }); store.set('sales', sales); s.ref = ref; s.date = d; }
+      const sales = store.get('sales', []); const bn = s.hand === 'bench' ? (BENCHES.find(b => b.id === s.bench) || benchesByDistance()[0]) : null; sales.push({ ref, kind: s.kind, size: s.size, count: s.size, hand: s.hand, bench: bn ? bn.name : null, city: here().name, date: d.toISOString(), slot: SLOTS[s.slot], damage: s.damage, ts: new Date().toISOString() }); store.set('sales', sales); s.ref = ref; s.date = d; }
     s.step++; renderSell(); scrollTo(0, 0); };
 }
 function renderSellDone() {
   document.body.classList.remove('flow');
   const s = sell, k = SELL_KIND.find(x => x[0] === s.kind), dstr = s.date.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' });
   $('#sell').innerHTML = `<div class="done"><div class="tick"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></div>
-    <h2>Free test booked</h2><p class="muted" style="margin:0 0 10px">${dstr} · ${SLOTS[s.slot]} · ${s.hand === 'pickup' ? 'pickup from your door' : 'Cellvage bench'}</p><span class="demo">Demo booking · ${s.ref}</span></div>
+    <h2>Free test booked</h2><p class="muted" style="margin:0 0 10px">${dstr} · ${SLOTS[s.slot]} · ${s.hand === 'bench' ? esc((BENCHES.find(b => b.id === s.bench) || benchesByDistance()[0]).name) + ' metro bench' : 'at your home, ' + esc(here().name)}</p><span class="demo">Demo booking · ${s.ref}</span></div>
     <div class="card" style="margin-top:16px"><dl><dt>Selling</dt><dd style="font-family:var(--f)">${esc(k[1])}</dd><dt>Size</dt><dd style="font-family:var(--f)">${esc(s.size)}</dd><dt>Holds a charge</dt><dd style="font-family:var(--f)">${esc(s.charge)}</dd><dt>Offer</dt><dd style="font-family:var(--f)">After testing</dd></dl></div>
     <h4>Before the test</h4>
     <div class="card"><ul class="trail"><li><span class="d"><i></i><b></b></span><span class="x"><b>Keep the pack in one piece</b><small>Don’t open it. We take the cells out safely.</small></span></li>
@@ -755,7 +840,7 @@ let mineSeg = 'pass';
 function passItem(p) { const b = p.body, G = GRADE[b.g] || GRADE.R, ok = (() => { const P = parseFrag(p.frag); return P && verify(P).ok; })();
   return `<button class="item" data-open="${esc(p.frag)}"><span class="gbox" style="background:${G[0]}">${b.g === 'R' ? '♻' : b.g}</span><span style="min-width:0"><span class="t">${esc(b.c)}${ok ? '' : ' <span style="color:var(--bad)">· altered</span>'}</span><span class="s">Passport ${esc(b.id)} · ${day(p.saved)}</span></span><span class="p">${Math.round(b.h)}%<small>health</small></span></button>`; }
 function saleItem(s) { const k = SELL_KIND.find(x => x[0] === s.kind) || ['', 'Batteries'];
-  return `<button class="item" data-sale="${s.ref}"><span class="gbox" style="background:#2E9E5B">${ICON.sell}</span><span style="min-width:0"><span class="t">${esc(k[1])}</span><span class="s">${esc(s.size || s.count)} · ${s.ref}</span></span><span class="p" style="font:600 .8rem var(--f);color:var(--blue)">${s.date ? 'Test ' + day(s.date) : 'Requested'}<br>${s.slot ? esc(s.slot) : s.hand === 'pickup' ? 'pickup' : 'drop-off'}</span></button>`; }
+  return `<button class="item" data-sale="${s.ref}"><span class="gbox" style="background:#2E9E5B">${ICON.sell}</span><span style="min-width:0"><span class="t">${esc(k[1])}</span><span class="s">${esc(s.size || s.count)} · ${s.ref}</span></span><span class="p" style="font:600 .8rem var(--f);color:var(--blue)">${s.date ? 'Test ' + day(s.date) : 'Requested'}<br>${s.slot ? esc(s.slot) : s.hand === 'bench' ? 'bench' : 'at home'}</span></button>`; }
 function quoteItem(q) { const l = LOTS.find(x => x.id === q.lot) || LOTS[0], G = GRADE[l.g];
   return `<button class="item" data-quote="${q.ref}"><span class="gbox" style="background:#2148C0">${ICON.buy}</span><span style="min-width:0"><span class="t">${q.qty} × ${G[1]} cells${q.pack ? ' as a pack' : ''}</span><span class="s">Quote ${q.ref} · ${day(q.ts)}</span></span><span class="p" style="font:600 .8rem var(--f);color:var(--blue)">Quote<br>requested</span></button>`; }
 function renderMine() {
@@ -777,7 +862,7 @@ function openSheet(kind, arg) {
   const B = $('#sheetBody'); let h = '';
   if (kind === 'how') h = `<h2 id="sheetTitle" style="font:800 1.4rem var(--fd);margin:4px 0 6px">How Cellvage works</h2><p class="muted" style="margin:0 0 14px">One test, one passport, three kinds of customer.</p>
     <div class="list">
-      <div class="card"><div class="label" style="color:var(--ok)">Sellers</div><b style="display:block;margin:4px 0">Get paid for old batteries</b><span class="muted small">Bring a pack or book a pickup. Every cell is tested, and the offer is based on how healthy the cells are.</span></div>
+      <div class="card"><div class="label" style="color:var(--ok)">Sellers</div><b style="display:block;margin:4px 0">Get paid for old batteries</b><span class="muted small">Book a free test at home or drop off at a metro bench. Every cell is tested, and the offer is based on how healthy the cells are.</span></div>
       <div class="card"><div class="label" style="color:var(--blue)">Buyers</div><b style="display:block;margin:4px 0">Buy tested second-life cells</b><span class="muted small">Builders of e-bike, solar and UPS packs get graded cells with a passport each, or matched packs.</span></div>
       <div class="card"><div class="label" style="color:var(--gR)">Recyclers</div><b style="display:block;margin:4px 0">Get the cells that can’t be reused</b><span class="muted small">Cells too worn to reuse go to recyclers already sorted, each still carrying its passport.</span></div>
       <div class="card" style="background:var(--surface-2)"><div class="label">Cellvage</div><b style="display:block;margin:4px 0">Earns on the difference</b><span class="muted small">Cellvage buys retired batteries, tests and grades every cell, and sells the graded cells. The test and passport are what make a used cell worth buying.</span></div>
@@ -785,6 +870,11 @@ function openSheet(kind, arg) {
     <p style="font-weight:600;margin:20px 2px 10px">Appearance</p>
     <div class="seg" role="tablist" aria-label="Appearance"><button role="tab" data-theme-opt="auto">Auto</button><button role="tab" data-theme-opt="light">Light</button><button role="tab" data-theme-opt="dark">Dark</button></div>
     <div class="actions" style="margin-top:6px"><button class="btn" id="replayTour">Replay the intro</button><button class="btn ghost" data-close>Close</button></div>`;
+  if (kind === 'loc') { const cur = here().name;
+    h = `<h2 id="sheetTitle" style="font:800 1.35rem var(--fd);margin:4px 0 4px">Your city</h2><p class="muted small" style="margin:0 0 12px">We use it to find your nearest Cellvage bench.</p>
+    <label class="search" style="margin-bottom:10px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="cityQ" type="search" placeholder="Enter your city" aria-label="Enter your city"></label>
+    <button class="btn" id="useGps"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>Use my current location</button>
+    <div class="cityl" id="cityList"></div><p class="note">Cellvage is starting in Delhi NCR. Other cities show the nearest NCR bench.</p>`; }
   if (kind === 'grades') h = `<h2 id="sheetTitle" style="font:800 1.35rem var(--fd);margin:4px 0 6px">What the grades mean</h2><p class="muted small" style="margin:0 0 14px">Health is how much of its original capacity a cell still holds, estimated from its 10-second pulse test.</p>
     <div class="list">${[['A', '85–100%', 'E-bike, scooter and power-tool packs that need strong current.'], ['B', '70–85%', 'Solar storage and UPS, where current is gentler.'], ['C', '60–70%', 'Lights, torches and other low-drain uses.'], ['R', 'below 60%', 'Recycled for materials, still with its passport.']].map(g => `<div class="card" style="display:flex;gap:12px;align-items:center;padding:12px 14px"><span class="gbox" style="background:${GRADE[g[0]][0]}">${g[0] === 'R' ? '♻' : g[0]}</span><span><b>${GRADE[g[0]][1]} · ${g[1]}</b><br><span class="muted small">${g[2]}</span></span></div>`).join('')}</div>
     <p class="note">Cells that land close to a grade boundary get a full capacity test before they are listed.</p><div class="actions"><button class="btn ghost" data-close>Close</button></div>`;
@@ -798,7 +888,7 @@ function openSheet(kind, arg) {
   if (kind === 'sale') { const s = store.get('sales', []).find(x => x.ref === arg), k = SELL_KIND.find(x => x[0] === s.kind);
     h = `<h2 id="sheetTitle" style="font:800 1.35rem var(--fd);margin:4px 0 4px">${esc(k[1])}</h2><p class="muted small" style="margin:0 0 14px">${esc(s.size || s.count)} · ref ${s.ref} · <span class="demo">Demo</span></p>
     <div class="card"><ul class="trail"><li><span class="d"><i></i><b></b></span><span class="x"><b>Request sent</b><small>${when(s.ts)}</small></span></li>
-    <li><span class="d"><i class="now"></i><b></b></span><span class="x"><b>Free test · ${s.hand === 'pickup' ? 'pickup' : 'Cellvage bench'}</b><small>${s.date ? new Date(s.date).toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' }) + ' · ' + esc(s.slot) : 'Next step'}</small></span></li>
+    <li><span class="d"><i class="now"></i><b></b></span><span class="x"><b>Free test · ${s.hand === 'bench' ? esc(s.bench || 'Cellvage bench') + ' metro' : 'at home'}</b><small>${s.date ? new Date(s.date).toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' }) + ' · ' + esc(s.slot) : 'Next step'}</small></span></li>
     <li><span class="d"><i class="o"></i><b></b></span><span class="x"><b>Testing and passports</b><small>Each cell, 10 seconds</small></span></li>
     <li><span class="d"><i class="o"></i></span><span class="x"><b>Your offer</b><small>Accept to get paid, or take your cells back</small></span></li></ul></div>
     <div class="actions"><button class="btn danger" id="cancelSale" style="color:var(--bad)">Cancel this request</button><button class="btn ghost" data-close>Close</button></div>`; }
@@ -812,6 +902,14 @@ function openSheet(kind, arg) {
   B.querySelectorAll('[data-close]').forEach(b => b.onclick = () => closeSheet());
   const rt = $('#replayTour'); if (rt) rt.onclick = () => { closeSheet(); openOnboarding(); };
   B.querySelectorAll('[data-theme-opt]').forEach(x => x.onclick = () => setTheme(x.dataset.themeOpt)); applyTheme();
+  if (kind === 'loc') {
+    const draw = f => { const v = (f || '').toLowerCase(); $('#cityList').innerHTML = CITIES.filter(c => c[0].toLowerCase().includes(v)).map(c => { const nb = BENCHES.map(b => Object.assign({ d: km({ lat: c[1], lng: c[2] }, b) }, b)).sort((a, b) => a.d - b.d)[0];
+      return `<button data-city="${c[0]}" aria-pressed="${here().name === c[0]}"><span>${c[0]}<br><small>Nearest: ${esc(nb.name)} metro · ${fmtKm(nb.d)}</small></span>${here().name === c[0] ? ICON.check : ''}</button>`; }).join('') || '<div class="empty">Not there yet. Pick the closest city above, or use your location.</div>';
+      $('#cityList').querySelectorAll('[data-city]').forEach(b => b.onclick = () => { const c = CITIES.find(x => x[0] === b.dataset.city); setLoc({ name: c[0], lat: c[1], lng: c[2] }); closeSheet(); toast('City set to ' + c[0]); }); };
+    draw(''); $('#cityQ').addEventListener('input', e => draw(e.target.value));
+    $('#useGps').onclick = () => { if (!navigator.geolocation) { toast('Location isn’t available here'); return; } $('#useGps').textContent = 'Finding you…';
+      navigator.geolocation.getCurrentPosition(p => { setLoc({ name: 'Near you', lat: p.coords.latitude, lng: p.coords.longitude }); closeSheet(); toast('Using your current location'); },
+        () => { $('#useGps').textContent = 'Use my current location'; toast('Location permission wasn’t given'); }, { enableHighAccuracy: false, timeout: 8000, maximumAge: 300000 }); }; }
   if (kind === 'quote') { let qty = Math.min(10, curLot.n), pack = 0;
     B.querySelectorAll('[data-q]').forEach(b => b.onclick = () => { qty = Math.max(1, Math.min(curLot.n, qty + (+b.dataset.q))); $('#qty').textContent = qty; });
     B.querySelectorAll('[data-p]').forEach(b => b.onclick = () => { pack = +b.dataset.p; B.querySelectorAll('[data-p]').forEach(x => x.setAttribute('aria-checked', String(x === b))); });
